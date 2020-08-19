@@ -4,13 +4,22 @@
   "description": "Easily create recipes for Minecraft datapacks.",
   "main": "dist/main.js",
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc --watch"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "build": "tsc -p tsconfig.build.json",
+    "watch": "tsc -p tsconfig.build.json --watch"
   },
   "author": "Vukašin Stepanović <vukasinstepanovic@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@types/jest": "^26.0.10",
     "@types/node": "^14.6.0",
+    "jest": "^26.4.0",
+    "ts-jest": "^26.2.0",
     "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "fp-ts": "^2.8.1",
+    "io-ts": "^2.2.9"
   }
 }

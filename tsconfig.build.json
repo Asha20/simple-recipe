@@ -1,0 +1,11 @@
+{
+  // VSCode uses the tsconfig.json file in the root of the project.
+  // Trying to exclude test files in that config will make the test
+  // files not have the declarations available from src/globals.d.ts.
+  // That's why we use a separate, extended config with tests removed
+  // for compilation and the original config for VSCode.
+  "extends": "./tsconfig.json",
+  "exclude": [
+    "src/**/*.test.ts"
+  ]
+}

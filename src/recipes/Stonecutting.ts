@@ -1,9 +1,6 @@
 import * as t from "io-ts";
 import { ItemOrTag, ItemOrTags, ItemStack } from "../parts";
-
-export type ItemIngredient = { item: string };
-export type TagIngredient = { tag: string };
-export type Ingredient = ItemIngredient | TagIngredient | Ingredient[];
+import { toIngredients, Ingredient } from "./common";
 
 export type OwnStonecutting = t.TypeOf<typeof OwnStonecutting>;
 export interface MCStonecutting {
@@ -11,11 +8,6 @@ export interface MCStonecutting {
 	ingredient: Ingredient[];
 	result: string;
 	count: number;
-}
-
-function toIngredients(itemOrTags: ItemOrTag | ItemOrTags): Ingredient[] {
-	const boxed = Array.isArray(itemOrTags) ? itemOrTags : [itemOrTags];
-	return boxed.map(x => (x.type === "item" ? { item: x.name } : { tag: x.name }));
 }
 
 const OwnStonecutting = t.type({

@@ -17,10 +17,6 @@ function validateItem(u: unknown, c: t.Context, namespace: string, name: string)
 		return result;
 	}
 
-	if (name !== "apple" && name !== "dirt") {
-		return t.failure(u, c, "Unrecognized item.");
-	}
-
 	return result;
 }
 

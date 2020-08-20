@@ -12,6 +12,13 @@ export function stringify(itemOrTag: { namespace: string; name: string }) {
 	return itemOrTag.namespace + ":" + itemOrTag.name;
 }
 
+export function toIngredient(itemOrTag: ItemOrTag): Ingredient {
+	if (itemOrTag.type === "item") {
+		return itemIng(itemOrTag.name, itemOrTag.namespace);
+	}
+	return tagIng(itemOrTag.name, itemOrTag.namespace);
+}
+
 export function toIngredients(itemOrTags: ItemOrTag | ItemOrTags | Stack): Ingredient[] {
 	const boxed: Array<ItemOrTag | Stack> = Array.isArray(itemOrTags) ? itemOrTags : [itemOrTags];
 

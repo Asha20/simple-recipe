@@ -1,6 +1,6 @@
 import * as t from "io-ts";
-import { ItemStack, Stack } from "../parts";
-import { Ingredient, toIngredients } from "./common";
+import { Items, Stack } from "../parts";
+import { Ingredient, toIngredients, stringify } from "./common";
 import { Either, chain } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/pipeable";
 
@@ -17,7 +17,7 @@ export interface MCCraftingShapeless {
 const OwnCraftingShapeless = t.type({
 	type: t.literal("crafting_shapeless"),
 	ingredients: Stack,
-	result: ItemStack,
+	result: Items,
 });
 
 function encode(x: OwnCraftingShapeless): MCCraftingShapeless {
@@ -26,7 +26,7 @@ function encode(x: OwnCraftingShapeless): MCCraftingShapeless {
 		ingredients: toIngredients(x.ingredients),
 		result: {
 			count: x.result.count,
-			item: x.result.name,
+			item: stringify(x.result),
 		},
 	};
 }

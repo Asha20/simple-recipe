@@ -1,9 +1,7 @@
 import * as t from "io-ts";
-import { ItemStack } from "./ItemStack";
-import { TagStack } from "./TagStack";
+import { Items } from "./Items";
+import { Tags } from "./Tags";
 
-export type Stack = ItemStack | TagStack | Stack[];
+export type Stack = Items | Tags | Stack[];
 
-export const Stack: t.Type<Stack> = t.recursion("Stack", () =>
-  t.union([ItemStack, TagStack, t.array(Stack)]),
-);
+export const Stack: t.Type<Stack> = t.recursion("Stack", () => t.union([Items, Tags, t.array(Stack)]));

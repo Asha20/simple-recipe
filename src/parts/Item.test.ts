@@ -8,7 +8,7 @@ describe("Item", () => {
 		expect(Item.decode("+minecraft:apple")).toBeLeft();
 		expect(Item.decode("minecraft:apple:grass")).toBeLeft();
 
-		expect(Item.decode("apple")).toBeRight(item("minecraft:apple"));
-		expect(Item.decode("foo:bar")).toBeRight(item("foo:bar"));
+		expect(Item.decode("apple")).toBeRight(item("apple"));
+		expect(Item.decode("foo:bar")).toBeRight(item("bar", "foo"));
 	});
 });

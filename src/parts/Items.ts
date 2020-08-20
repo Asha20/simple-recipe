@@ -3,13 +3,14 @@ import { Either, map } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/pipeable";
 import { Item } from "./Item";
 
-export interface ItemStack {
-	type: "item_stack";
+export interface Items {
+	type: "items";
 	count: number;
+	namespace: string;
 	name: string;
 }
 
-function is(u: unknown): u is ItemStack {
+function is(u: unknown): u is Items {
 	return (
 		typeof u === "object" &&
 		!!u &&
@@ -19,7 +20,7 @@ function is(u: unknown): u is ItemStack {
 	);
 }
 
-function validate(u: unknown, c: t.Context): Either<t.Errors, ItemStack> {
+function validate(u: unknown, c: t.Context): Either<t.Errors, Items> {
 	if (typeof u !== "string") {
 		return t.failure(u, c, "Expected a string.");
 	}
@@ -40,12 +41,12 @@ function validate(u: unknown, c: t.Context): Either<t.Errors, ItemStack> {
 
 	return pipe(
 		Item.validate(tokens[1], c),
-		map(item => itemStack(item.name, count)),
+		map(item => items(item.name, count, item.namespace)),
 	);
 }
 
-export const ItemStack = new t.Type<ItemStack, ItemStack, unknown>("ItemStack", is, validate, t.identity);
+export const Items = new t.Type<Items, Items, unknown>("Items", is, validate, t.identity);
 
-export function itemStack(name: string, count: number): ItemStack {
-	return { type: "item_stack", name, count };
+export function items(name: string, count: number, namespace = "minecraft"): Items {
+	return { type: "items", count, name, namespace };
 }

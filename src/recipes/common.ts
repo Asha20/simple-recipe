@@ -1,8 +1,15 @@
 import { ItemOrTag, ItemOrTags, Stack } from "../parts";
-export type Ingredient = { item: string } | { tag: string } | Ingredient[];
+
+type ItemIngredient = { item: string };
+type TagIngredient = { tag: string };
+export type Ingredient = ItemIngredient | TagIngredient | Ingredient[];
 
 export function arrayOf<T>(length: number, value: T) {
 	return Array.from({ length }, () => value);
+}
+
+export function stringify(itemOrTag: { namespace: string; name: string }) {
+	return itemOrTag.namespace + ":" + itemOrTag.name;
 }
 
 export function toIngredients(itemOrTags: ItemOrTag | ItemOrTags | Stack): Ingredient[] {
@@ -14,15 +21,23 @@ export function toIngredients(itemOrTags: ItemOrTag | ItemOrTags | Stack): Ingre
 		if (Array.isArray(x)) return result.push(toIngredients(x));
 		switch (x.type) {
 			case "item":
-				return result.push({ item: x.name });
+				return result.push({ item: stringify(x) });
 			case "tag":
-				return result.push({ tag: x.name });
-			case "item_stack":
-				return result.push(...arrayOf(x.count, { item: x.name }));
-			case "tag_stack":
-				return result.push(...arrayOf(x.count, { tag: x.name }));
+				return result.push({ tag: stringify(x) });
+			case "items":
+				return result.push(...arrayOf(x.count, { item: stringify(x) }));
+			case "tags":
+				return result.push(...arrayOf(x.count, { tag: stringify(x) }));
 		}
 	});
 
 	return result;
+}
+
+export function itemIng(name: string, namespace = "minecraft"): ItemIngredient {
+	return { item: stringify({ name, namespace }) };
+}
+
+export function tagIng(name: string, namespace = "minecraft"): TagIngredient {
+	return { tag: stringify({ name, namespace }) };
 }

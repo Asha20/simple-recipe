@@ -1,7 +1,8 @@
 import * as assert from "assert";
 import { isRight } from "fp-ts/lib/Either";
 import { Stonecutting } from "./Stonecutting";
-import { item, itemStack, tag } from "../parts";
+import { item, items, tag } from "../parts";
+import { itemIng, tagIng } from "./common";
 
 describe("Stonecutting", () => {
 	test("decode and encode 1", () => {
@@ -13,14 +14,14 @@ describe("Stonecutting", () => {
 
 		expect(recipe).toBeRight({
 			type: "stonecutting",
-			ingredients: item("minecraft:apple"),
-			result: itemStack("minecraft:apple", 1),
+			ingredients: item("apple"),
+			result: items("apple", 1),
 		});
 
 		assert(isRight(recipe));
 		expect(Stonecutting.encode(recipe.right)).toEqual({
 			type: "stonecutting",
-			ingredient: [{ item: "minecraft:apple" }],
+			ingredient: [itemIng("apple")],
 			result: "minecraft:apple",
 			count: 1,
 		});
@@ -35,14 +36,14 @@ describe("Stonecutting", () => {
 
 		expect(recipe).toBeRight({
 			type: "stonecutting",
-			ingredients: tag("minecraft:breakable"),
-			result: itemStack("minecraft:dirt", 4),
+			ingredients: tag("breakable"),
+			result: items("dirt", 4),
 		});
 
 		assert(isRight(recipe));
 		expect(Stonecutting.encode(recipe.right)).toEqual({
 			type: "stonecutting",
-			ingredient: [{ tag: "minecraft:breakable" }],
+			ingredient: [tagIng("breakable")],
 			result: "minecraft:dirt",
 			count: 4,
 		});
@@ -57,14 +58,14 @@ describe("Stonecutting", () => {
 
 		expect(recipe).toBeRight({
 			type: "stonecutting",
-			ingredients: [item("minecraft:apple"), tag("minecraft:edible"), item("foo:bar")],
-			result: itemStack("minecraft:apple", 3),
+			ingredients: [item("apple"), tag("edible"), item("bar", "foo")],
+			result: items("apple", 3),
 		});
 
 		assert(isRight(recipe));
 		expect(Stonecutting.encode(recipe.right)).toEqual({
 			type: "stonecutting",
-			ingredient: [{ item: "minecraft:apple" }, { tag: "minecraft:edible" }, { item: "foo:bar" }],
+			ingredient: [itemIng("apple"), tagIng("edible"), itemIng("bar", "foo")],
 			result: "minecraft:apple",
 			count: 3,
 		});

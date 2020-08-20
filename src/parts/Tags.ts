@@ -3,13 +3,14 @@ import { Either, map } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/pipeable";
 import { Tag } from "./Tag";
 
-export interface TagStack {
-	type: "tag_stack";
+export interface Tags {
+	type: "tags";
 	count: number;
+	namespace: string;
 	name: string;
 }
 
-function is(u: unknown): u is TagStack {
+function is(u: unknown): u is Tags {
 	return (
 		typeof u === "object" &&
 		!!u &&
@@ -19,7 +20,7 @@ function is(u: unknown): u is TagStack {
 	);
 }
 
-function validate(u: unknown, c: t.Context): Either<t.Errors, TagStack> {
+function validate(u: unknown, c: t.Context): Either<t.Errors, Tags> {
 	if (typeof u !== "string") {
 		return t.failure(u, c, "Expected a string.");
 	}
@@ -40,12 +41,12 @@ function validate(u: unknown, c: t.Context): Either<t.Errors, TagStack> {
 
 	return pipe(
 		Tag.validate(tokens[1], c),
-		map(tag => tagStack(tag.name, count)),
+		map(tag => tags(tag.name, count, tag.namespace)),
 	);
 }
 
-export const TagStack = new t.Type<TagStack, TagStack, unknown>("TagStack", is, validate, t.identity);
+export const Tags = new t.Type<Tags, Tags, unknown>("Tags", is, validate, t.identity);
 
-export function tagStack(name: string, count: number): TagStack {
-	return { type: "tag_stack", name, count };
+export function tags(name: string, count: number, namespace = "minecraft"): Tags {
+	return { type: "tags", count, name, namespace };
 }

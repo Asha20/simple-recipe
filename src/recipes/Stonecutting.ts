@@ -1,6 +1,6 @@
 import * as t from "io-ts";
-import { ItemOrTag, ItemOrTags, ItemStack } from "../parts";
-import { toIngredients, Ingredient } from "./common";
+import { ItemOrTag, ItemOrTags, Items } from "../parts";
+import { toIngredients, Ingredient, stringify } from "./common";
 
 export type OwnStonecutting = t.TypeOf<typeof OwnStonecutting>;
 export interface MCStonecutting {
@@ -13,14 +13,14 @@ export interface MCStonecutting {
 const OwnStonecutting = t.type({
 	type: t.literal("stonecutting"),
 	ingredients: t.union([ItemOrTag, ItemOrTags]),
-	result: ItemStack,
+	result: Items,
 });
 
 function encode(x: OwnStonecutting): MCStonecutting {
 	return {
 		type: x.type,
 		ingredient: toIngredients(x.ingredients),
-		result: x.result.name,
+		result: stringify(x.result),
 		count: x.result.count,
 	};
 }

@@ -7,7 +7,7 @@ describe("Tag", () => {
 		expect(Tag.decode("minecraft:apple")).toBeLeft();
 		expect(Tag.decode("+minecraft:foo:bar")).toBeLeft();
 
-		expect(Tag.decode("+breakable")).toBeRight(tag("minecraft:breakable"));
-		expect(Tag.decode("+foo:destroyable")).toBeRight(tag("foo:destroyable"));
+		expect(Tag.decode("+breakable")).toBeRight(tag("breakable"));
+		expect(Tag.decode("+foo:destroyable")).toBeRight(tag("destroyable", "foo"));
 	});
 });

@@ -3,6 +3,7 @@ import { Either } from "fp-ts/lib/Either";
 
 export interface Tag {
 	type: "tag";
+	namespace: string;
 	name: string;
 }
 
@@ -10,8 +11,7 @@ const withNamespaceRegex = /^(\w+):(\w+)$/;
 const withoutNamespaceRegex = /^(\w+)$/;
 
 function validateTag(u: unknown, c: t.Context, namespace: string, name: string): Either<t.Errors, Tag> {
-	const namespacedName = namespace + ":" + name;
-	return t.success<Tag>(tag(namespacedName));
+	return t.success<Tag>(tag(name, namespace));
 }
 
 function is(u: unknown): u is Tag {
@@ -48,6 +48,6 @@ function validate(u: unknown, c: t.Context): Either<t.Errors, Tag> {
 
 export const Tag = new t.Type<Tag, Tag, unknown>("Tag", is, validate, t.identity);
 
-export function tag(name: string): Tag {
-	return { type: "tag", name };
+export function tag(name: string, namespace = "minecraft"): Tag {
+	return { type: "tag", name, namespace };
 }

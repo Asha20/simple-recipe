@@ -79,7 +79,7 @@ describe("Cooking", () => {
 
 		assert(isRight(recipe));
 		expect(Cooking.encode(recipe.right)).toEqual({
-			type: "blasting",
+			type: "minecraft:blasting",
 			ingredient: [itemIng("cobblestone")],
 			cookingtime: 100,
 			experience: 10,
@@ -106,7 +106,7 @@ describe("Cooking", () => {
 
 		assert(isRight(recipe));
 		expect(Cooking.encode(recipe.right)).toEqual({
-			type: "campfire_cooking",
+			type: "minecraft:campfire_cooking",
 			ingredient: [itemIng("cod")],
 			cookingtime: 100,
 			experience: 10,

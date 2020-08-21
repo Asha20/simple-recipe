@@ -6,7 +6,7 @@ import { Either, chain } from "fp-ts/lib/Either";
 
 export type OwnCooking = t.TypeOf<typeof OwnCooking>;
 export interface MCCooking {
-	type: "blasting" | "campfire_cooking" | "smelting" | "smoking";
+	type: "minecraft:blasting" | "minecraft:campfire_cooking" | "minecraft:smelting" | "minecraft:smoking";
 	ingredient: Ingredient;
 	experience: number;
 	cookingtime: number;
@@ -27,8 +27,9 @@ const OwnCooking = t.type({
 });
 
 function encode(x: OwnCooking): MCCooking {
+	const type = ("minecraft:" + x.type) as MCCooking["type"];
 	return {
-		type: x.type,
+		type,
 		ingredient: toIngredients(x.ingredients),
 		experience: x.experience,
 		cookingtime: x.cookingtime,

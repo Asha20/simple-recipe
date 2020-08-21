@@ -22,7 +22,7 @@ describe("Smithing", () => {
 
 		assert(isRight(recipe));
 		expect(Smithing.encode(recipe.right)).toEqual({
-			type: "smithing",
+			type: "minecraft:smithing",
 			base: itemIng("diamond_sword"),
 			addition: itemIng("netherite_ingot"),
 			result: "minecraft:netherite_sword",

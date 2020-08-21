@@ -20,7 +20,7 @@ describe("Shapeless crafting", () => {
 
 		assert(isRight(recipe));
 		expect(CraftingShapeless.encode(recipe.right)).toEqual({
-			type: "crafting_shapeless",
+			type: "minecraft:crafting_shapeless",
 			ingredients: [itemIng("oak_log")],
 			result: {
 				count: 4,
@@ -44,7 +44,7 @@ describe("Shapeless crafting", () => {
 
 		assert(isRight(recipe));
 		expect(CraftingShapeless.encode(recipe.right)).toEqual({
-			type: "crafting_shapeless",
+			type: "minecraft:crafting_shapeless",
 			ingredients: [tagIng("log"), tagIng("log")],
 			result: {
 				count: 16,
@@ -68,7 +68,7 @@ describe("Shapeless crafting", () => {
 
 		assert(isRight(recipe));
 		expect(CraftingShapeless.encode(recipe.right)).toEqual({
-			type: "crafting_shapeless",
+			type: "minecraft:crafting_shapeless",
 			ingredients: [...arrayOf(8, itemIng("sand")), [itemIng("fire_charge"), itemIng("flint_and_steel")]],
 			result: {
 				count: 8,

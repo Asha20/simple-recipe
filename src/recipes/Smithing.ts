@@ -4,7 +4,7 @@ import { Ingredient, stringify, toIngredient } from "./common";
 
 export type OwnSmithing = t.TypeOf<typeof OwnSmithing>;
 export interface MCSmithing {
-	type: "smithing";
+	type: "minecraft:smithing";
 	base: Ingredient;
 	addition: Ingredient;
 	result: string;
@@ -18,8 +18,9 @@ const OwnSmithing = t.type({
 });
 
 function encode(x: OwnSmithing): MCSmithing {
+	const type = ("minecraft:" + x.type) as MCSmithing["type"];
 	return {
-		type: x.type,
+		type,
 		base: toIngredient(x.base),
 		addition: toIngredient(x.addition),
 		result: stringify(x.result),

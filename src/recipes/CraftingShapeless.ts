@@ -6,7 +6,7 @@ import { pipe } from "fp-ts/lib/pipeable";
 
 export type OwnCraftingShapeless = t.TypeOf<typeof OwnCraftingShapeless>;
 export interface MCCraftingShapeless {
-	type: "crafting_shapeless";
+	type: "minecraft:crafting_shapeless";
 	ingredients: Ingredient[];
 	result: {
 		count: number;
@@ -21,8 +21,9 @@ const OwnCraftingShapeless = t.type({
 });
 
 function encode(x: OwnCraftingShapeless): MCCraftingShapeless {
+	const type = ("minecraft:" + x.type) as MCCraftingShapeless["type"];
 	return {
-		type: x.type,
+		type,
 		ingredients: toIngredients(x.ingredients),
 		result: {
 			count: x.result.count,

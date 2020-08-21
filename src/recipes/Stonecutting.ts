@@ -4,7 +4,7 @@ import { toIngredients, Ingredient, stringify } from "./common";
 
 export type OwnStonecutting = t.TypeOf<typeof OwnStonecutting>;
 export interface MCStonecutting {
-	type: "stonecutting";
+	type: "minecraft:stonecutting";
 	ingredient: Ingredient[];
 	result: string;
 	count: number;
@@ -17,8 +17,9 @@ const OwnStonecutting = t.type({
 });
 
 function encode(x: OwnStonecutting): MCStonecutting {
+	const type = ("minecraft:" + x.type) as MCStonecutting["type"];
 	return {
-		type: x.type,
+		type,
 		ingredient: toIngredients(x.ingredients),
 		result: stringify(x.result),
 		count: x.result.count,

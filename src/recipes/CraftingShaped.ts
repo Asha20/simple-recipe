@@ -6,7 +6,7 @@ import { pipe } from "fp-ts/lib/pipeable";
 
 export type OwnCraftingShaped = t.TypeOf<typeof OwnCraftingShaped>;
 export interface MCCraftingShaped {
-	type: "crafting_shaped";
+	type: "minecraft:crafting_shaped";
 	pattern: string[];
 	key: Record<string, Ingredient>;
 	result: {
@@ -23,6 +23,7 @@ const OwnCraftingShaped = t.type({
 });
 
 function encode(x: OwnCraftingShaped): MCCraftingShaped {
+	const type = ("minecraft:" + x.type) as MCCraftingShaped["type"];
 	const keyRecord: MCCraftingShaped["key"] = {};
 
 	for (const key of Object.keys(x.key)) {
@@ -30,7 +31,7 @@ function encode(x: OwnCraftingShaped): MCCraftingShaped {
 	}
 
 	return {
-		type: x.type,
+		type,
 		pattern: x.pattern,
 		key: keyRecord,
 		result: {

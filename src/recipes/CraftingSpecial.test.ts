@@ -25,7 +25,7 @@ describe("Special crafting", () => {
 			expect(recipe).toBeRight({ type });
 			assert(isRight(recipe));
 			expect(CraftingSpecial.encode(recipe.right)).toEqual({
-				type: "crafting_special_" + type,
+				type: "minecraft:crafting_special_" + type,
 			});
 		}
 	});

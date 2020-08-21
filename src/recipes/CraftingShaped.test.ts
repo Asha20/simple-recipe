@@ -104,7 +104,7 @@ describe("Shaped crafting", () => {
 
 		assert(isRight(recipe));
 		expect(CraftingShaped.encode(recipe.right)).toEqual({
-			type: "crafting_shaped",
+			type: "minecraft:crafting_shaped",
 			pattern: ["pp", "pp"],
 			key: { p: [tagIng("planks")] },
 			result: {
@@ -131,7 +131,7 @@ describe("Shaped crafting", () => {
 
 		assert(isRight(recipe));
 		expect(CraftingShaped.encode(recipe.right)).toEqual({
-			type: "crafting_shaped",
+			type: "minecraft:crafting_shaped",
 			pattern: [" b ", "dod", "ooo"],
 			key: { b: [itemIng("book")], d: [itemIng("diamond")], o: [itemIng("obsidian")] },
 			result: {

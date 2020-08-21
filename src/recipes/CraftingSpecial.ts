@@ -3,19 +3,19 @@ import * as t from "io-ts";
 export type OwnCraftingSpecial = t.TypeOf<typeof OwnCraftingSpecial>;
 export interface MCCraftingSpecial {
 	type:
-		| "crafting_special_armordye"
-		| "crafting_special_bannerduplicate"
-		| "crafting_special_bookcloning"
-		| "crafting_special_firework_rocket"
-		| "crafting_special_firework_star"
-		| "crafting_special_firework_star_fade"
-		| "crafting_special_mapcloning"
-		| "crafting_special_mapextending"
-		| "crafting_special_repairitem"
-		| "crafting_special_shielddecoration"
-		| "crafting_special_shulkerboxcoloring"
-		| "crafting_special_tippedarrow"
-		| "crafting_special_suspiciousstew";
+		| "minecraft:crafting_special_armordye"
+		| "minecraft:crafting_special_bannerduplicate"
+		| "minecraft:crafting_special_bookcloning"
+		| "minecraft:crafting_special_firework_rocket"
+		| "minecraft:crafting_special_firework_star"
+		| "minecraft:crafting_special_firework_star_fade"
+		| "minecraft:crafting_special_mapcloning"
+		| "minecraft:crafting_special_mapextending"
+		| "minecraft:crafting_special_repairitem"
+		| "minecraft:crafting_special_shielddecoration"
+		| "minecraft:crafting_special_shulkerboxcoloring"
+		| "minecraft:crafting_special_tippedarrow"
+		| "minecraft:crafting_special_suspiciousstew";
 }
 
 const OwnCraftingSpecial = t.type({
@@ -37,7 +37,7 @@ const OwnCraftingSpecial = t.type({
 });
 
 function encode(x: OwnCraftingSpecial): MCCraftingSpecial {
-	const type = ("crafting_special_" + x.type) as MCCraftingSpecial["type"];
+	const type = ("minecraft:crafting_special_" + x.type) as MCCraftingSpecial["type"];
 	return { type };
 }
 

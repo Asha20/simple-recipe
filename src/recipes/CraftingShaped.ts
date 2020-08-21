@@ -70,6 +70,10 @@ function validate(u: unknown, c: t.Context): Either<t.Errors, OwnCraftingShaped>
 			}
 
 			for (const key of Object.keys(x.key)) {
+				if (key === " ") {
+					return t.failure(u, c, "Cannot use space as a key.");
+				}
+
 				if (key.length !== 1) {
 					return t.failure(u, c, `Key doesn't have length of 1: "${key}".`);
 				}

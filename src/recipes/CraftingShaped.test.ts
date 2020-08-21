@@ -85,6 +85,16 @@ describe("Shaped crafting", () => {
 				result: "1 apple",
 			}),
 		).toBeLeft();
+
+		// Key is a space
+		expect(
+			CraftingShaped.decode({
+				type: "crafting_shaped",
+				pattern: ["a "],
+				key: { a: "apple", " ": "cobblestone" },
+				result: "1 apple",
+			}),
+		).toBeLeft();
 	});
 
 	test("crafting table", () => {

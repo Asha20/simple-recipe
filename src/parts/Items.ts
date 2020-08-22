@@ -14,8 +14,9 @@ function is(u: unknown): u is Items {
 	return (
 		typeof u === "object" &&
 		!!u &&
-		(u as any).type === "item" &&
+		(u as any).type === "items" &&
 		typeof (u as any).count === "number" &&
+		typeof (u as any).namespace === "string" &&
 		typeof (u as any).name === "string"
 	);
 }

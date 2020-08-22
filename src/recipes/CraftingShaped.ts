@@ -18,7 +18,11 @@ export interface MCCraftingShaped {
 const OwnCraftingShaped = t.type({
 	type: t.literal("crafting_shaped"),
 	pattern: t.array(t.string),
-	key: t.record(t.string, t.union([ItemOrTag, ItemOrTags], "ItemOrTag | Array<ItemOrTag>")),
+	key: t.record(
+		t.string,
+		t.union([ItemOrTag, ItemOrTags], "ItemOrTag | Array<ItemOrTag>"),
+		"Record<string, ItemOrTag | Array<ItemOrTag>>",
+	),
 	result: Items,
 });
 

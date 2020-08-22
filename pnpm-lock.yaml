@@ -1,8 +1,10 @@
 dependencies:
   fp-ts: 2.8.1
   io-ts: 2.2.9_fp-ts@2.8.1
+  js-yaml: 3.14.0
 devDependencies:
   '@types/jest': 26.0.10
+  '@types/js-yaml': 3.12.5
   '@types/node': 14.6.0
   jest: 26.4.0
   ts-jest: 26.2.0_jest@26.4.0+typescript@3.9.7
@@ -578,6 +580,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-i2m0oyh8w/Lum7wWK/YOZJakYF8Mx08UaKA1CtbmFeDquVhAEdA7znacsVSf2hJ1OQ/OfVMGN90pw/AtzF8s/Q==
+  /@types/js-yaml/3.12.5:
+    dev: true
+    resolution:
+      integrity: sha512-JCcp6J0GV66Y4ZMDAQCXot4xprYB+Zfd3meK9+INSJeVZwJmHAW30BBEEkPzXswMXuiyReUGOP3GxrADc9wPww==
   /@types/node/14.6.0:
     dev: true
     resolution:
@@ -687,7 +693,6 @@ packages:
   /argparse/1.0.10:
     dependencies:
       sprintf-js: 1.0.3
-    dev: true
     resolution:
       integrity: sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==
   /arr-diff/4.0.0:
@@ -1285,7 +1290,6 @@ packages:
     resolution:
       integrity: sha512-qFcX0XJkdg+PB3xjZZG/wKSuT1PnQWx57+TVSjIMmILd2yC/6ByYElPwJnslDsuWuSAp4AwJGumarAAmJch5Kw==
   /esprima/4.0.1:
-    dev: true
     engines:
       node: '>=4'
     hasBin: true
@@ -2385,7 +2389,6 @@ packages:
     dependencies:
       argparse: 1.0.10
       esprima: 4.0.1
-    dev: true
     hasBin: true
     resolution:
       integrity: sha512-/4IbIeHcD9VMHFqDR/gQ7EdZdLimOvW2DdcxFjdyyZ9NsbS+ccrXqVWDtab/lRl5AlUqmpBx8EhPaWR+OtY17A==
@@ -3371,7 +3374,6 @@ packages:
     resolution:
       integrity: sha512-NzNVhJDYpwceVVii8/Hu6DKfD2G+NrQHlS/V/qgv763EYudVwEcMQNxd2lh+0VrUByXN/oJkl5grOhYWvQUYiw==
   /sprintf-js/1.0.3:
-    dev: true
     resolution:
       integrity: sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
   /sshpk/1.16.1:
@@ -3894,9 +3896,11 @@ packages:
       integrity: sha512-aePbxDmcYW++PaqBsJ+HYUFwCdv4LVvdnhBy78E57PIor8/OVvhMrADFFEDh8DHDFRv/O9i3lPhsENjO7QX0+A==
 specifiers:
   '@types/jest': ^26.0.10
+  '@types/js-yaml': ^3.12.5
   '@types/node': ^14.6.0
   fp-ts: ^2.8.1
   io-ts: ^2.2.9
   jest: ^26.4.0
+  js-yaml: ^3.14.0
   ts-jest: ^26.2.0
   typescript: ^3.9.7

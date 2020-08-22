@@ -15,7 +15,13 @@ function validateTag(u: unknown, c: t.Context, namespace: string, name: string):
 }
 
 function is(u: unknown): u is Tag {
-	return typeof u === "object" && !!u && (u as any).type === "tag" && typeof (u as any).name === "string";
+	return (
+		typeof u === "object" &&
+		!!u &&
+		(u as any).type === "tag" &&
+		typeof (u as any).namespace === "string" &&
+		typeof (u as any).name === "string"
+	);
 }
 
 function validate(u: unknown, c: t.Context): Either<t.Errors, Tag> {

@@ -14,8 +14,9 @@ function is(u: unknown): u is Tags {
 	return (
 		typeof u === "object" &&
 		!!u &&
-		(u as any).type === "tag" &&
+		(u as any).type === "tags" &&
 		typeof (u as any).count === "number" &&
+		typeof (u as any).namespace === "string" &&
 		typeof (u as any).name === "string"
 	);
 }

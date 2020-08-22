@@ -15,12 +15,18 @@ function validateItem(u: unknown, c: t.Context, namespace: string, name: string)
 }
 
 function is(u: unknown): u is Item {
-	return typeof u === "object" && !!u && (u as any).type === "item" && typeof (u as any).name === "string";
+	return (
+		typeof u === "object" &&
+		!!u &&
+		(u as any).type === "item" &&
+		typeof (u as any).namespace === "string" &&
+		typeof (u as any).name === "string"
+	);
 }
 
 function validate(u: unknown, c: t.Context): Either<t.Errors, Item> {
 	if (typeof u !== "string") {
-		return t.failure(u, c, "Expected a string");
+		return t.failure(u, c, "Expected a string.");
 	}
 
 	if (u === "") {

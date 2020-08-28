@@ -1,14 +1,19 @@
 import * as path from "path";
-import { parseRecipes } from "./parser";
+import { watch, WatcherEvent } from "./watcher";
 
 function main() {
 	if (process.argv.length !== 3) {
-		console.log("Provide an input file.");
-		return process.exit();
+		console.error("Enter an input directory.");
+		return process.exit(1);
 	}
 
-	const file = path.resolve(process.cwd(), process.argv[2]);
-	parseRecipes(file);
+	const inputDir = path.resolve(process.cwd(), process.argv[2]);
+
+	function handleEvent(events: WatcherEvent[]) {
+		console.log(events);
+	}
+
+	watch(inputDir, handleEvent);
 }
 
 if (!module.parent) {

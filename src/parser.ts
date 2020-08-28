@@ -1,12 +1,12 @@
 import * as fs from "fs";
 import * as yaml from "js-yaml";
-import { left, Either, fold, mapLeft } from "fp-ts/Either";
+import { left, Either, mapLeft } from "fp-ts/Either";
 import { map as mapArray } from "fp-ts/lib/Array";
-import { pipe, flow } from "fp-ts/lib/function";
+import { pipe } from "fp-ts/lib/function";
 import { Errors } from "io-ts";
-import { Recipe, OwnRecipe } from "./recipes";
+import { Recipe } from "./recipes";
 
-type ParsedRecipes = Array<Either<string | Errors, OwnRecipe>>;
+type ParsedRecipes = Array<Either<string | Errors, Recipe>>;
 
 function parseYAML(yamlContent: string): ParsedRecipes {
 	try {
@@ -47,21 +47,11 @@ function stringifyError(errors: string | Errors) {
 	return `${message}: Expected ${lastContext.type.name}, got "${lastContext.actual}"`;
 }
 
-let id = 0;
-function writeToFile(recipe: OwnRecipe) {
-	fs.writeFileSync(`${id++}.json`, JSON.stringify(Recipe.encode(recipe), null, 2));
-}
-
 // prettier-ignore
 export function parseRecipes(filename: string) {
 	return pipe(
 		fs.readFileSync(filename, "utf8"),
 		parseYAML,
-		mapArray(
-			flow(
-				mapLeft(stringifyError),
-				fold(console.log, writeToFile)
-			)
-		),
+		mapArray(mapLeft(stringifyError)),
 	);
 }

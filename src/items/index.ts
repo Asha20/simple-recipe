@@ -1,4 +1,5 @@
 import { items as items115 } from "./1.15";
+import { items as items116 } from "./1.16";
 
 function bigrams(str: string) {
 	const result: string[] = [];
@@ -26,6 +27,7 @@ export type Target = keyof typeof items;
 
 export const items = {
 	"1.15": items115,
+	"1.16": items116,
 };
 
 export function findSuggestions(target: Target, needle: string, tolerance: number, max: number) {

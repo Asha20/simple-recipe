@@ -49,6 +49,7 @@ function main() {
 
 			const allRecipes: ValidRecipe[] = [];
 			const duplicateRecipes: Duplicate[] = [];
+			const duplicateSet = new Set<Recipe>();
 
 			for (const file of files) {
 				const recipes = parseRecipes(path.resolve(inputDir, file));
@@ -59,9 +60,10 @@ function main() {
 						const name = recipe.right._name;
 						const folderCache: ReturnType<Cache["get"]> = cache.get(dirname) ?? new Map();
 						const nameCache = folderCache.get(name) ?? { recipes: new Set(), files: new Set() };
+						const oldSize = nameCache.files.size;
 						nameCache.files.add(file);
 						nameCache.recipes.add(recipe.right);
-						if (nameCache.files.size > 1) {
+						if (nameCache.files.size === oldSize || nameCache.files.size > 1) {
 							duplicateRecipes.push({ name, ...nameCache });
 						}
 						folderCache.set(name, nameCache);
@@ -71,7 +73,10 @@ function main() {
 				}
 			}
 
-			const uniqueRecipes = allRecipes.filter(x => !duplicateRecipes.some(y => y.recipes.has(x.recipe)));
+			for (const dupe of duplicateRecipes) {
+				dupe.recipes.forEach(duplicateSet.add, duplicateSet);
+			}
+			const uniqueRecipes = allRecipes.filter(x => !duplicateSet.has(x.recipe));
 
 			processRecipes(uniqueRecipes);
 			printDuplicates(duplicateRecipes);

@@ -8,6 +8,7 @@ import * as watcher from "./watcher";
 import { parseRecipes } from "./parser";
 import { isRight } from "fp-ts/lib/Either";
 import { Recipe } from "./recipes";
+import { log, clearConsole } from "./util";
 
 type Cache = Map<
 	string,
@@ -53,16 +54,16 @@ function printDuplicates(duplicates: Duplicate[]) {
 		return;
 	}
 
-	console.log("  Name conflicts:\n");
+	log("  Name conflicts:\n");
 
 	for (const dupe of duplicates) {
-		console.log(chalk`Recipe {yellow ${dupe.name}} in files: {yellow ${[...dupe.files].join(", ")}}`);
+		log(chalk`Recipe {yellow ${dupe.name}} in files: {yellow ${[...dupe.files].join(", ")}}`);
 	}
 }
 
 function printValidFiles(files: string[]) {
 	for (const file of files.sort()) {
-		console.log(chalk.green(`  ✓ ${file}`));
+		log(chalk.green(`  ✓ ${file}`));
 	}
 }
 
@@ -75,12 +76,12 @@ function printFailedRecipes(fails: FailedRecipe[]) {
 	}, new Map());
 
 	for (const [origin, messages] of groupedByOrigin) {
-		console.log(chalk.red(`  ✗ ${origin}\n`));
+		log(chalk.red(`  ✗ ${origin}\n`));
 		for (const message of messages) {
 			const [path, msg] = message.split(": ");
-			console.log(chalk`{cyan ${path}:} {white ${msg}}`);
+			log(chalk`{cyan ${path}:} {white ${msg}}`);
 		}
-		console.log("\n\n");
+		log("\n\n");
 	}
 }
 
@@ -132,10 +133,10 @@ export function compile(inputDir: string, outputDir: string) {
 
 		processRecipes(outputDir, uniqueRecipes);
 
-		console.clear();
+		clearConsole();
 		printValidFiles(validFiles);
 		printDuplicates(duplicateRecipes);
-		console.log("\n\n");
+		log("\n\n");
 		printFailedRecipes(failedRecipes);
 	});
 }

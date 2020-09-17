@@ -3,7 +3,7 @@ import * as yaml from "js-yaml";
 import { left, Either, mapLeft } from "fp-ts/Either";
 import { map as mapArray } from "fp-ts/lib/Array";
 import { pipe } from "fp-ts/lib/function";
-import { Errors } from "io-ts";
+import { Errors, UnionType } from "io-ts";
 import { Recipe } from "./recipes";
 
 type ParsedRecipes = Array<Either<string | Errors, Recipe>>;
@@ -31,18 +31,19 @@ function stringifyError(errors: string | Errors) {
 	}
 
 	let message = "root";
-	const context = errors[0].context;
+	const error = errors.find(x => x.message) ?? errors[0];
+
+	const context = error.context;
 	for (const ctx of context) {
-		if (ctx.key) {
+		if (ctx.key && !(ctx.type instanceof UnionType)) {
 			message += Number.isNaN(+ctx.key) ? "." + ctx.key : "[" + ctx.key + "]";
 		}
 	}
 
 	const lastContext = context[context.length - 1];
 
-	console.log(context);
-	if (errors[0].message) {
-		return message + ": " + errors[0].message;
+	if (error.message) {
+		return message + ": " + error.message;
 	}
 	return `${message}: Expected ${lastContext.type.name}, got "${lastContext.actual}"`;
 }

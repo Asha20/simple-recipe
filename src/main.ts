@@ -49,6 +49,7 @@ function main() {
 
 			const allRecipes: ValidRecipe[] = [];
 			const duplicateRecipes: Duplicate[] = [];
+			const failedRecipes: string[] = [];
 			const duplicateSet = new Set<Recipe>();
 
 			for (const file of files) {
@@ -69,6 +70,8 @@ function main() {
 						folderCache.set(name, nameCache);
 						cache.set(dirname, folderCache);
 						allRecipes.push({ origin: file, recipe: recipe.right });
+					} else {
+						failedRecipes.push(recipe.left);
 					}
 				}
 			}
@@ -80,6 +83,7 @@ function main() {
 
 			processRecipes(uniqueRecipes);
 			printDuplicates(duplicateRecipes);
+			printFailedRecipes(failedRecipes);
 		});
 	}
 
@@ -97,6 +101,12 @@ function main() {
 	function printDuplicates(duplicates: Duplicate[]) {
 		for (const dupe of duplicates) {
 			console.error(`Name conflict: "${dupe.name}" present in files:`, [...dupe.files].join(", "));
+		}
+	}
+
+	function printFailedRecipes(fails: string[]) {
+		for (const fail of fails) {
+			console.error(fail);
 		}
 	}
 

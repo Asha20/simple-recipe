@@ -8,6 +8,7 @@ import { watch } from "./watcher";
 import { parseRecipes } from "./parser";
 import { isRight } from "fp-ts/lib/Either";
 import { Recipe } from "./recipes";
+import { convert } from "./converter";
 
 type Cache = Map<
 	string,
@@ -37,13 +38,14 @@ interface Duplicate {
 }
 
 function main() {
-	if (process.argv.length !== 4) {
+	if (process.argv.length < 4) {
 		console.error("Enter an input and an output directory.");
 		return process.exit(1);
 	}
 
 	const inputDir = path.resolve(process.cwd(), process.argv[2]);
 	const outputDir = path.resolve(process.cwd(), process.argv[3]);
+	const converting = process.argv[4] === "c";
 
 	function handleEvent() {
 		glob("**/*.yml", { cwd: inputDir }, (err, files) => {
@@ -106,6 +108,8 @@ function main() {
 			const dirname = path.dirname(origin);
 			const outFile = recipe._name + ".json";
 			mkdirp.sync(path.resolve(outputDir, dirname)); // TODO: Handle throw
+			// Remove meta properties
+			delete recipe._name;
 			const stringRecipe = JSON.stringify(Recipe.encode(recipe), null, 2);
 			fs.writeFileSync(path.resolve(outputDir, dirname, outFile), stringRecipe);
 		}
@@ -147,7 +151,11 @@ function main() {
 		}
 	}
 
-	watch(inputDir, handleEvent);
+	if (converting) {
+		convert(inputDir, outputDir);
+	} else {
+		watch(inputDir, handleEvent);
+	}
 }
 
 if (!module.parent) {

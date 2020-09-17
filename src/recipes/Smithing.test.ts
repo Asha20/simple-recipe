@@ -25,7 +25,7 @@ describe("Smithing", () => {
 			type: "minecraft:smithing",
 			base: itemIng("stone_sword"),
 			addition: itemIng("iron_ingot"),
-			result: "minecraft:iron_sword",
+			result: itemIng("iron_sword"),
 		});
 	});
 });

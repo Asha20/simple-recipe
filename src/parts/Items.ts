@@ -49,5 +49,10 @@ function validate(u: unknown, c: t.Context): Either<t.Errors, Items> {
 export const Items = new t.Type<Items, Items, unknown>("Items", is, validate, t.identity);
 
 export function items(name: string, count: number, namespace = "minecraft"): Items {
+	if (name.includes(":")) {
+		const [namespace, itemName] = name.split(":");
+		return { type: "items", count, name: itemName, namespace };
+	}
+
 	return { type: "items", count, name, namespace };
 }

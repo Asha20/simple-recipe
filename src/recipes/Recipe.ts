@@ -22,19 +22,20 @@ export type MCRecipe =
 	| MCStonecutting
 	| MCSmithing;
 
-export type RecipeMeta = t.TypeOf<typeof _RecipeMeta>;
+export type RecipeMeta = t.TypeOf<typeof RecipeMeta>;
 export type Recipe = t.TypeOf<typeof Recipe>;
 
-const _RecipeMeta = t.type({
+const RecipeMeta = t.type({
 	_name: t.string,
 });
 
-// Encode to an empty object so that meta properties aren't present in the generated output.
-const RecipeMeta = new t.Type<RecipeMeta, {}>("RecipeMeta", _RecipeMeta.is, _RecipeMeta.validate, () => ({}));
+const Optional = t.partial({
+	group: t.string,
+});
 
 const AnyRecipe = t.union(
 	[CraftingShaped, CraftingShapeless, CraftingSpecial, Cooking, Stonecutting, Smithing],
 	"AnyRecipe",
 );
 
-export const Recipe = t.intersection([AnyRecipe, RecipeMeta], "Recipe");
+export const Recipe = t.intersection([AnyRecipe, RecipeMeta, Optional], "Recipe");

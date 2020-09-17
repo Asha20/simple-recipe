@@ -55,5 +55,10 @@ function validate(u: unknown, c: t.Context): Either<t.Errors, Tag> {
 export const Tag = new t.Type<Tag, Tag, unknown>("Tag", is, validate, t.identity);
 
 export function tag(name: string, namespace = "minecraft"): Tag {
+	if (name.includes(":")) {
+		const [namespace, tagName] = name.split(":");
+		return { type: "tag", name: tagName, namespace };
+	}
+
 	return { type: "tag", name, namespace };
 }

@@ -1,13 +1,13 @@
 import * as t from "io-ts";
 import { ItemOrTag, Item } from "../parts";
-import { Ingredient, stringify, toIngredient } from "./common";
+import { Ingredient, stringify, toIngredient, ItemIngredient } from "./common";
 
 export type OwnSmithing = t.TypeOf<typeof OwnSmithing>;
 export interface MCSmithing {
 	type: "minecraft:smithing";
 	base: Ingredient;
 	addition: Ingredient;
-	result: string;
+	result: ItemIngredient;
 }
 
 const OwnSmithing = t.type({
@@ -23,7 +23,7 @@ function encode(x: OwnSmithing): MCSmithing {
 		type,
 		base: toIngredient(x.base),
 		addition: toIngredient(x.addition),
-		result: stringify(x.result),
+		result: { item: stringify(x.result) },
 	};
 }
 

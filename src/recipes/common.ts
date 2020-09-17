@@ -1,7 +1,8 @@
-import { ItemOrTag, ItemOrTags, Stack } from "../parts";
+import * as assert from "assert";
+import { ItemOrTag, ItemOrTags, Stack, item, tag, items, tags } from "../parts";
 
-type ItemIngredient = { item: string };
-type TagIngredient = { tag: string };
+export type ItemIngredient = { item: string };
+export type TagIngredient = { tag: string };
 export type Ingredient = ItemIngredient | TagIngredient | Ingredient[];
 
 export function arrayOf<T>(length: number, value: T) {
@@ -37,6 +38,68 @@ export function toIngredients(itemOrTags: ItemOrTag | ItemOrTags | Stack): Ingre
 				return result.push(...arrayOf(x.count, { tag: stringify(x) }));
 		}
 	});
+
+	return result;
+}
+
+export function fromIngredient(ing: ItemIngredient | TagIngredient): ItemOrTag {
+	const isItem = typeof (ing as any).item === "string";
+	const fullName = isItem ? (ing as any).item : (ing as any).tag;
+	const [namespace, name] = fullName.split(":");
+	return isItem ? item(name, namespace) : tag(name, namespace);
+}
+
+export function fromIngredientsToItemOrTags(ing: Ingredient): ItemOrTag | ItemOrTags {
+	if (!Array.isArray(ing)) {
+		return fromIngredient(ing);
+	}
+
+	return ing.map(x => {
+		assert(!Array.isArray(x));
+		return fromIngredient(x);
+	});
+}
+
+export function fromIngredientsToStack(ing: Ingredient): Stack[] {
+	const result: Stack[] = [];
+	let currentVal: null | ItemOrTag = null;
+	let count = 0;
+	ing = Array.isArray(ing) ? ing : [ing];
+	for (const i of ing) {
+		if (Array.isArray(i)) {
+			result.push(fromIngredientsToStack(i));
+			continue;
+		}
+		const itemOrTag = fromIngredient(i);
+		if (currentVal === null) {
+			currentVal = itemOrTag;
+			count = 1;
+		} else if (
+			itemOrTag.type !== currentVal.type ||
+			itemOrTag.namespace !== currentVal.namespace ||
+			itemOrTag.name !== currentVal.name
+		) {
+			const r =
+				currentVal.type === "item"
+					? items(currentVal.name, count, currentVal.namespace)
+					: tags(currentVal.name, count, currentVal.namespace);
+
+			result.push(r);
+			currentVal = itemOrTag;
+			count = 1;
+		} else {
+			count += 1;
+		}
+	}
+
+	if (currentVal) {
+		const r =
+			currentVal.type === "item"
+				? items(currentVal.name, count, currentVal.namespace)
+				: tags(currentVal.name, count, currentVal.namespace);
+
+		result.push(r);
+	}
 
 	return result;
 }

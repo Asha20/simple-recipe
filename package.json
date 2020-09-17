@@ -4,8 +4,8 @@
   "description": "Easily create recipes for Minecraft datapacks.",
   "main": "dist/main.js",
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test:unit": "jest unit",
+    "test:unit:watch": "jest unit --watch",
     "build": "tsc -p tsconfig.build.json",
     "watch": "tsc -p tsconfig.build.json --watch"
   },

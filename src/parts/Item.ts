@@ -13,8 +13,12 @@ const withNamespaceRegex = /^(\w+):(\w+)$/;
 const withoutNamespaceRegex = /^(\w+)$/;
 
 function validateItem(u: unknown, c: t.Context, namespace: string, name: string): Either<t.Errors, Item> {
+	if (namespace !== "minecraft") {
+		return t.success(item(name, namespace));
+	}
+
 	if (items[config.target].has(name)) {
-		return t.success<Item>(item(name, namespace));
+		return t.success(item(name, namespace));
 	}
 
 	const suggestions = findSuggestions(config.target, name, 0.6, 3);

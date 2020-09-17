@@ -37,7 +37,9 @@ function validate(u: unknown, c: t.Context): Either<t.Errors, OwnCraftingShapele
 		OwnCraftingShapeless.validate(u, c),
 		chain(x => {
 			const ingredients = toIngredients(x.ingredients);
-			return ingredients.length > 0 && ingredients.length <= 9 ? t.success(x) : t.failure(u, c, "Too many ingredients");
+			if (ingredients.length > 9) return t.failure(u, c, "Too many ingredients");
+			if (ingredients.length === 0) return t.failure(u, c, "Missing ingredients");
+			return t.success(x);
 		}),
 	);
 }

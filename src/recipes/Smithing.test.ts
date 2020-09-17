@@ -5,27 +5,27 @@ import { item } from "../parts";
 import { itemIng } from "./common";
 
 describe("Smithing", () => {
-	test("netherite sword", () => {
+	test("iron sword", () => {
 		const recipe = Smithing.decode({
 			type: "smithing",
-			base: "diamond_sword",
-			addition: "netherite_ingot",
-			result: "netherite_sword",
+			base: "stone_sword",
+			addition: "iron_ingot",
+			result: "iron_sword",
 		});
 
 		expect(recipe).toBeRight({
 			type: "smithing",
-			base: item("diamond_sword"),
-			addition: item("netherite_ingot"),
-			result: item("netherite_sword"),
+			base: item("stone_sword"),
+			addition: item("iron_ingot"),
+			result: item("iron_sword"),
 		});
 
 		assert(isRight(recipe));
 		expect(Smithing.encode(recipe.right)).toEqual({
 			type: "minecraft:smithing",
-			base: itemIng("diamond_sword"),
-			addition: itemIng("netherite_ingot"),
-			result: "minecraft:netherite_sword",
+			base: itemIng("stone_sword"),
+			addition: itemIng("iron_ingot"),
+			result: "minecraft:iron_sword",
 		});
 	});
 });

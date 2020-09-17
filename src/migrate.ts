@@ -23,7 +23,7 @@ import {
 import { fromIngredientsToStack, fromIngredient, fromIngredientsToItemOrTags } from "./recipes/common";
 import { items, ItemOrTag, ItemOrTags, item, Item, Tag, Items, Tags } from "./parts";
 
-export function convert(inputDir: string, outputDir: string) {
+export function migrate(inputDir: string, outputDir: string) {
 	const groupedByDirname = glob.sync("**/*.json", { cwd: inputDir }).reduce<Map<string, string[]>>((acc, file) => {
 		const dirname = path.dirname(file);
 		const array = acc.get(dirname) ?? [];
@@ -143,8 +143,7 @@ function stonecutting(x: MCStonecutting): OwnStonecutting {
 }
 
 function craftingSpecial(x: MCCraftingSpecial): OwnCraftingSpecial {
-	const tokens = x.type.split(":");
-	const type = tokens[1] as OwnCraftingSpecial["type"];
+	const type = x.type.replace("minecraft:crafting_special_", "") as OwnCraftingSpecial["type"];
 	return { type };
 }
 

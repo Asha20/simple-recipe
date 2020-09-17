@@ -5,5 +5,5 @@ interface Config {
 }
 
 export const config: Config = {
-	target: "1.15",
+	target: "1.16",
 };

@@ -23,12 +23,14 @@ function dice(aBigrams: string[], bBigrams: string[]) {
 	return (2 * intersection.length) / (aBigrams.length + bBigrams.length);
 }
 
-export type Target = keyof typeof items;
+export type Target = typeof availableVersions[number];
 
-export const items = {
+export const items: Record<Target, Set<string>> = {
 	"1.15": items115,
 	"1.16": items116,
 };
+
+export const availableVersions = ["1.15", "1.16"] as const;
 
 export function findSuggestions(target: Target, needle: string, tolerance: number, max: number) {
 	const needleBigrams = bigrams(needle);
@@ -45,4 +47,8 @@ export function findSuggestions(target: Target, needle: string, tolerance: numbe
 	}
 
 	return result;
+}
+
+export function validTarget(target: string): target is Target {
+	return availableVersions.includes(target as any);
 }

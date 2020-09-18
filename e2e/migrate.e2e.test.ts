@@ -5,22 +5,22 @@ import { e2eTestSetup } from "./util";
 
 const OUTPUT = e2eTestSetup();
 
-test("compile", async () => {
-	main(`compile yaml ${OUTPUT} --silent`);
+test("migrate", async () => {
+	main(`migrate json ${OUTPUT} --silent`);
 
 	const stat = await fs.promises.stat(OUTPUT);
 	expect(stat.isDirectory).toBeTruthy();
 
-	const expectedContent = await fs.promises.readdir("json");
+	const expectedContent = await fs.promises.readdir("yaml");
 	const outputContent = await fs.promises.readdir(OUTPUT);
 
 	expect(expectedContent).toEqual(outputContent);
 
 	for (const file of expectedContent) {
-		const expectedPath = path.join("json", file);
+		const expectedPath = path.join("yaml", file);
 		const outputPath = path.join(OUTPUT, file);
-		const expected = require("./" + expectedPath);
-		const output = require("./" + outputPath);
+		const expected = await fs.promises.readFile(expectedPath, "utf8");
+		const output = await fs.promises.readFile(outputPath, "utf8");
 		expect(output).toEqual(expected);
 	}
 });

@@ -119,4 +119,4 @@ dist
 TODO
 
 ## e2e output files
-e2e/**/output
+e2e/**/temp*

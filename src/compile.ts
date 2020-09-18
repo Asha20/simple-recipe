@@ -86,61 +86,61 @@ function printFailedRecipes(fails: FailedRecipe[]) {
 }
 
 export function compile(inputDir: string, outputDir: string) {
-	glob("**/*.yml", { cwd: inputDir }, (err, files) => {
-		if (err) throw err;
+	const files = glob.sync("**/*.yml", { cwd: inputDir });
 
-		rimraf.sync(outputDir);
+	rimraf.sync(outputDir);
 
-		const cache: Cache = new Map();
+	const cache: Cache = new Map();
 
-		const allRecipes: ValidRecipe[] = [];
-		const duplicateRecipes: Duplicate[] = [];
-		const failedRecipes: FailedRecipe[] = [];
-		const duplicateSet = new Set<Recipe>();
-		const invalidFiles = new Set<string>();
+	const allRecipes: ValidRecipe[] = [];
+	const duplicateRecipes: Duplicate[] = [];
+	const failedRecipes: FailedRecipe[] = [];
+	const duplicateSet = new Set<Recipe>();
+	const invalidFiles = new Set<string>();
 
-		for (const file of files) {
-			const recipes = parseRecipes(path.resolve(inputDir, file));
-			const dirname = path.dirname(file);
+	for (const file of files) {
+		const recipes = parseRecipes(path.resolve(inputDir, file));
+		const dirname = path.dirname(file);
 
-			for (const recipe of recipes) {
-				if (isRight(recipe)) {
-					const name = recipe.right._name;
-					const folderCache: ReturnType<Cache["get"]> = cache.get(dirname) ?? new Map();
-					const nameCache = folderCache.get(name) ?? { recipes: new Set(), files: new Set() };
-					const oldSize = nameCache.files.size;
-					nameCache.files.add(file);
-					nameCache.recipes.add(recipe.right);
-					if (nameCache.files.size === oldSize || nameCache.files.size > 1) {
-						duplicateRecipes.push({ name, ...nameCache });
-						invalidFiles.add(file);
-					}
-					folderCache.set(name, nameCache);
-					cache.set(dirname, folderCache);
-					allRecipes.push({ origin: file, recipe: recipe.right });
-				} else {
-					failedRecipes.push({ origin: file, message: recipe.left });
+		for (const recipe of recipes) {
+			if (isRight(recipe)) {
+				const name = recipe.right._name;
+				const folderCache: ReturnType<Cache["get"]> = cache.get(dirname) ?? new Map();
+				const nameCache = folderCache.get(name) ?? { recipes: new Set(), files: new Set() };
+				const oldSize = nameCache.files.size;
+				nameCache.files.add(file);
+				nameCache.recipes.add(recipe.right);
+				if (nameCache.files.size === oldSize || nameCache.files.size > 1) {
+					duplicateRecipes.push({ name, ...nameCache });
 					invalidFiles.add(file);
 				}
+				folderCache.set(name, nameCache);
+				cache.set(dirname, folderCache);
+				allRecipes.push({ origin: file, recipe: recipe.right });
+			} else {
+				failedRecipes.push({ origin: file, message: recipe.left });
+				invalidFiles.add(file);
 			}
 		}
+	}
 
-		for (const dupe of duplicateRecipes) {
-			dupe.recipes.forEach(duplicateSet.add, duplicateSet);
-		}
-		const uniqueRecipes = allRecipes.filter(x => !duplicateSet.has(x.recipe));
-		const validFiles = files.filter(x => !invalidFiles.has(x));
+	for (const dupe of duplicateRecipes) {
+		dupe.recipes.forEach(duplicateSet.add, duplicateSet);
+	}
+	const uniqueRecipes = allRecipes.filter(x => !duplicateSet.has(x.recipe));
+	const validFiles = files.filter(x => !invalidFiles.has(x));
 
-		processRecipes(outputDir, uniqueRecipes);
+	processRecipes(outputDir, uniqueRecipes);
 
-		clearConsole();
-		printValidFiles(validFiles);
-		printDuplicates(duplicateRecipes);
-		log("\n\n");
-		printFailedRecipes(failedRecipes);
-	});
+	printValidFiles(validFiles);
+	printDuplicates(duplicateRecipes);
+	log("\n\n");
+	printFailedRecipes(failedRecipes);
 }
 
 export function watch(inputDir: string, outputDir: string) {
-	return watcher.watch(inputDir, () => compile(inputDir, outputDir));
+	return watcher.watch(inputDir, () => {
+		clearConsole();
+		compile(inputDir, outputDir);
+	});
 }

@@ -21,7 +21,7 @@ const OwnCooking = t.type({
 		smoking: null,
 	}),
 	ingredients: t.union([ItemOrTag, ItemOrTags]),
-	experience: t.Int,
+	experience: t.number,
 	cookingtime: t.Int,
 	result: Item,
 });

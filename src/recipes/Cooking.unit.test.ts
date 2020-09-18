@@ -92,7 +92,7 @@ describe("Cooking", () => {
 			type: "campfire_cooking",
 			ingredients: "cod",
 			cookingtime: 100,
-			experience: 10,
+			experience: 0.5,
 			result: "cooked_cod",
 		});
 
@@ -100,7 +100,7 @@ describe("Cooking", () => {
 			type: "campfire_cooking",
 			ingredients: item("cod"),
 			cookingtime: 100,
-			experience: 10,
+			experience: 0.5,
 			result: item("cooked_cod"),
 		});
 
@@ -109,7 +109,7 @@ describe("Cooking", () => {
 			type: "minecraft:campfire_cooking",
 			ingredient: [itemIng("cod")],
 			cookingtime: 100,
-			experience: 10,
+			experience: 0.5,
 			result: "minecraft:cooked_cod",
 		});
 	});

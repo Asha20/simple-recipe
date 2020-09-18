@@ -137,7 +137,7 @@ function smithing(x: MCSmithing): OwnSmithing {
 function stonecutting(x: MCStonecutting): OwnStonecutting {
 	return {
 		type: "stonecutting",
-		ingredients: fromIngredientsToStack(x.ingredient) as any,
+		ingredients: fromIngredientsToItemOrTags(x.ingredient),
 		result: items(x.result, x.count),
 	};
 }

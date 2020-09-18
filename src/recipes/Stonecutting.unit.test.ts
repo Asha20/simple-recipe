@@ -21,7 +21,7 @@ describe("Stonecutting", () => {
 		assert(isRight(recipe));
 		expect(Stonecutting.encode(recipe.right)).toEqual({
 			type: "minecraft:stonecutting",
-			ingredient: [itemIng("apple")],
+			ingredient: itemIng("apple"),
 			result: "minecraft:apple",
 			count: 1,
 		});
@@ -43,7 +43,7 @@ describe("Stonecutting", () => {
 		assert(isRight(recipe));
 		expect(Stonecutting.encode(recipe.right)).toEqual({
 			type: "minecraft:stonecutting",
-			ingredient: [tagIng("breakable")],
+			ingredient: tagIng("breakable"),
 			result: "minecraft:dirt",
 			count: 4,
 		});

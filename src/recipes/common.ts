@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { ItemOrTag, ItemOrTags, Stack, item, tag, items, tags } from "../parts";
+import { ItemOrTag, ItemOrTags, Stack, item, tag, items, tags, Item, Tag } from "../parts";
 
 export type ItemIngredient = { item: string };
 export type TagIngredient = { tag: string };
@@ -20,7 +20,9 @@ export function toIngredient(itemOrTag: ItemOrTag): Ingredient {
 	return tagIng(itemOrTag.name, itemOrTag.namespace);
 }
 
-export function toIngredients(itemOrTags: ItemOrTag | ItemOrTags | Stack): Ingredient[] {
+export function toIngredients(x: ItemOrTag | ItemOrTags): Ingredient | Ingredient[];
+export function toIngredients(x: Stack): Ingredient[];
+export function toIngredients(itemOrTags: ItemOrTag | ItemOrTags | Stack): Ingredient {
 	const boxed: Array<ItemOrTag | Stack> = Array.isArray(itemOrTags) ? itemOrTags : [itemOrTags];
 
 	const result: Ingredient[] = [];
@@ -39,7 +41,7 @@ export function toIngredients(itemOrTags: ItemOrTag | ItemOrTags | Stack): Ingre
 		}
 	});
 
-	return result;
+	return Item.is(itemOrTags) || Tag.is(itemOrTags) ? result[0] : result;
 }
 
 export function fromIngredient(ing: ItemIngredient | TagIngredient): ItemOrTag {

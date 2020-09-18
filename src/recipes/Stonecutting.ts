@@ -5,7 +5,7 @@ import { toIngredients, Ingredient, stringify } from "./common";
 export type OwnStonecutting = t.TypeOf<typeof OwnStonecutting>;
 export interface MCStonecutting {
 	type: "minecraft:stonecutting";
-	ingredient: Ingredient[];
+	ingredient: Ingredient;
 	result: string;
 	count: number;
 }

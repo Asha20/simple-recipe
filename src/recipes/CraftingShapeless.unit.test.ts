@@ -8,20 +8,20 @@ describe("Shapeless crafting", () => {
 	test("single item stack", () => {
 		const recipe = CraftingShapeless.decode({
 			type: "crafting_shapeless",
-			ingredients: "1 oak_log",
+			ingredients: "2 oak_log",
 			result: "4 oak_planks",
 		});
 
 		expect(recipe).toBeRight({
 			type: "crafting_shapeless",
-			ingredients: items("oak_log", 1),
+			ingredients: items("oak_log", 2),
 			result: items("oak_planks", 4),
 		});
 
 		assert(isRight(recipe));
 		expect(CraftingShapeless.encode(recipe.right)).toEqual({
 			type: "minecraft:crafting_shapeless",
-			ingredients: [itemIng("oak_log")],
+			ingredients: [itemIng("oak_log"), itemIng("oak_log")],
 			result: {
 				count: 4,
 				item: "minecraft:oak_planks",

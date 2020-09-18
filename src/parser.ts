@@ -1,9 +1,8 @@
 import * as fs from "fs";
 import * as yaml from "js-yaml";
-import { left, Either, mapLeft } from "fp-ts/Either";
-import { map as mapArray } from "fp-ts/lib/Array";
+import { left, Either, either } from "fp-ts/Either";
 import { pipe } from "fp-ts/lib/function";
-import { Errors, UnionType } from "io-ts";
+import { Errors } from "io-ts";
 import { Recipe } from "./recipes";
 
 type ParsedRecipes = Array<Either<string | Errors, Recipe>>;
@@ -25,27 +24,30 @@ function parseYAML(yamlContent: string): ParsedRecipes {
 	}
 }
 
-function stringifyError(errors: string | Errors) {
+const identifierRegex = /^[a-z_]\w*$/i;
+
+function stringifyError(errors: string | Errors, index: number) {
+	let origin = `root[${index}]`;
+
 	if (typeof errors === "string") {
-		return errors;
+		return origin + ": " + errors;
 	}
 
-	let message = "root";
 	const error = errors.find(x => x.message) ?? errors[0];
 
 	const context = error.context;
 	for (const ctx of context) {
-		if (ctx.key && !(ctx.type instanceof UnionType)) {
-			message += Number.isNaN(+ctx.key) ? "." + ctx.key : "[" + ctx.key + "]";
+		if (ctx.key && Number.isNaN(+ctx.key)) {
+			origin += identifierRegex.test(ctx.key) ? "." + ctx.key : '["' + ctx.key + '"]';
 		}
 	}
 
 	const lastContext = context[context.length - 1];
 
 	if (error.message) {
-		return message + ": " + error.message;
+		return origin + ": " + error.message;
 	}
-	return `${message}: Expected ${lastContext.type.name}, got "${lastContext.actual}"`;
+	return `${origin}: Expected ${lastContext.type.name}, got "${lastContext.actual}"`;
 }
 
 // prettier-ignore
@@ -53,6 +55,8 @@ export function parseRecipes(filename: string) {
 	return pipe(
 		fs.readFileSync(filename, "utf8"),
 		parseYAML,
-		mapArray(mapLeft(stringifyError)),
+		arr => arr.map((x, i) =>
+			either.mapLeft(x, e => stringifyError(e, i))
+		),
 	);
 }

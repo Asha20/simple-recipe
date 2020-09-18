@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "minecraft:beef"
+  },
+  "experience": 0.35,
+  "cookingtime": 100,
+  "result": "minecraft:cooked_beef",
+  "ingredients": {
+    "type": "item",
+    "name": "beef",
+    "namespace": "minecraft"
+  }
+}

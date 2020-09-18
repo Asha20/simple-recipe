@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "tag": "minecraft:gold_ores"
+  },
+  "experience": 1,
+  "cookingtime": 100,
+  "result": "minecraft:gold_ingot",
+  "ingredients": {
+    "type": "tag",
+    "name": "gold_ores",
+    "namespace": "minecraft"
+  }
+}

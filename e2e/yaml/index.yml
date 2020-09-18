@@ -1,0 +1,50 @@
+- _name: acacia_boat
+  group: boat
+  type: crafting_shaped
+  pattern:
+    - '# #'
+    - '###'
+  key:
+    '#': acacia_planks
+  result: 1 acacia_boat
+- _name: acacia_planks
+  group: planks
+  type: crafting_shapeless
+  ingredients:
+    - 1 +acacia_logs
+  result: 4 acacia_planks
+- _name: armor_dye
+  type: armordye
+- _name: baked_potato
+  type: smelting
+  cookingtime: 200
+  experience: 0.35
+  ingredients: potato
+  result: baked_potato
+- _name: cooked_beef_from_smoking
+  type: smoking
+  cookingtime: 100
+  experience: 0.35
+  ingredients: beef
+  result: cooked_beef
+- _name: cooked_chicken_from_campfire_cooking
+  type: campfire_cooking
+  cookingtime: 600
+  experience: 0.35
+  ingredients: chicken
+  result: cooked_chicken
+- _name: gold_ingot_from_blasting
+  type: blasting
+  cookingtime: 100
+  experience: 1
+  ingredients: +gold_ores
+  result: gold_ingot
+- _name: netherite_axe_smithing
+  type: smithing
+  base: diamond_axe
+  addition: netherite_ingot
+  result: netherite_axe
+- _name: polished_andesite_from_andesite_stonecutting
+  type: stonecutting
+  ingredients: andesite
+  result: 1 polished_andesite

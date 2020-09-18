@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "minecraft:potato"
+  },
+  "experience": 0.35,
+  "cookingtime": 200,
+  "result": "minecraft:baked_potato",
+  "ingredients": {
+    "type": "item",
+    "name": "potato",
+    "namespace": "minecraft"
+  }
+}

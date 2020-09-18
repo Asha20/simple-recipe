@@ -6,6 +6,7 @@
   "scripts": {
     "test:unit": "jest unit",
     "test:unit:watch": "jest unit --watch",
+    "test:e2e": "jest e2e",
     "build": "tsc -p tsconfig.build.json",
     "watch": "tsc -p tsconfig.build.json --watch"
   },

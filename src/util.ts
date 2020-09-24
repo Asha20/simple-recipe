@@ -1,5 +1,5 @@
 import { config } from "./config";
-import { getValidation, Either, right, left } from "fp-ts/lib/Either";
+import { getValidation, Either, right, left, either } from "fp-ts/lib/Either";
 import { getSemigroup, NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
 import { sequenceT, sequenceS } from "fp-ts/lib/Apply";
 
@@ -19,7 +19,19 @@ export function clearConsole() {
 
 export const applicativeValidation = getValidation(getSemigroup<string>());
 export const seqT = sequenceT(applicativeValidation);
-export const seqS = sequenceS(applicativeValidation);
+const _seqS = sequenceS(applicativeValidation);
+
+export const seqS: typeof _seqS = record => {
+	const newRecord = {} as any;
+	for (const [key, value] of Object.entries(record)) {
+		newRecord[key] = either.mapLeft(value, errors =>
+			errors.map(err => {
+				return `${key}: ${err}`;
+			}),
+		);
+	}
+	return _seqS(newRecord) as any;
+};
 export type TODO = any;
 
 export const expectedString = (u: unknown): Either<NonEmptyArray<string>, string> =>

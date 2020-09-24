@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import { isRight } from "fp-ts/lib/Either";
-import { CraftingSpecial } from "./CraftingSpecial";
+import { parseCraftingSpecial, encodeCraftingSpecial } from "./CraftingSpecial";
 
 const types = [
 	"armordye",
@@ -21,10 +21,10 @@ const types = [
 describe("Special crafting", () => {
 	test("all special crafting types", () => {
 		for (const type of types) {
-			const recipe = CraftingSpecial.decode({ type });
+			const recipe = parseCraftingSpecial({ type });
 			expect(recipe).toBeRight({ type });
 			assert(isRight(recipe));
-			expect(CraftingSpecial.encode(recipe.right)).toEqual({
+			expect(encodeCraftingSpecial(recipe.right)).toEqual({
 				type: "minecraft:crafting_special_" + type,
 			});
 		}

@@ -1,14 +1,14 @@
-import { Item, item } from "./Item";
+import { parseItem, item } from "./Item";
 
 describe("Item", () => {
-	test("decoding", () => {
-		expect(Item.decode(123)).toBeLeft();
-		expect(Item.decode("")).toBeLeft();
-		expect(Item.decode("random item that does not exist")).toBeLeft();
-		expect(Item.decode("+minecraft:apple")).toBeLeft();
-		expect(Item.decode("minecraft:apple:grass")).toBeLeft();
+	test("parsing", () => {
+		expect(parseItem(123)).toBeLeft();
+		expect(parseItem("")).toBeLeft();
+		expect(parseItem("random item that does not exist")).toBeLeft();
+		expect(parseItem("+minecraft:apple")).toBeLeft();
+		expect(parseItem("minecraft:apple:grass")).toBeLeft();
 
-		expect(Item.decode("apple")).toBeRight(item("apple"));
-		expect(Item.decode("foo:bar")).toBeRight(item("bar", "foo"));
+		expect(parseItem("apple")).toBeRight(item("apple"));
+		expect(parseItem("foo:bar")).toBeRight(item("bar", "foo"));
 	});
 });

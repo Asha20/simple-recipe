@@ -20,8 +20,16 @@ import {
 	OwnCraftingSpecial,
 	Recipe,
 } from "./recipes";
-import { fromIngredientsToStack, fromIngredient, fromIngredientsToItemOrTags } from "./recipes/common";
-import { items, ItemOrTag, ItemOrTags, item, Item, Tag, Items, Tags } from "./parts";
+import {
+	fromIngredientsToStack,
+	fromIngredient,
+	fromIngredientsToItemOrTags,
+	isItem,
+	isTag,
+	isItems,
+	isTags,
+} from "./recipes/common";
+import { items, ItemOrTag, ItemOrTags, item } from "./parts";
 
 export function migrate(inputDir: string, outputDir: string) {
 	const groupedByDirname = glob.sync("**/*.json", { cwd: inputDir }).reduce<Map<string, string[]>>((acc, file) => {
@@ -71,16 +79,16 @@ function convertRecipe(name: string, recipe: MCRecipe): Recipe {
 	})();
 
 	traverse(ownRecipe, val => {
-		if (Item.is(val)) {
+		if (isItem(val)) {
 			return stringifyName(val);
 		}
-		if (Tag.is(val)) {
+		if (isTag(val)) {
 			return "+" + stringifyName(val);
 		}
-		if (Items.is(val)) {
+		if (isItems(val)) {
 			return `${val.count} ${stringifyName(val)}`;
 		}
-		if (Tags.is(val)) {
+		if (isTags(val)) {
 			return `${val.count} +${stringifyName(val)}`;
 		}
 		return val;

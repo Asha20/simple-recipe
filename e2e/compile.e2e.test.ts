@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import { main } from "../src/main";
-import { e2eTestSetup } from "./util";
+import { e2eTestSetup } from "./setup";
 
 const OUTPUT = e2eTestSetup();
 

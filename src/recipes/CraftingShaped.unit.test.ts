@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import { isRight } from "fp-ts/lib/Either";
-import { CraftingShaped } from "./CraftingShaped";
+import { parseCraftingShaped, encodeCraftingShaped } from "./CraftingShaped";
 import { items, item, tag } from "../parts";
 import { itemIng, tagIng } from "./common";
 
@@ -8,7 +8,7 @@ describe("Shaped crafting", () => {
 	describe("Invalid inputs", () => {
 		test("Empty pattern", () => {
 			expect(
-				CraftingShaped.decode({
+				parseCraftingShaped({
 					type: "crafting_shaped",
 					pattern: [],
 					key: {},
@@ -19,7 +19,7 @@ describe("Shaped crafting", () => {
 
 		test("Pattern rows are uneven", () => {
 			expect(
-				CraftingShaped.decode({
+				parseCraftingShaped({
 					type: "crafting_shaped",
 					pattern: ["c", "cc"],
 					key: { c: "cobblestone" },
@@ -30,7 +30,7 @@ describe("Shaped crafting", () => {
 
 		test("Pattern too short", () => {
 			expect(
-				CraftingShaped.decode({
+				parseCraftingShaped({
 					type: "crafting_shaped",
 					pattern: [""],
 					key: {},
@@ -41,7 +41,7 @@ describe("Shaped crafting", () => {
 
 		test("Pattern too wide", () => {
 			expect(
-				CraftingShaped.decode({
+				parseCraftingShaped({
 					type: "crafting_shaped",
 					pattern: ["aaaaa"],
 					key: { a: "apple" },
@@ -52,7 +52,7 @@ describe("Shaped crafting", () => {
 
 		test("Pattern too tall", () => {
 			expect(
-				CraftingShaped.decode({
+				parseCraftingShaped({
 					type: "crafting_shaped",
 					pattern: ["a", "a", "a", "a"],
 					key: { a: "apple" },
@@ -63,7 +63,7 @@ describe("Shaped crafting", () => {
 
 		test("Entry in pattern is missing in key", () => {
 			expect(
-				CraftingShaped.decode({
+				parseCraftingShaped({
 					type: "crafting_shaped",
 					pattern: ["ab", "ab"],
 					key: { a: "apple" },
@@ -74,7 +74,7 @@ describe("Shaped crafting", () => {
 
 		test("Entry in key is missing in pattern", () => {
 			expect(
-				CraftingShaped.decode({
+				parseCraftingShaped({
 					type: "crafting_shaped",
 					pattern: ["a"],
 					key: { a: "apple", c: "cobblestone" },
@@ -85,7 +85,7 @@ describe("Shaped crafting", () => {
 
 		test("Key isn't a single character", () => {
 			expect(
-				CraftingShaped.decode({
+				parseCraftingShaped({
 					type: "crafting_shaped",
 					pattern: ["ac"],
 					key: { a: "apple", ac: "cobblestone" },
@@ -96,7 +96,7 @@ describe("Shaped crafting", () => {
 
 		test("Key is a space", () => {
 			expect(
-				CraftingShaped.decode({
+				parseCraftingShaped({
 					type: "crafting_shaped",
 					pattern: ["a "],
 					key: { a: "apple", " ": "cobblestone" },
@@ -108,7 +108,7 @@ describe("Shaped crafting", () => {
 
 	describe("Valid inputs", () => {
 		test("crafting table", () => {
-			const recipe = CraftingShaped.decode({
+			const recipe = parseCraftingShaped({
 				type: "crafting_shaped",
 				pattern: ["pp", "pp"],
 				key: { p: "+planks" },
@@ -123,7 +123,7 @@ describe("Shaped crafting", () => {
 			});
 
 			assert(isRight(recipe));
-			expect(CraftingShaped.encode(recipe.right)).toEqual({
+			expect(encodeCraftingShaped(recipe.right)).toEqual({
 				type: "minecraft:crafting_shaped",
 				pattern: ["pp", "pp"],
 				key: { p: tagIng("planks") },
@@ -135,7 +135,7 @@ describe("Shaped crafting", () => {
 		});
 
 		test("enchanting table", () => {
-			const recipe = CraftingShaped.decode({
+			const recipe = parseCraftingShaped({
 				type: "crafting_shaped",
 				pattern: [" b ", "dod", "ooo"],
 				key: { b: "book", d: "diamond", o: "obsidian" },
@@ -150,7 +150,7 @@ describe("Shaped crafting", () => {
 			});
 
 			assert(isRight(recipe));
-			expect(CraftingShaped.encode(recipe.right)).toEqual({
+			expect(encodeCraftingShaped(recipe.right)).toEqual({
 				type: "minecraft:crafting_shaped",
 				pattern: [" b ", "dod", "ooo"],
 				key: { b: itemIng("book"), d: itemIng("diamond"), o: itemIng("obsidian") },

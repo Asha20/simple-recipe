@@ -4,7 +4,6 @@ dependencies:
   commander: 6.1.0
   fp-ts: 2.8.1
   glob: 7.1.6
-  io-ts: 2.2.9_fp-ts@2.8.1
   js-yaml: 3.14.0
   mkdirp: 1.0.4
   rimraf: 3.0.2
@@ -1766,14 +1765,6 @@ packages:
   /inherits/2.0.4:
     resolution:
       integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
-  /io-ts/2.2.9_fp-ts@2.8.1:
-    dependencies:
-      fp-ts: 2.8.1
-    dev: false
-    peerDependencies:
-      fp-ts: ^2.0.0
-    resolution:
-      integrity: sha512-Q9ob1VnpwyNoMam/BO6hm2dF4uu+to8NWSZNsRW6Q2Ni38PadgLZSQDo0hW7CJFgpJkQw4BXGwXzjr7c47c+fw==
   /ip-regex/2.1.0:
     dev: true
     engines:
@@ -3989,7 +3980,6 @@ specifiers:
   commander: ^6.1.0
   fp-ts: ^2.8.1
   glob: ^7.1.6
-  io-ts: ^2.2.9
   jest: ^26.4.0
   js-yaml: ^3.14.0
   mkdirp: ^1.0.4

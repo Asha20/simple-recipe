@@ -1,12 +1,12 @@
 import * as assert from "assert";
 import { isRight } from "fp-ts/lib/Either";
-import { CraftingShapeless } from "./CraftingShapeless";
+import { parseCraftingShapeless, encodeCraftingShapeless } from "./CraftingShapeless";
 import { items, tags } from "../parts";
 import { arrayOf, itemIng, tagIng } from "./common";
 
 describe("Shapeless crafting", () => {
 	test("single item stack", () => {
-		const recipe = CraftingShapeless.decode({
+		const recipe = parseCraftingShapeless({
 			type: "crafting_shapeless",
 			ingredients: "2 oak_log",
 			result: "4 oak_planks",
@@ -19,7 +19,7 @@ describe("Shapeless crafting", () => {
 		});
 
 		assert(isRight(recipe));
-		expect(CraftingShapeless.encode(recipe.right)).toEqual({
+		expect(encodeCraftingShapeless(recipe.right)).toEqual({
 			type: "minecraft:crafting_shapeless",
 			ingredients: [itemIng("oak_log"), itemIng("oak_log")],
 			result: {
@@ -30,7 +30,7 @@ describe("Shapeless crafting", () => {
 	});
 
 	test("single tag stack", () => {
-		const recipe = CraftingShapeless.decode({
+		const recipe = parseCraftingShapeless({
 			type: "crafting_shapeless",
 			ingredients: "2 +log",
 			result: "16 stick",
@@ -43,7 +43,7 @@ describe("Shapeless crafting", () => {
 		});
 
 		assert(isRight(recipe));
-		expect(CraftingShapeless.encode(recipe.right)).toEqual({
+		expect(encodeCraftingShapeless(recipe.right)).toEqual({
 			type: "minecraft:crafting_shapeless",
 			ingredients: [tagIng("log"), tagIng("log")],
 			result: {
@@ -54,7 +54,7 @@ describe("Shapeless crafting", () => {
 	});
 
 	test("nested array of stacks", () => {
-		const recipe = CraftingShapeless.decode({
+		const recipe = parseCraftingShapeless({
 			type: "crafting_shapeless",
 			ingredients: ["8 sand", ["1 fire_charge", "1 flint_and_steel"]],
 			result: "8 glass",
@@ -67,7 +67,7 @@ describe("Shapeless crafting", () => {
 		});
 
 		assert(isRight(recipe));
-		expect(CraftingShapeless.encode(recipe.right)).toEqual({
+		expect(encodeCraftingShapeless(recipe.right)).toEqual({
 			type: "minecraft:crafting_shapeless",
 			ingredients: [...arrayOf(8, itemIng("sand")), [itemIng("fire_charge"), itemIng("flint_and_steel")]],
 			result: {

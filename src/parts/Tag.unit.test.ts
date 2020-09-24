@@ -1,13 +1,13 @@
-import { Tag, tag } from "./Tag";
+import { parseTag, tag } from "./Tag";
 
 describe("Tag", () => {
-	test("decoding", () => {
-		expect(Tag.decode(123)).toBeLeft();
-		expect(Tag.decode("")).toBeLeft();
-		expect(Tag.decode("minecraft:apple")).toBeLeft();
-		expect(Tag.decode("+minecraft:foo:bar")).toBeLeft();
+	test("parsing", () => {
+		expect(parseTag(123)).toBeLeft();
+		expect(parseTag("")).toBeLeft();
+		expect(parseTag("minecraft:apple")).toBeLeft();
+		expect(parseTag("+minecraft:foo:bar")).toBeLeft();
 
-		expect(Tag.decode("+breakable")).toBeRight(tag("breakable"));
-		expect(Tag.decode("+foo:destroyable")).toBeRight(tag("destroyable", "foo"));
+		expect(parseTag("+breakable")).toBeRight(tag("breakable"));
+		expect(parseTag("+foo:destroyable")).toBeRight(tag("destroyable", "foo"));
 	});
 });

@@ -1,12 +1,12 @@
 import * as assert from "assert";
 import { isRight } from "fp-ts/lib/Either";
-import { Smithing } from "./Smithing";
+import { parseSmithing, encodeSmithing } from "./Smithing";
 import { item } from "../parts";
 import { itemIng } from "./common";
 
 describe("Smithing", () => {
 	test("iron sword", () => {
-		const recipe = Smithing.decode({
+		const recipe = parseSmithing({
 			type: "smithing",
 			base: "stone_sword",
 			addition: "iron_ingot",
@@ -21,7 +21,7 @@ describe("Smithing", () => {
 		});
 
 		assert(isRight(recipe));
-		expect(Smithing.encode(recipe.right)).toEqual({
+		expect(encodeSmithing(recipe.right)).toEqual({
 			type: "minecraft:smithing",
 			base: itemIng("stone_sword"),
 			addition: itemIng("iron_ingot"),

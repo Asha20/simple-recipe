@@ -1,7 +1,8 @@
-import * as t from "io-ts";
-import { Either, map } from "fp-ts/lib/Either";
+import { Either, map, right, left, chain } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/pipeable";
-import { Tag } from "./Tag";
+import { parseTag } from "./Tag";
+import { NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
+import { seqT, expectedString, nonEmpty } from "../util";
 
 export interface Tags {
 	type: "tags";
@@ -10,43 +11,29 @@ export interface Tags {
 	name: string;
 }
 
-function is(u: unknown): u is Tags {
-	return (
-		typeof u === "object" &&
-		!!u &&
-		(u as any).type === "tags" &&
-		typeof (u as any).count === "number" &&
-		typeof (u as any).namespace === "string" &&
-		typeof (u as any).name === "string"
-	);
-}
-
-function validate(u: unknown, c: t.Context): Either<t.Errors, Tags> {
-	if (typeof u !== "string") {
-		return t.failure(u, c, "Expected a string.");
-	}
-
-	if (u === "") {
-		return t.failure(u, c, "String cannot be empty.");
-	}
-
+const validFormat = (u: string): Either<NonEmptyArray<string>, [number, string]> => {
 	const tokens = u.split(" ");
 	if (tokens.length !== 2) {
-		return t.failure(u, c, "Expected a number followed by a Tag.");
+		return left(["Expected a number followed by an Item."]);
 	}
-
-	const count = Number(tokens[0]);
-	if (!Number.isInteger(count) || count <= 0 || count > 64) {
-		return t.failure(u, c, "Tag count must be an integer between 1 and 64.");
+	const [count, name] = tokens;
+	if (Number.isNaN(+count)) {
+		return left(["Expected a number followed by an Item."]);
 	}
+	return right([+count, name]);
+};
 
+const validCount = (u: number): Either<NonEmptyArray<string>, number> =>
+	Number.isInteger(u) && u > 0 && u <= 64 ? right(u) : left(["Item count must be an integer between 1 and 64."]);
+
+export function parseTags(u: unknown): Either<NonEmptyArray<string>, Tags> {
 	return pipe(
-		Tag.validate(tokens[1], c),
-		map(tag => tags(tag.name, count, tag.namespace)),
+		expectedString(u),
+		chain(s => seqT(nonEmpty(s), validFormat(s))),
+		chain(([_, [count, name]]) => seqT(validCount(count), parseTag(name))),
+		map(([count, item]) => tags(item.name, count, item.namespace)),
 	);
 }
-
-export const Tags = new t.Type<Tags, Tags, unknown>("Tags", is, validate, t.identity);
 
 export function tags(name: string, count: number, namespace = "minecraft"): Tags {
 	if (name.includes(":")) {

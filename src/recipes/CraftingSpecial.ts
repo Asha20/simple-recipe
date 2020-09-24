@@ -1,6 +1,8 @@
-import * as t from "io-ts";
+import { NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
+import { Either, chain, right, left } from "fp-ts/lib/Either";
+import { pipe } from "fp-ts/lib/function";
+import { isObject, hasKeys } from "../util";
 
-export type OwnCraftingSpecial = t.TypeOf<typeof OwnCraftingSpecial>;
 export interface MCCraftingSpecial {
 	type:
 		| "minecraft:crafting_special_armordye"
@@ -18,32 +20,51 @@ export interface MCCraftingSpecial {
 		| "minecraft:crafting_special_suspiciousstew";
 }
 
-const OwnCraftingSpecial = t.type({
-	type: t.keyof({
-		armordye: null,
-		bannerduplicate: null,
-		bookcloning: null,
-		firework_rocket: null,
-		firework_star: null,
-		firework_star_fade: null,
-		mapcloning: null,
-		mapextending: null,
-		repairitem: null,
-		shielddecoration: null,
-		shulkerboxcoloring: null,
-		tippedarrow: null,
-		suspiciousstew: null,
-	}),
-});
+export interface OwnCraftingSpecial {
+	type:
+		| "armordye"
+		| "bannerduplicate"
+		| "bookcloning"
+		| "firework_rocket"
+		| "firework_star"
+		| "firework_star_fade"
+		| "mapcloning"
+		| "mapextending"
+		| "repairitem"
+		| "shielddecoration"
+		| "shulkerboxcoloring"
+		| "tippedarrow"
+		| "suspiciousstew";
+}
 
-function encode(x: OwnCraftingSpecial): MCCraftingSpecial {
+export function parseCraftingSpecial(u: unknown): Either<NonEmptyArray<string>, OwnCraftingSpecial> {
+	return pipe(
+		isObject(u),
+		chain(o => hasKeys(o, "type")),
+		chain(o => {
+			switch (o.type) {
+				case "armordye":
+				case "bannerduplicate":
+				case "bookcloning":
+				case "firework_rocket":
+				case "firework_star":
+				case "firework_star_fade":
+				case "mapcloning":
+				case "mapextending":
+				case "repairitem":
+				case "shielddecoration":
+				case "shulkerboxcoloring":
+				case "tippedarrow":
+				case "suspiciousstew":
+					return right(o as OwnCraftingSpecial);
+				default:
+					return left(["Unknown type"]);
+			}
+		}),
+	);
+}
+
+export function encodeCraftingSpecial(x: OwnCraftingSpecial): MCCraftingSpecial {
 	const type = ("minecraft:crafting_special_" + x.type) as MCCraftingSpecial["type"];
 	return { type };
 }
-
-export const CraftingSpecial = new t.Type<OwnCraftingSpecial, MCCraftingSpecial, unknown>(
-	"CraftingSpecial",
-	OwnCraftingSpecial.is,
-	OwnCraftingSpecial.validate,
-	encode,
-);

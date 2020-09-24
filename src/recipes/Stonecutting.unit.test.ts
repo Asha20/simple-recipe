@@ -1,12 +1,12 @@
 import * as assert from "assert";
 import { isRight } from "fp-ts/lib/Either";
-import { Stonecutting } from "./Stonecutting";
+import { parseStonecutting, encodeStonecutting } from "./Stonecutting";
 import { item, items, tag } from "../parts";
 import { itemIng, tagIng } from "./common";
 
 describe("Stonecutting", () => {
 	test("decode and encode 1", () => {
-		const recipe = Stonecutting.decode({
+		const recipe = parseStonecutting({
 			type: "stonecutting",
 			ingredients: "apple",
 			result: "1 apple",
@@ -19,7 +19,7 @@ describe("Stonecutting", () => {
 		});
 
 		assert(isRight(recipe));
-		expect(Stonecutting.encode(recipe.right)).toEqual({
+		expect(encodeStonecutting(recipe.right)).toEqual({
 			type: "minecraft:stonecutting",
 			ingredient: itemIng("apple"),
 			result: "minecraft:apple",
@@ -28,7 +28,7 @@ describe("Stonecutting", () => {
 	});
 
 	test("decode and encode 2", () => {
-		const recipe = Stonecutting.decode({
+		const recipe = parseStonecutting({
 			type: "stonecutting",
 			ingredients: "+breakable",
 			result: "4 dirt",
@@ -41,7 +41,7 @@ describe("Stonecutting", () => {
 		});
 
 		assert(isRight(recipe));
-		expect(Stonecutting.encode(recipe.right)).toEqual({
+		expect(encodeStonecutting(recipe.right)).toEqual({
 			type: "minecraft:stonecutting",
 			ingredient: tagIng("breakable"),
 			result: "minecraft:dirt",
@@ -50,7 +50,7 @@ describe("Stonecutting", () => {
 	});
 
 	test("decode and encode 3", () => {
-		const recipe = Stonecutting.decode({
+		const recipe = parseStonecutting({
 			type: "stonecutting",
 			ingredients: ["apple", "+edible", "foo:bar"],
 			result: "3 apple",
@@ -63,7 +63,7 @@ describe("Stonecutting", () => {
 		});
 
 		assert(isRight(recipe));
-		expect(Stonecutting.encode(recipe.right)).toEqual({
+		expect(encodeStonecutting(recipe.right)).toEqual({
 			type: "minecraft:stonecutting",
 			ingredient: [itemIng("apple"), tagIng("edible"), itemIng("bar", "foo")],
 			result: "minecraft:apple",

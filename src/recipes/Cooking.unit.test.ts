@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import { isRight } from "fp-ts/lib/Either";
-import { Cooking } from "./Cooking";
+import { parseCooking, encodeCooking } from "./Cooking";
 import { item } from "../parts";
 import { itemIng } from "./common";
 
@@ -8,7 +8,7 @@ describe("Cooking", () => {
 	describe("invalid inputs", () => {
 		test("Missing cookingtime and experience", () => {
 			expect(
-				Cooking.decode({
+				parseCooking({
 					type: "blasting",
 					ingredients: "cobblestone",
 					result: "stone",
@@ -18,7 +18,7 @@ describe("Cooking", () => {
 
 		test("cookingtime not an int", () => {
 			expect(
-				Cooking.decode({
+				parseCooking({
 					type: "blasting",
 					ingredients: "cobblestone",
 					cookingtime: 12.5,
@@ -30,7 +30,7 @@ describe("Cooking", () => {
 
 		test("cookingtime isn't positive", () => {
 			expect(
-				Cooking.decode({
+				parseCooking({
 					type: "blasting",
 					ingredients: "cobblestone",
 					cookingtime: 0,
@@ -42,7 +42,7 @@ describe("Cooking", () => {
 
 		test("experience isn't positive", () => {
 			expect(
-				Cooking.decode({
+				parseCooking({
 					type: "blasting",
 					ingredients: "cobblestone",
 					cookingtime: 100,
@@ -55,7 +55,7 @@ describe("Cooking", () => {
 
 	describe("Valid recipes", () => {
 		test("blasting", () => {
-			const recipe = Cooking.decode({
+			const recipe = parseCooking({
 				type: "blasting",
 				ingredients: "cobblestone",
 				cookingtime: 100,
@@ -72,7 +72,7 @@ describe("Cooking", () => {
 			});
 
 			assert(isRight(recipe));
-			expect(Cooking.encode(recipe.right)).toEqual({
+			expect(encodeCooking(recipe.right)).toEqual({
 				type: "minecraft:blasting",
 				ingredient: itemIng("cobblestone"),
 				cookingtime: 100,
@@ -82,7 +82,7 @@ describe("Cooking", () => {
 		});
 
 		test("campfire cooking", () => {
-			const recipe = Cooking.decode({
+			const recipe = parseCooking({
 				type: "campfire_cooking",
 				ingredients: "cod",
 				cookingtime: 100,
@@ -99,7 +99,7 @@ describe("Cooking", () => {
 			});
 
 			assert(isRight(recipe));
-			expect(Cooking.encode(recipe.right)).toEqual({
+			expect(encodeCooking(recipe.right)).toEqual({
 				type: "minecraft:campfire_cooking",
 				ingredient: itemIng("cod"),
 				cookingtime: 100,

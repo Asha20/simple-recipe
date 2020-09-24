@@ -2,52 +2,32 @@ import * as fs from "fs";
 import * as yaml from "js-yaml";
 import { left, Either, either } from "fp-ts/Either";
 import { pipe } from "fp-ts/lib/function";
-import { Errors } from "io-ts";
-import { Recipe } from "./recipes";
+import { Recipe, parseRecipe } from "./recipes";
+import { NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
 
-type ParsedRecipes = Array<Either<string | Errors, Recipe>>;
+type ParsedRecipes = Array<Either<NonEmptyArray<string>, Recipe>>;
 
 function parseYAML(yamlContent: string): ParsedRecipes {
 	try {
 		const x = yaml.safeLoad(yamlContent);
 		if (!Array.isArray(x)) {
-			return [left("Expected an array of recipes.")];
+			return [left(["Expected an array of recipes."])];
 		}
 
 		if (x.length === 0) {
-			return [left("Expected at least one recipe.")];
+			return [left(["Expected at least one recipe."])];
 		}
 
-		return x.map(Recipe.decode);
+		return x.map(parseRecipe);
 	} catch (e) {
-		return [left("Could not parse YAML.")];
+		return [left(["Could not parse YAML."])];
 	}
 }
 
-const identifierRegex = /^[a-z_]\w*$/i;
-
-function stringifyError(errors: string | Errors, index: number) {
+function stringifyError(errors: NonEmptyArray<string>, index: number) {
 	let origin = `root[${index}]`;
 
-	if (typeof errors === "string") {
-		return origin + ": " + errors;
-	}
-
-	const error = errors.find(x => x.message) ?? errors[0];
-
-	const context = error.context;
-	for (const ctx of context) {
-		if (ctx.key && Number.isNaN(+ctx.key)) {
-			origin += identifierRegex.test(ctx.key) ? "." + ctx.key : '["' + ctx.key + '"]';
-		}
-	}
-
-	const lastContext = context[context.length - 1];
-
-	if (error.message) {
-		return origin + ": " + error.message;
-	}
-	return `${origin}: Expected ${lastContext.type.name}, got "${lastContext.actual}"`;
+	return errors.map(x => `${origin}: ${x}`).join("\n");
 }
 
 // prettier-ignore

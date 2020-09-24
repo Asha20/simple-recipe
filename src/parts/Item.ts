@@ -1,7 +1,11 @@
-import * as t from "io-ts";
-import { Either } from "fp-ts/lib/Either";
+import { some, none, Option, isSome } from "fp-ts/lib/Option";
+import { Either, left, right, chain } from "fp-ts/lib/Either";
+import { NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
 import { config } from "../config";
 import { items, findSuggestions } from "../items";
+import { pipe } from "fp-ts/lib/pipeable";
+import { sequenceT } from "fp-ts/lib/Apply";
+import { applicativeValidation, expectedString, nonEmpty } from "../util";
 
 export interface Item {
 	type: "item";
@@ -12,13 +16,33 @@ export interface Item {
 const withNamespaceRegex = /^(\w+):(\w+)$/;
 const withoutNamespaceRegex = /^(\w+)$/;
 
-function validateItem(u: unknown, c: t.Context, namespace: string, name: string): Either<t.Errors, Item> {
+function matchItem(x: string): Option<Item> {
+	let match = x.match(withNamespaceRegex);
+	if (match) {
+		return some(item(match[2], match[1]));
+	}
+	match = x.match(withoutNamespaceRegex);
+	if (match) {
+		return some(item(match[1]));
+	}
+	return none;
+}
+
+const cannotStartWithPlus = (u: string): Either<NonEmptyArray<string>, string> =>
+	!u.startsWith("+") ? right(u) : left(['An Item cannot start with "+".']);
+
+const validFormat = (u: string): Either<NonEmptyArray<string>, Item> => {
+	const item = matchItem(u);
+	return isSome(item) ? right(item.value) : left(["Invalid Item format was provided."]);
+};
+
+function validItemName({ name, namespace }: Item): Either<NonEmptyArray<string>, Item> {
 	if (namespace !== "minecraft") {
-		return t.success(item(name, namespace));
+		return right(item(name, namespace));
 	}
 
 	if (items[config.target].has(name)) {
-		return t.success(item(name, namespace));
+		return right(item(name, namespace));
 	}
 
 	const suggestions = findSuggestions(config.target, name, 0.6, 3);
@@ -27,49 +51,19 @@ function validateItem(u: unknown, c: t.Context, namespace: string, name: string)
 	const perhapsYouMeant = `Perhaps you meant one of the following?\n\n${suggestionsString}`;
 
 	if (suggestions.length === 0) {
-		return t.failure(u, c, unknownItem);
+		return left([unknownItem]);
 	}
 
-	return t.failure(u, c, unknownItem + "\n\n" + perhapsYouMeant);
+	return left([unknownItem + "\n\n" + perhapsYouMeant]);
 }
 
-function is(u: unknown): u is Item {
-	return (
-		typeof u === "object" &&
-		!!u &&
-		(u as any).type === "item" &&
-		typeof (u as any).namespace === "string" &&
-		typeof (u as any).name === "string"
+export function parseItem(u: unknown): Either<NonEmptyArray<string>, Item> {
+	return pipe(
+		expectedString(u),
+		chain(s => sequenceT(applicativeValidation)(nonEmpty(s), cannotStartWithPlus(s), validFormat(s))),
+		chain(([_, __, item]) => validItemName(item)),
 	);
 }
-
-function validate(u: unknown, c: t.Context): Either<t.Errors, Item> {
-	if (typeof u !== "string") {
-		return t.failure(u, c, "Expected a string.");
-	}
-
-	if (u === "") {
-		return t.failure(u, c, "String cannot be empty.");
-	}
-
-	if (u.startsWith("+")) {
-		return t.failure(u, c, 'An Item cannot start with "+".');
-	}
-
-	let match = u.match(withNamespaceRegex);
-	if (match) {
-		return validateItem(u, c, match[1], match[2]);
-	}
-
-	match = u.match(withoutNamespaceRegex);
-	if (match) {
-		return validateItem(u, c, "minecraft", match[1]);
-	}
-
-	return t.failure(u, c, "Invalid Item format was provided.");
-}
-
-export const Item = new t.Type<Item, Item, unknown>("Item", is, validate, t.identity);
 
 export function item(name: string, namespace = "minecraft"): Item {
 	if (name.includes(":")) {

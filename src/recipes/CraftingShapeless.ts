@@ -1,10 +1,10 @@
-import * as t from "io-ts";
-import { Items, Stack } from "../parts";
+import { Items, Stack, parseStack, parseItems } from "../parts";
 import { Ingredient, toIngredients, stringify } from "./common";
-import { Either, chain } from "fp-ts/lib/Either";
+import { Either, chain, right, left } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/pipeable";
+import { NonEmptyArray, of } from "fp-ts/lib/NonEmptyArray";
+import { seqS, isObject, hasKeys } from "../util";
 
-export type OwnCraftingShapeless = t.TypeOf<typeof OwnCraftingShapeless>;
 export interface MCCraftingShapeless {
 	type: "minecraft:crafting_shapeless";
 	ingredients: Ingredient[];
@@ -14,13 +14,27 @@ export interface MCCraftingShapeless {
 	};
 }
 
-const OwnCraftingShapeless = t.type({
-	type: t.literal("crafting_shapeless"),
-	ingredients: Stack,
-	result: Items,
-});
+export interface OwnCraftingShapeless {
+	type: "crafting_shapeless";
+	ingredients: Stack;
+	result: Items;
+}
 
-function encode(x: OwnCraftingShapeless): MCCraftingShapeless {
+export function parseCraftingShapeless(u: unknown): Either<NonEmptyArray<string>, OwnCraftingShapeless> {
+	return pipe(
+		isObject(u),
+		chain(o => hasKeys(o, "type", "ingredients", "result")),
+		chain(o =>
+			seqS({
+				type: o.type === "crafting_shapeless" ? right(o.type) : left(of("Wrong type")),
+				ingredients: parseStack(o.ingredients),
+				result: parseItems(o.result),
+			}),
+		),
+	);
+}
+
+export function encodeCraftingShapeless(x: OwnCraftingShapeless): MCCraftingShapeless {
 	const type = ("minecraft:" + x.type) as MCCraftingShapeless["type"];
 	return {
 		type,
@@ -31,22 +45,3 @@ function encode(x: OwnCraftingShapeless): MCCraftingShapeless {
 		},
 	};
 }
-
-function validate(u: unknown, c: t.Context): Either<t.Errors, OwnCraftingShapeless> {
-	return pipe(
-		OwnCraftingShapeless.validate(u, c),
-		chain(x => {
-			const ingredients = toIngredients(x.ingredients);
-			if (ingredients.length > 9) return t.failure(u, c, "Too many ingredients");
-			if (ingredients.length === 0) return t.failure(u, c, "Missing ingredients");
-			return t.success(x);
-		}),
-	);
-}
-
-export const CraftingShapeless = new t.Type<OwnCraftingShapeless, MCCraftingShapeless, unknown>(
-	"CraftingShapeless",
-	OwnCraftingShapeless.is,
-	validate,
-	encode,
-);

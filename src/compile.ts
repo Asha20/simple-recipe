@@ -7,7 +7,7 @@ import * as chalk from "chalk";
 import * as watcher from "./watcher";
 import { parseRecipes } from "./parser";
 import { isRight } from "fp-ts/lib/Either";
-import { Recipe } from "./recipes";
+import { Recipe, encodeRecipe } from "./recipes";
 import { log, clearConsole } from "./util";
 
 type Cache = Map<
@@ -44,7 +44,7 @@ function processRecipes(outputDir: string, recipes: ValidRecipe[]) {
 		mkdirp.sync(path.resolve(outputDir, dirname)); // TODO: Handle throw
 		// Remove meta properties
 		delete recipe._name;
-		const stringRecipe = JSON.stringify(Recipe.encode(recipe), null, 2);
+		const stringRecipe = JSON.stringify(encodeRecipe(recipe), null, 2);
 		fs.writeFileSync(path.resolve(outputDir, dirname, outFile), stringRecipe);
 	}
 }
@@ -78,8 +78,9 @@ function printFailedRecipes(fails: FailedRecipe[]) {
 	for (const [origin, messages] of groupedByOrigin) {
 		log(chalk.red(`  ✗ ${origin}\n`));
 		for (const message of messages) {
-			const [path, msg] = message.split(": ");
-			log(chalk`{cyan ${path}:} {white ${msg}}`);
+			// const [path, msg] = message.split(": ");
+			// log(chalk`{cyan ${path}:} {white ${msg}}`);
+			log(message);
 		}
 		log("\n\n");
 	}

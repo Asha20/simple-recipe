@@ -1,14 +1,13 @@
-import * as path from "path";
+import * as chalk from "chalk";
+import { isRight } from "fp-ts/lib/Either";
+import * as fs from "fs";
 import * as glob from "glob";
 import * as mkdirp from "mkdirp";
+import * as path from "path";
 import * as rimraf from "rimraf";
-import * as fs from "fs";
-import * as chalk from "chalk";
-import * as watcher from "./watcher";
-import { parseRecipes } from "./parser";
-import { isRight } from "fp-ts/lib/Either";
-import { Recipe, encodeRecipe } from "./recipes";
-import { log, clearConsole, ValidationError } from "./util";
+import { parseRecipes } from "../parser";
+import { encodeRecipe, Recipe } from "../recipes";
+import { log, ValidationError } from "../util";
 
 type Cache = Map<
 	string,
@@ -156,11 +155,4 @@ export function compile(inputDir: string, outputDir: string) {
 	printDuplicates(duplicateRecipes);
 	log("\n\n");
 	printFailedRecipes(failedRecipes);
-}
-
-export function watch(inputDir: string, outputDir: string) {
-	return watcher.watch(inputDir, () => {
-		clearConsole();
-		compile(inputDir, outputDir);
-	});
 }

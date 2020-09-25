@@ -1,5 +1,7 @@
 import * as path from "path";
 import * as chokidar from "chokidar";
+import { compile } from "./compile";
+import { clearConsole } from "../util";
 
 export interface WatcherEvent {
 	type: "add" | "addDir" | "change" | "unlink" | "unlinkDir";
@@ -12,7 +14,7 @@ let batch: WatcherEvent[] = [];
 let batchTimeout: NodeJS.Timeout;
 const BATCH_INTERVAL = 100;
 
-export function watch(dirname: string, handler: WatcherEventHandler) {
+function batchWatch(dirname: string, handler: WatcherEventHandler) {
 	const watcher = chokidar.watch(path.join(dirname, "**/*.yml"), { cwd: dirname });
 
 	watcher.on("all", (type, path) => {
@@ -25,4 +27,11 @@ export function watch(dirname: string, handler: WatcherEventHandler) {
 	});
 
 	return watcher;
+}
+
+export function watch(inputDir: string, outputDir: string) {
+	return batchWatch(inputDir, () => {
+		clearConsole();
+		compile(inputDir, outputDir);
+	});
 }

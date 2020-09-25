@@ -3,7 +3,7 @@ import * as glob from "glob";
 import * as yaml from "js-yaml";
 import * as mkdirp from "mkdirp";
 import * as path from "path";
-import { decodeRecipe, MCRecipe } from "./recipes";
+import { decodeRecipe, MCRecipe } from "../recipes";
 
 export function migrate(inputDir: string, outputDir: string) {
 	const groupedByDirname = glob.sync("**/*.json", { cwd: inputDir }).reduce<Map<string, string[]>>((acc, file) => {

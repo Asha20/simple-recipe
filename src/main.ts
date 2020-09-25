@@ -2,8 +2,7 @@ import * as path from "path";
 import { Command } from "commander";
 import { availableVersions, validTarget } from "./items";
 import { config } from "./config";
-import { migrate } from "./migrate";
-import { compile, watch } from "./compile";
+import { migrate, compile, watch } from "./commands";
 
 interface Options {
 	target: string;

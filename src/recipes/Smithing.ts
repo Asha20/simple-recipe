@@ -1,9 +1,9 @@
-import { ItemOrTag, Item, parseItemOrTag, parseItem } from "../parts";
-import { Ingredient, stringify, toIngredient, ItemIngredient } from "./common";
-import { NonEmptyArray, of } from "fp-ts/lib/NonEmptyArray";
-import { Either, chain, right, left } from "fp-ts/lib/Either";
+import { chain, left, right } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/function";
-import { isObject, hasKeys, seqS } from "../util";
+import { of } from "fp-ts/lib/NonEmptyArray";
+import { Item, ItemOrTag, parseItem, parseItemOrTag } from "../parts";
+import { hasKeys, isObject, PEither, seqS, err } from "../util";
+import { Ingredient, ItemIngredient, stringify, toIngredient } from "./common";
 
 export interface MCSmithing {
 	type: "minecraft:smithing";
@@ -19,13 +19,13 @@ export interface OwnSmithing {
 	result: Item;
 }
 
-export function parseSmithing(u: unknown): Either<NonEmptyArray<string>, OwnSmithing> {
+export function parseSmithing(u: unknown): PEither<OwnSmithing> {
 	return pipe(
 		isObject(u),
 		chain(o => hasKeys(o, "type", "base", "addition", "result")),
 		chain(o =>
 			seqS({
-				type: o.type === "smithing" ? right(o.type) : left(of("Wrong type")),
+				type: o.type === "smithing" ? right(o.type) : left(of(err("Wrong type"))),
 				base: parseItemOrTag(o.base),
 				addition: parseItemOrTag(o.addition),
 				result: parseItem(o.result),

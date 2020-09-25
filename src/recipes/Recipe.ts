@@ -1,18 +1,18 @@
-import { parseCraftingShaped, MCCraftingShaped, OwnCraftingShaped, encodeCraftingShaped } from "./CraftingShaped";
+import { chain, left, map, right } from "fp-ts/lib/Either";
+import { of } from "fp-ts/lib/NonEmptyArray";
+import { pipe } from "fp-ts/lib/pipeable";
+import { hasKeys, isObject, PEither, seqT, err } from "../util";
+import { encodeCooking, MCCooking, OwnCooking, parseCooking } from "./Cooking";
+import { encodeCraftingShaped, MCCraftingShaped, OwnCraftingShaped, parseCraftingShaped } from "./CraftingShaped";
 import {
-	parseCraftingShapeless,
+	encodeCraftingShapeless,
 	MCCraftingShapeless,
 	OwnCraftingShapeless,
-	encodeCraftingShapeless,
+	parseCraftingShapeless,
 } from "./CraftingShapeless";
-import { parseCooking, MCCooking, OwnCooking, encodeCooking } from "./Cooking";
-import { parseStonecutting, MCStonecutting, OwnStonecutting, encodeStonecutting } from "./Stonecutting";
-import { parseSmithing, MCSmithing, OwnSmithing, encodeSmithing } from "./Smithing";
-import { parseCraftingSpecial, MCCraftingSpecial, OwnCraftingSpecial, encodeCraftingSpecial } from "./CraftingSpecial";
-import { Either, chain, left, isRight, right, map } from "fp-ts/lib/Either";
-import { pipe } from "fp-ts/lib/pipeable";
-import { isObject, hasKeys, seqT } from "../util";
-import { NonEmptyArray, of } from "fp-ts/lib/NonEmptyArray";
+import { encodeCraftingSpecial, MCCraftingSpecial, OwnCraftingSpecial, parseCraftingSpecial } from "./CraftingSpecial";
+import { encodeSmithing, MCSmithing, OwnSmithing, parseSmithing } from "./Smithing";
+import { encodeStonecutting, MCStonecutting, OwnStonecutting, parseStonecutting } from "./Stonecutting";
 
 export type OwnRecipe =
 	| OwnCraftingShaped
@@ -62,13 +62,13 @@ const validTypesSet = new Set(validTypes);
 
 export type Recipe = OwnRecipe & RecipeMeta;
 
-const validateRecipeName = (u: unknown): Either<NonEmptyArray<string>, string> =>
-	typeof u === "string" && u.length ? right(u) : left(of("_name must be a non-empty string."));
+const validateRecipeName = (u: unknown): PEither<string> =>
+	typeof u === "string" && u.length ? right(u) : left(of(err("_name must be a non-empty string.")));
 
-const validateType = (u: unknown): Either<NonEmptyArray<string>, OwnRecipe["type"]> =>
-	typeof u === "string" && validTypesSet.has(u) ? right(u as OwnRecipe["type"]) : left(of("Unknown type given."));
+const validateType = (u: unknown): PEither<OwnRecipe["type"]> =>
+	typeof u === "string" && validTypesSet.has(u) ? right(u as OwnRecipe["type"]) : left(of(err("Unknown type given.")));
 
-function parseOwnRecipe(u: unknown, type: OwnRecipe["type"]): Either<NonEmptyArray<string>, OwnRecipe> {
+function parseOwnRecipe(u: unknown, type: OwnRecipe["type"]): PEither<OwnRecipe> {
 	switch (type) {
 		case "crafting_shaped":
 			return parseCraftingShaped(u);
@@ -88,7 +88,7 @@ function parseOwnRecipe(u: unknown, type: OwnRecipe["type"]): Either<NonEmptyArr
 	}
 }
 
-export function parseRecipe(u: unknown): Either<NonEmptyArray<string>, Recipe> {
+export function parseRecipe(u: unknown): PEither<Recipe> {
 	return pipe(
 		isObject(u),
 		chain(o => hasKeys(o, "_name", "type")),
@@ -118,6 +118,6 @@ export function encodeRecipe(recipe: OwnRecipe): MCRecipe {
 	}
 }
 
-export function parseRecipes(u: unknown): Either<NonEmptyArray<string>, OwnRecipe[]> {
-	return pipe(Array.isArray(u) ? right(u) : left(["Expected an array."]));
+export function parseRecipes(u: unknown): PEither<OwnRecipe[]> {
+	return pipe(Array.isArray(u) ? right(u) : left([err("Expected an array.")]));
 }

@@ -1,9 +1,9 @@
-import { ItemOrTag, ItemOrTags, Item, parseItem, parseItemOrTag } from "../parts";
-import { Ingredient, toIngredients, stringify } from "./common";
-import { pipe } from "fp-ts/lib/pipeable";
-import { Either, chain, right, left, isRight, Right, Left, isLeft } from "fp-ts/lib/Either";
-import { isObject, hasKeys, seqS } from "../util";
+import { chain, isLeft, isRight, left, Left, right, Right } from "fp-ts/lib/Either";
 import { NonEmptyArray, of } from "fp-ts/lib/NonEmptyArray";
+import { pipe } from "fp-ts/lib/pipeable";
+import { Item, ItemOrTag, ItemOrTags, parseItem, parseItemOrTag } from "../parts";
+import { hasKeys, isObject, PEither, seqS, err, ValidationError } from "../util";
+import { Ingredient, stringify, toIngredients } from "./common";
 
 export interface MCCooking {
 	type: "minecraft:blasting" | "minecraft:campfire_cooking" | "minecraft:smelting" | "minecraft:smoking";
@@ -21,14 +21,14 @@ export interface OwnCooking {
 	result: Item;
 }
 
-function parseIngredients(u: unknown): Either<NonEmptyArray<string>, ItemOrTag | ItemOrTags> {
+function parseIngredients(u: unknown): PEither<ItemOrTag | ItemOrTags> {
 	const itemOrTag = parseItemOrTag(u);
 	if (isRight(itemOrTag)) {
 		return itemOrTag;
 	}
 
 	if (!Array.isArray(u)) {
-		return left(["Expected an Item, a Tag, or an array of Item or Tag."]);
+		return left([err("Expected an Item, a Tag, or an array of Item or Tag.")]);
 	}
 
 	const parsed = u.map((x, index) => ({ index, result: parseItemOrTag(x) }));
@@ -39,22 +39,24 @@ function parseIngredients(u: unknown): Either<NonEmptyArray<string>, ItemOrTag |
 
 	return left(
 		parsed
-			.filter((x): x is { index: number; result: Left<NonEmptyArray<string>> } => isLeft(x.result))
-			.map(x => `${x.index}: ${x.result.left}`) as NonEmptyArray<string>,
+			.filter((x): x is { index: number; result: Left<NonEmptyArray<ValidationError>> } => isLeft(x.result))
+			.flatMap(x => x.result.left.map(y => err(y.message, [x.index.toString(), ...y.origin]))) as NonEmptyArray<
+			ValidationError
+		>,
 	);
 }
 
-function parseExperience(u: unknown): Either<NonEmptyArray<string>, number> {
+function parseExperience(u: unknown): PEither<number> {
 	const n = Number(u);
-	return !Number.isNaN(n) && n > 0 ? right(n) : left(["Expected a positive number."]);
+	return !Number.isNaN(n) && n > 0 ? right(n) : left([err("Expected a positive number.")]);
 }
 
-function parseCookingtime(u: unknown): Either<NonEmptyArray<string>, number> {
+function parseCookingtime(u: unknown): PEither<number> {
 	const n = Number(u);
-	return !Number.isNaN(n) && Number.isInteger(n) && n > 0 ? right(n) : left(["Expected a positive integer."]);
+	return !Number.isNaN(n) && Number.isInteger(n) && n > 0 ? right(n) : left([err("Expected a positive integer.")]);
 }
 
-export function parseCooking(u: unknown): Either<NonEmptyArray<string>, OwnCooking> {
+export function parseCooking(u: unknown): PEither<OwnCooking> {
 	return pipe(
 		isObject(u),
 		chain(o => hasKeys(o, "type", "ingredients", "experience", "cookingtime", "result")),
@@ -63,7 +65,7 @@ export function parseCooking(u: unknown): Either<NonEmptyArray<string>, OwnCooki
 				type:
 					o.type === "blasting" || o.type === "campfire_cooking" || o.type === "smelting" || o.type === "smoking"
 						? right(o.type)
-						: left(of("Wrong type")),
+						: left(of(err("Wrong type"))),
 				ingredients: parseIngredients(o.ingredients),
 				experience: parseExperience(o.experience),
 				cookingtime: parseCookingtime(o.cookingtime),

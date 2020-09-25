@@ -1,9 +1,9 @@
-import { Either, right, left, chain, map } from "fp-ts/lib/Either";
-import { NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
-import { Option, some, isSome, none } from "fp-ts/lib/Option";
-import { pipe } from "fp-ts/lib/pipeable";
 import { sequenceT } from "fp-ts/lib/Apply";
-import { applicativeValidation, expectedString, nonEmpty } from "../util";
+import { chain, left, map, right } from "fp-ts/lib/Either";
+import { isSome, none, Option, some } from "fp-ts/lib/Option";
+import { pipe } from "fp-ts/lib/pipeable";
+import { applicativeValidation, expectedString, nonEmpty, PEither, err } from "../util";
+import { of } from "fp-ts/lib/NonEmptyArray";
 
 export interface Tag {
 	type: "tag";
@@ -26,15 +26,15 @@ function matchTag(x: string): Option<Tag> {
 	return none;
 }
 
-const cannotStartWithPlus = (u: string): Either<NonEmptyArray<string>, string> =>
-	u.startsWith("+") ? right(u) : left(['A Tag must start with "+".']);
+const cannotStartWithPlus = (u: string): PEither<string> =>
+	u.startsWith("+") ? right(u) : left(of(err('A Tag must start with "+".')));
 
-const validFormat = (u: string): Either<NonEmptyArray<string>, Tag> => {
+const validFormat = (u: string): PEither<Tag> => {
 	const tag = matchTag(u);
-	return isSome(tag) ? right(tag.value) : left(["Invalid Tag format was provided."]);
+	return isSome(tag) ? right(tag.value) : left([err("Invalid Tag format was provided.")]);
 };
 
-export function parseTag(u: unknown): Either<NonEmptyArray<string>, Tag> {
+export function parseTag(u: unknown): PEither<Tag> {
 	return pipe(
 		expectedString(u),
 		chain(s => sequenceT(applicativeValidation)(nonEmpty(s), cannotStartWithPlus(s), validFormat(s))),

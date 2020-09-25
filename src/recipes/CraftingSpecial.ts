@@ -1,7 +1,6 @@
-import { NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
-import { Either, chain, right, left } from "fp-ts/lib/Either";
+import { chain, left, right } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/function";
-import { isObject, hasKeys } from "../util";
+import { hasKeys, isObject, PEither, err } from "../util";
 
 export interface MCCraftingSpecial {
 	type:
@@ -37,7 +36,7 @@ export interface OwnCraftingSpecial {
 		| "suspiciousstew";
 }
 
-export function parseCraftingSpecial(u: unknown): Either<NonEmptyArray<string>, OwnCraftingSpecial> {
+export function parseCraftingSpecial(u: unknown): PEither<OwnCraftingSpecial> {
 	return pipe(
 		isObject(u),
 		chain(o => hasKeys(o, "type")),
@@ -58,7 +57,7 @@ export function parseCraftingSpecial(u: unknown): Either<NonEmptyArray<string>, 
 				case "suspiciousstew":
 					return right(o as OwnCraftingSpecial);
 				default:
-					return left(["Unknown type"]);
+					return left([err("Unknown type")]);
 			}
 		}),
 	);

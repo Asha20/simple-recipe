@@ -1,9 +1,9 @@
-import { ItemOrTag, ItemOrTags, Items, parseItems, parseItemOrTag } from "../parts";
-import { toIngredients, Ingredient, stringify } from "./common";
-import { NonEmptyArray, of } from "fp-ts/lib/NonEmptyArray";
-import { Either, chain, right, left, isRight, Right, Left, isLeft } from "fp-ts/lib/Either";
+import { chain, isLeft, isRight, left, Left, right, Right } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/function";
-import { isObject, hasKeys, seqS } from "../util";
+import { NonEmptyArray, of } from "fp-ts/lib/NonEmptyArray";
+import { ItemOrTag, ItemOrTags, Items, parseItemOrTag, parseItems } from "../parts";
+import { hasKeys, isObject, PEither, seqS, err, ValidationError } from "../util";
+import { Ingredient, stringify, toIngredients } from "./common";
 
 export interface MCStonecutting {
 	type: "minecraft:stonecutting";
@@ -18,14 +18,14 @@ export interface OwnStonecutting {
 	result: Items;
 }
 
-function parseIngredients(u: unknown): Either<NonEmptyArray<string>, ItemOrTag | ItemOrTags> {
+function parseIngredients(u: unknown): PEither<ItemOrTag | ItemOrTags> {
 	const itemOrTag = parseItemOrTag(u);
 	if (isRight(itemOrTag)) {
 		return itemOrTag;
 	}
 
 	if (!Array.isArray(u)) {
-		return left(["Expected an Item, a Tag, or an array of Item or Tag."]);
+		return left([err("Expected an Item, a Tag, or an array of Item or Tag.")]);
 	}
 
 	const parsed = u.map((x, index) => ({ index, result: parseItemOrTag(x) }));
@@ -36,18 +36,20 @@ function parseIngredients(u: unknown): Either<NonEmptyArray<string>, ItemOrTag |
 
 	return left(
 		parsed
-			.filter((x): x is { index: number; result: Left<NonEmptyArray<string>> } => isLeft(x.result))
-			.map(x => `${x.index}: ${x.result.left}`) as NonEmptyArray<string>,
+			.filter((x): x is { index: number; result: Left<NonEmptyArray<ValidationError>> } => isLeft(x.result))
+			.flatMap(x => x.result.left.map(y => err(y.message, [x.index.toString(), ...y.origin]))) as NonEmptyArray<
+			ValidationError
+		>,
 	);
 }
 
-export function parseStonecutting(u: unknown): Either<NonEmptyArray<string>, OwnStonecutting> {
+export function parseStonecutting(u: unknown): PEither<OwnStonecutting> {
 	return pipe(
 		isObject(u),
 		chain(o => hasKeys(o, "type", "ingredients", "result")),
 		chain(o =>
 			seqS({
-				type: o.type === "stonecutting" ? right(o.type) : left(of("Wrong type")),
+				type: o.type === "stonecutting" ? right(o.type) : left(of(err("Wrong type"))),
 				ingredients: parseIngredients(o.ingredients),
 				result: parseItems(o.result),
 			}),

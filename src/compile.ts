@@ -8,7 +8,7 @@ import * as watcher from "./watcher";
 import { parseRecipes } from "./parser";
 import { isRight } from "fp-ts/lib/Either";
 import { Recipe, encodeRecipe } from "./recipes";
-import { log, clearConsole } from "./util";
+import { log, clearConsole, ValidationError } from "./util";
 
 type Cache = Map<
 	string,
@@ -28,7 +28,7 @@ interface ValidRecipe {
 
 interface FailedRecipe {
 	origin: string;
-	message: string;
+	errors: ValidationError[];
 }
 
 interface Duplicate {
@@ -67,20 +67,39 @@ function printValidFiles(files: string[]) {
 	}
 }
 
+const identifierRegex = /^[a-z_]\w*$/i;
+
+function joinPath(path: string[]) {
+	let result = path[0] ?? "";
+	for (let i = 1; i < path.length; i++) {
+		const part = path[i];
+		if (Number.isInteger(+part)) {
+			result += `[${part}]`;
+		} else if (identifierRegex.test(part)) {
+			result += `.${part}`;
+		} else {
+			result += `["${part}"]`;
+		}
+	}
+	return result;
+}
+
 function printFailedRecipes(fails: FailedRecipe[]) {
-	const groupedByOrigin = fails.reduce<Map<string, string[]>>((acc, x) => {
+	const groupedByOrigin = fails.reduce<Map<string, ValidationError[][]>>((acc, x) => {
 		const array = acc.get(x.origin) ?? [];
-		array.push(x.message);
+		array.push(x.errors);
 		acc.set(x.origin, array);
 		return acc;
 	}, new Map());
 
-	for (const [origin, messages] of groupedByOrigin) {
+	for (const [origin, errorGroup] of groupedByOrigin) {
 		log(chalk.red(`  ✗ ${origin}\n`));
-		for (const message of messages) {
-			// const [path, msg] = message.split(": ");
-			// log(chalk`{cyan ${path}:} {white ${msg}}`);
-			log(message);
+		for (const errors of errorGroup) {
+			for (const error of errors) {
+				const path = joinPath(error.origin);
+				const colon = path.length ? ":" : "";
+				log(chalk`{cyan ${path}${colon}} {white ${error.message}}`);
+			}
 		}
 		log("\n\n");
 	}
@@ -119,7 +138,7 @@ export function compile(inputDir: string, outputDir: string) {
 				cache.set(dirname, folderCache);
 				allRecipes.push({ origin: file, recipe: recipe.right });
 			} else {
-				failedRecipes.push({ origin: file, message: recipe.left });
+				failedRecipes.push({ origin: file, errors: recipe.left });
 				invalidFiles.add(file);
 			}
 		}

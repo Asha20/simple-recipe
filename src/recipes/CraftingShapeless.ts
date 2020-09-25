@@ -1,9 +1,9 @@
-import { Items, Stack, parseStack, parseItems } from "../parts";
-import { Ingredient, toIngredients, stringify } from "./common";
-import { Either, chain, right, left } from "fp-ts/lib/Either";
+import { chain, left, right } from "fp-ts/lib/Either";
+import { of } from "fp-ts/lib/NonEmptyArray";
 import { pipe } from "fp-ts/lib/pipeable";
-import { NonEmptyArray, of } from "fp-ts/lib/NonEmptyArray";
-import { seqS, isObject, hasKeys } from "../util";
+import { Items, parseItems, parseStack, Stack } from "../parts";
+import { hasKeys, isObject, PEither, seqS, err } from "../util";
+import { Ingredient, stringify, toIngredients } from "./common";
 
 export interface MCCraftingShapeless {
 	type: "minecraft:crafting_shapeless";
@@ -20,13 +20,13 @@ export interface OwnCraftingShapeless {
 	result: Items;
 }
 
-export function parseCraftingShapeless(u: unknown): Either<NonEmptyArray<string>, OwnCraftingShapeless> {
+export function parseCraftingShapeless(u: unknown): PEither<OwnCraftingShapeless> {
 	return pipe(
 		isObject(u),
 		chain(o => hasKeys(o, "type", "ingredients", "result")),
 		chain(o =>
 			seqS({
-				type: o.type === "crafting_shapeless" ? right(o.type) : left(of("Wrong type")),
+				type: o.type === "crafting_shapeless" ? right(o.type) : left(of(err("Wrong type"))),
 				ingredients: parseStack(o.ingredients),
 				result: parseItems(o.result),
 			}),

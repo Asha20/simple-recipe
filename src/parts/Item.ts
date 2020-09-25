@@ -1,11 +1,11 @@
-import { some, none, Option, isSome } from "fp-ts/lib/Option";
-import { Either, left, right, chain } from "fp-ts/lib/Either";
-import { NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
-import { config } from "../config";
-import { items, findSuggestions } from "../items";
-import { pipe } from "fp-ts/lib/pipeable";
 import { sequenceT } from "fp-ts/lib/Apply";
-import { applicativeValidation, expectedString, nonEmpty } from "../util";
+import { chain, left, right } from "fp-ts/lib/Either";
+import { isSome, none, Option, some } from "fp-ts/lib/Option";
+import { pipe } from "fp-ts/lib/pipeable";
+import { config } from "../config";
+import { findSuggestions, items } from "../items";
+import { applicativeValidation, expectedString, nonEmpty, PEither, err } from "../util";
+import { of } from "fp-ts/lib/NonEmptyArray";
 
 export interface Item {
 	type: "item";
@@ -28,15 +28,15 @@ function matchItem(x: string): Option<Item> {
 	return none;
 }
 
-const cannotStartWithPlus = (u: string): Either<NonEmptyArray<string>, string> =>
-	!u.startsWith("+") ? right(u) : left(['An Item cannot start with "+".']);
+const cannotStartWithPlus = (u: string): PEither<string> =>
+	!u.startsWith("+") ? right(u) : left(of(err('An Item cannot start with "+".')));
 
-const validFormat = (u: string): Either<NonEmptyArray<string>, Item> => {
+const validFormat = (u: string): PEither<Item> => {
 	const item = matchItem(u);
-	return isSome(item) ? right(item.value) : left(["Invalid Item format was provided."]);
+	return isSome(item) ? right(item.value) : left(of(err("Invalid Item format was provided.")));
 };
 
-function validItemName({ name, namespace }: Item): Either<NonEmptyArray<string>, Item> {
+function validItemName({ name, namespace }: Item): PEither<Item> {
 	if (namespace !== "minecraft") {
 		return right(item(name, namespace));
 	}
@@ -51,13 +51,13 @@ function validItemName({ name, namespace }: Item): Either<NonEmptyArray<string>,
 	const perhapsYouMeant = `Perhaps you meant one of the following?\n\n${suggestionsString}`;
 
 	if (suggestions.length === 0) {
-		return left([unknownItem]);
+		return left(of(err(unknownItem)));
 	}
 
-	return left([unknownItem + "\n\n" + perhapsYouMeant]);
+	return left(of(err(unknownItem + "\n\n" + perhapsYouMeant)));
 }
 
-export function parseItem(u: unknown): Either<NonEmptyArray<string>, Item> {
+export function parseItem(u: unknown): PEither<Item> {
 	return pipe(
 		expectedString(u),
 		chain(s => sequenceT(applicativeValidation)(nonEmpty(s), cannotStartWithPlus(s), validFormat(s))),

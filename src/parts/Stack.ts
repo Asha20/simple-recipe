@@ -1,12 +1,13 @@
+import { isLeft, isRight, left, Left, right, Right } from "fp-ts/lib/Either";
+import { concat, NonEmptyArray, of } from "fp-ts/lib/NonEmptyArray";
+import { PEither, err, ValidationError } from "../util";
 import { Items, parseItems } from "./Items";
-import { Tags, parseTags } from "./Tags";
-import { isRight, left, Either, right, Right, Left, isLeft } from "fp-ts/lib/Either";
-import { concat, of, NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
+import { parseTags, Tags } from "./Tags";
 
 type ItemsOrTags = Items | Tags;
 export type Stack = Items | Tags | Stack[];
 
-export function parseItemsOrTags(u: unknown): Either<NonEmptyArray<string>, ItemsOrTags> {
+export function parseItemsOrTags(u: unknown): PEither<ItemsOrTags> {
 	const items = parseItems(u);
 	if (isRight(items)) {
 		return items;
@@ -17,18 +18,18 @@ export function parseItemsOrTags(u: unknown): Either<NonEmptyArray<string>, Item
 		return tags;
 	}
 
-	const errors = concat(concat(of("Expected an ItemStack or a TagStack."), items.left), tags.left);
+	const errors = concat(concat(of(err("Expected an ItemStack or a TagStack.")), items.left), tags.left);
 	return left(errors);
 }
 
-export function parseStack(u: unknown): Either<NonEmptyArray<string>, Stack> {
+export function parseStack(u: unknown): PEither<Stack> {
 	const itemsOrTags = parseItemsOrTags(u);
 	if (isRight(itemsOrTags)) {
 		return itemsOrTags;
 	}
 
 	if (!Array.isArray(u)) {
-		return left(["Expected an ItemStack, a TagStack or an array of ItemStack or TagStack."]);
+		return left([err("Expected an ItemStack, a TagStack or an array of ItemStack or TagStack.")]);
 	}
 
 	const parsed = u.map((x, index) => ({ index, result: parseStack(x) }));
@@ -39,7 +40,9 @@ export function parseStack(u: unknown): Either<NonEmptyArray<string>, Stack> {
 
 	return left(
 		parsed
-			.filter((x): x is { index: number; result: Left<NonEmptyArray<string>> } => isLeft(x.result))
-			.map(x => `${x.index}: ${x.result.left}`) as NonEmptyArray<string>,
+			.filter((x): x is { index: number; result: Left<NonEmptyArray<ValidationError>> } => isLeft(x.result))
+			.flatMap(x => x.result.left.map(y => err(y.message, [x.index.toString(), ...y.origin]))) as NonEmptyArray<
+			ValidationError
+		>,
 	);
 }

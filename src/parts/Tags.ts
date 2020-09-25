@@ -1,8 +1,7 @@
-import { Either, map, right, left, chain } from "fp-ts/lib/Either";
+import { chain, left, map, right } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/pipeable";
+import { expectedString, nonEmpty, PEither, seqT, err } from "../util";
 import { parseTag } from "./Tag";
-import { NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
-import { seqT, expectedString, nonEmpty } from "../util";
 
 export interface Tags {
 	type: "tags";
@@ -11,22 +10,22 @@ export interface Tags {
 	name: string;
 }
 
-const validFormat = (u: string): Either<NonEmptyArray<string>, [number, string]> => {
+const validFormat = (u: string): PEither<[number, string]> => {
 	const tokens = u.split(" ");
 	if (tokens.length !== 2) {
-		return left(["Expected a number followed by an Item."]);
+		return left([err("Expected a number followed by an Item.")]);
 	}
 	const [count, name] = tokens;
 	if (Number.isNaN(+count)) {
-		return left(["Expected a number followed by an Item."]);
+		return left([err("Expected a number followed by an Item.")]);
 	}
 	return right([+count, name]);
 };
 
-const validCount = (u: number): Either<NonEmptyArray<string>, number> =>
-	Number.isInteger(u) && u > 0 && u <= 64 ? right(u) : left(["Item count must be an integer between 1 and 64."]);
+const validCount = (u: number): PEither<number> =>
+	Number.isInteger(u) && u > 0 && u <= 64 ? right(u) : left([err("Item count must be an integer between 1 and 64.")]);
 
-export function parseTags(u: unknown): Either<NonEmptyArray<string>, Tags> {
+export function parseTags(u: unknown): PEither<Tags> {
 	return pipe(
 		expectedString(u),
 		chain(s => seqT(nonEmpty(s), validFormat(s))),

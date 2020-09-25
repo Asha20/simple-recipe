@@ -1,9 +1,10 @@
-import { chain, isLeft, isRight, left, Left, right, Right } from "fp-ts/lib/Either";
-import { NonEmptyArray, of } from "fp-ts/lib/NonEmptyArray";
+import { chain, isRight, left, right } from "fp-ts/lib/Either";
+import { of } from "fp-ts/lib/NonEmptyArray";
 import { pipe } from "fp-ts/lib/pipeable";
-import { Item, ItemOrTag, parseItem, parseItemOrTag, item } from "../parts";
-import { hasKeys, isObject, PEither, seqS, err, ValidationError, tryParseGroup, encodeGroup } from "../util";
-import { RecursiveIngredient, stringify, toIngredients, fromIngredientsToItemOrTags } from "./common";
+import { Item, item, ItemOrTag, parseItem, parseItemOrTag } from "../parts";
+import { parseArray } from "../parts/common";
+import { encodeGroup, err, hasKeys, isObject, PEither, seqS, tryParseGroup } from "../util";
+import { fromIngredientsToItemOrTags, RecursiveIngredient, stringify, toIngredients } from "./common";
 
 export interface MCCooking {
 	type: "minecraft:blasting" | "minecraft:campfire_cooking" | "minecraft:smelting" | "minecraft:smoking";
@@ -30,22 +31,10 @@ function parseIngredients(u: unknown): PEither<ItemOrTag | ItemOrTag[]> {
 	}
 
 	if (!Array.isArray(u)) {
-		return left([err("Expected an Item, a Tag, or an array of Item or Tag.")]);
+		return left([err("Expected an Item, a Tag, or an array of Item or Tag."), ...itemOrTag.left]);
 	}
 
-	const parsed = u.map((x, index) => ({ index, result: parseItemOrTag(x) }));
-
-	if (parsed.every(x => isRight(x.result))) {
-		return right(parsed.map(x => (x.result as Right<ItemOrTag>).right));
-	}
-
-	return left(
-		parsed
-			.filter((x): x is { index: number; result: Left<NonEmptyArray<ValidationError>> } => isLeft(x.result))
-			.flatMap(x => x.result.left.map(y => err(y.message, [x.index.toString(), ...y.origin]))) as NonEmptyArray<
-			ValidationError
-		>,
-	);
+	return parseArray(u, parseItemOrTag);
 }
 
 function parseExperience(u: unknown): PEither<number> {

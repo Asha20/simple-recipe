@@ -1,6 +1,6 @@
-import { isLeft, isRight, left, Left, right, Right } from "fp-ts/lib/Either";
-import { concat, NonEmptyArray, of } from "fp-ts/lib/NonEmptyArray";
-import { PEither, err, ValidationError } from "../util";
+import { isRight, left } from "fp-ts/lib/Either";
+import { of } from "fp-ts/lib/NonEmptyArray";
+import { err, PEither } from "../util";
 import { Item, parseItem } from "./Item";
 import { parseTag, Tag } from "./Tag";
 
@@ -17,26 +17,9 @@ export function parseItemOrTag(u: unknown): PEither<ItemOrTag> {
 		return tag;
 	}
 
-	const errors = concat(concat(of(err("Expected an Item or a Tag.")), item.left), tag.left);
-	return left(errors);
-}
-
-export function parseItemOrTags(u: unknown): PEither<ItemOrTag[]> {
-	if (!Array.isArray(u)) {
-		return left([err("Expected an array of Item or Tag.")]);
+	if (typeof u === "string") {
+		return u.startsWith("+") ? tag : item;
 	}
 
-	const parsed = u.map((x, index) => ({ index, result: parseItemOrTag(x) }));
-
-	if (parsed.every(x => isRight(x.result))) {
-		return right(parsed.map(x => (x.result as Right<ItemOrTag>).right));
-	}
-
-	return left(
-		parsed
-			.filter((x): x is { index: number; result: Left<NonEmptyArray<ValidationError>> } => isLeft(x.result))
-			.flatMap(x => x.result.left.map(y => err(y.message, [x.index.toString(), ...y.origin]))) as NonEmptyArray<
-			ValidationError
-		>,
-	);
+	return left(of(err("Expected an Item or a Tag.")));
 }

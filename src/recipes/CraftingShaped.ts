@@ -87,6 +87,7 @@ const validKey = (k: UnknownObject): PEither<OwnKey> => {
 
 		if (!Array.isArray(value)) {
 			errors.push(err("Expected an Item, a Tag, or an array of Item or Tag.", [key]));
+			errors.push(...itemOrTag.left.map(x => err(x.message, [key, ...x.origin])));
 			continue;
 		}
 

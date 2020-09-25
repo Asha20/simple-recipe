@@ -1,6 +1,6 @@
 import { sequenceS, sequenceT } from "fp-ts/lib/Apply";
 import { Either, either, getValidation, left, right } from "fp-ts/lib/Either";
-import { getSemigroup, NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
+import { getSemigroup, NonEmptyArray, of } from "fp-ts/lib/NonEmptyArray";
 import { config } from "./config";
 
 export type UnknownObject = Record<string, unknown>;
@@ -61,3 +61,17 @@ export const hasKeys = <T extends object, K extends string[]>(
 
 	return !errors.length ? right(x as any) : left(errors as NonEmptyArray<ValidationError>);
 };
+
+export function tryParseGroup(o: UnknownObject): {} | { group: PEither<string> } {
+	if (!o.hasOwnProperty("group")) {
+		return {};
+	}
+
+	return typeof o.group === "string" && o.group.length
+		? { group: right(o.group) }
+		: { group: left(of(err("Group must be a non-empty string."))) };
+}
+
+export function encodeGroup(group?: string): {} | { group: string } {
+	return group ? { group } : {};
+}

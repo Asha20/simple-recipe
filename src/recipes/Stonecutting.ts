@@ -2,11 +2,12 @@ import { chain, isLeft, isRight, left, Left, right, Right } from "fp-ts/lib/Eith
 import { pipe } from "fp-ts/lib/function";
 import { NonEmptyArray, of } from "fp-ts/lib/NonEmptyArray";
 import { ItemOrTag, ItemOrTags, Items, parseItemOrTag, parseItems } from "../parts";
-import { hasKeys, isObject, PEither, seqS, err, ValidationError } from "../util";
+import { hasKeys, isObject, PEither, seqS, err, ValidationError, tryParseGroup, encodeGroup } from "../util";
 import { Ingredient, stringify, toIngredients } from "./common";
 
 export interface MCStonecutting {
 	type: "minecraft:stonecutting";
+	group?: string;
 	ingredient: Ingredient;
 	result: string;
 	count: number;
@@ -14,6 +15,7 @@ export interface MCStonecutting {
 
 export interface OwnStonecutting {
 	type: "stonecutting";
+	group?: string;
 	ingredients: ItemOrTag | ItemOrTags;
 	result: Items;
 }
@@ -50,6 +52,7 @@ export function parseStonecutting(u: unknown): PEither<OwnStonecutting> {
 		chain(o =>
 			seqS({
 				type: o.type === "stonecutting" ? right(o.type) : left(of(err("Wrong type"))),
+				...tryParseGroup(o),
 				ingredients: parseIngredients(o.ingredients),
 				result: parseItems(o.result),
 			}),
@@ -61,6 +64,7 @@ export function encodeStonecutting(x: OwnStonecutting): MCStonecutting {
 	const type = ("minecraft:" + x.type) as MCStonecutting["type"];
 	return {
 		type,
+		...encodeGroup(x.group),
 		ingredient: toIngredients(x.ingredients),
 		result: stringify(x.result),
 		count: x.result.count,

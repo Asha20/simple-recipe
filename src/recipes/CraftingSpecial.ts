@@ -1,6 +1,6 @@
 import { chain, left, right } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/function";
-import { hasKeys, isObject, PEither, err } from "../util";
+import { hasKeys, isObject, PEither, err, seqS, tryParseGroup, encodeGroup } from "../util";
 
 export interface MCCraftingSpecial {
 	type:
@@ -17,6 +17,7 @@ export interface MCCraftingSpecial {
 		| "minecraft:crafting_special_shulkerboxcoloring"
 		| "minecraft:crafting_special_tippedarrow"
 		| "minecraft:crafting_special_suspiciousstew";
+	group?: string;
 }
 
 export interface OwnCraftingSpecial {
@@ -34,36 +35,47 @@ export interface OwnCraftingSpecial {
 		| "shulkerboxcoloring"
 		| "tippedarrow"
 		| "suspiciousstew";
+	group?: string;
+}
+
+function parseType(u: unknown): PEither<OwnCraftingSpecial["type"]> {
+	switch (u) {
+		case "armordye":
+		case "bannerduplicate":
+		case "bookcloning":
+		case "firework_rocket":
+		case "firework_star":
+		case "firework_star_fade":
+		case "mapcloning":
+		case "mapextending":
+		case "repairitem":
+		case "shielddecoration":
+		case "shulkerboxcoloring":
+		case "tippedarrow":
+		case "suspiciousstew":
+			return right(u);
+		default:
+			return left([err("Unknown type")]);
+	}
 }
 
 export function parseCraftingSpecial(u: unknown): PEither<OwnCraftingSpecial> {
 	return pipe(
 		isObject(u),
 		chain(o => hasKeys(o, "type")),
-		chain(o => {
-			switch (o.type) {
-				case "armordye":
-				case "bannerduplicate":
-				case "bookcloning":
-				case "firework_rocket":
-				case "firework_star":
-				case "firework_star_fade":
-				case "mapcloning":
-				case "mapextending":
-				case "repairitem":
-				case "shielddecoration":
-				case "shulkerboxcoloring":
-				case "tippedarrow":
-				case "suspiciousstew":
-					return right(o as OwnCraftingSpecial);
-				default:
-					return left([err("Unknown type")]);
-			}
-		}),
+		chain(o =>
+			seqS({
+				type: parseType(o.type),
+				...tryParseGroup(o),
+			}),
+		),
 	);
 }
 
 export function encodeCraftingSpecial(x: OwnCraftingSpecial): MCCraftingSpecial {
 	const type = ("minecraft:crafting_special_" + x.type) as MCCraftingSpecial["type"];
-	return { type };
+	return {
+		type,
+		...encodeGroup(x.group),
+	};
 }

@@ -2,11 +2,23 @@ import { chain, isLeft, isRight, left, Left, map, right, Right } from "fp-ts/lib
 import { NonEmptyArray, of } from "fp-ts/lib/NonEmptyArray";
 import { pipe } from "fp-ts/lib/pipeable";
 import { ItemOrTag, ItemOrTags, Items, parseItemOrTag, parseItems } from "../parts";
-import { hasKeys, isObject, PEither, seqS, seqT, UnknownObject, err, ValidationError } from "../util";
+import {
+	hasKeys,
+	isObject,
+	PEither,
+	seqS,
+	seqT,
+	UnknownObject,
+	err,
+	ValidationError,
+	tryParseGroup,
+	encodeGroup,
+} from "../util";
 import { Ingredient, stringify, toIngredients } from "./common";
 
 export interface MCCraftingShaped {
 	type: "minecraft:crafting_shaped";
+	group?: string;
 	pattern: string[];
 	key: Record<string, Ingredient>;
 	result: {
@@ -19,6 +31,7 @@ type OwnKey = Record<string, ItemOrTag | ItemOrTags>;
 
 export interface OwnCraftingShaped {
 	type: "crafting_shaped";
+	group?: string;
 	pattern: string[];
 	key: OwnKey;
 	result: Items;
@@ -131,6 +144,7 @@ export function parseCraftingShaped(u: unknown): PEither<OwnCraftingShaped> {
 		chain(o =>
 			seqS({
 				type: o.type === "crafting_shaped" ? right(o.type) : left(of(err("Wrong type"))),
+				...tryParseGroup(o),
 				pattern: parsePattern(o.pattern),
 				key: parseKey(o.key),
 				result: parseItems(o.result),
@@ -151,6 +165,7 @@ export function encodeCraftingShaped(x: OwnCraftingShaped): MCCraftingShaped {
 
 	return {
 		type,
+		...encodeGroup(x.group),
 		pattern: x.pattern,
 		key: keyRecord,
 		result: {

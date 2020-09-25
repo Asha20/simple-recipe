@@ -2,11 +2,12 @@ import { chain, isLeft, isRight, left, Left, right, Right } from "fp-ts/lib/Eith
 import { NonEmptyArray, of } from "fp-ts/lib/NonEmptyArray";
 import { pipe } from "fp-ts/lib/pipeable";
 import { Item, ItemOrTag, ItemOrTags, parseItem, parseItemOrTag } from "../parts";
-import { hasKeys, isObject, PEither, seqS, err, ValidationError } from "../util";
+import { hasKeys, isObject, PEither, seqS, err, ValidationError, tryParseGroup, encodeGroup } from "../util";
 import { Ingredient, stringify, toIngredients } from "./common";
 
 export interface MCCooking {
 	type: "minecraft:blasting" | "minecraft:campfire_cooking" | "minecraft:smelting" | "minecraft:smoking";
+	group?: string;
 	ingredient: Ingredient;
 	experience: number;
 	cookingtime: number;
@@ -15,6 +16,7 @@ export interface MCCooking {
 
 export interface OwnCooking {
 	type: "blasting" | "campfire_cooking" | "smelting" | "smoking";
+	group?: string;
 	ingredients: ItemOrTag | ItemOrTags;
 	experience: number;
 	cookingtime: number;
@@ -66,6 +68,7 @@ export function parseCooking(u: unknown): PEither<OwnCooking> {
 					o.type === "blasting" || o.type === "campfire_cooking" || o.type === "smelting" || o.type === "smoking"
 						? right(o.type)
 						: left(of(err("Wrong type"))),
+				...tryParseGroup(o),
 				ingredients: parseIngredients(o.ingredients),
 				experience: parseExperience(o.experience),
 				cookingtime: parseCookingtime(o.cookingtime),
@@ -79,6 +82,7 @@ export function encodeCooking(x: OwnCooking): MCCooking {
 	const type = ("minecraft:" + x.type) as MCCooking["type"];
 	return {
 		type,
+		...encodeGroup(x.group),
 		ingredient: toIngredients(x.ingredients),
 		experience: x.experience,
 		cookingtime: x.cookingtime,

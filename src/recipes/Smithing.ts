@@ -1,9 +1,10 @@
 import { chain, left, right } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/function";
 import { of } from "fp-ts/lib/NonEmptyArray";
-import { Item, ItemOrTag, parseItem, parseItemOrTag } from "../parts";
+import { Item, ItemOrTag, parseItem, parseItemOrTag, item } from "../parts";
 import { hasKeys, isObject, PEither, seqS, err, tryParseGroup, encodeGroup } from "../util";
-import { Ingredient, ItemIngredient, stringify, toIngredient } from "./common";
+import { Ingredient, ItemIngredient, stringify, toIngredient, fromIngredient } from "./common";
+import * as assert from "assert";
 
 export interface MCSmithing {
 	type: "minecraft:smithing";
@@ -45,5 +46,16 @@ export function encodeSmithing(x: OwnSmithing): MCSmithing {
 		base: toIngredient(x.base),
 		addition: toIngredient(x.addition),
 		result: { item: stringify(x.result) },
+	};
+}
+
+export function decodeSmithing(x: MCSmithing): OwnSmithing {
+	assert(!Array.isArray(x.base));
+	assert(!Array.isArray(x.addition));
+	return {
+		type: "smithing",
+		base: fromIngredient(x.base),
+		addition: fromIngredient(x.addition),
+		result: item(x.result.item),
 	};
 }

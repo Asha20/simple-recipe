@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { ItemOrTag, ItemOrTags, Stack, item, tag, items, tags, Item, Tag, Items, Tags } from "../parts";
+import { ItemOrTag, ItemOrTags, Stack, item, tag, items, tags, Item, Tag, Items, Tags, isItem, isTag } from "../parts";
 
 export type ItemIngredient = { item: string };
 export type TagIngredient = { tag: string };
@@ -19,11 +19,6 @@ export function toIngredient(itemOrTag: ItemOrTag): Ingredient {
 	}
 	return tagIng(itemOrTag.name, itemOrTag.namespace);
 }
-
-export const isItem = (u: unknown): u is Item => typeof u === "object" && !!u && (u as any).type === "item";
-export const isTag = (u: unknown): u is Tag => typeof u === "object" && !!u && (u as any).type === "tag";
-export const isItems = (u: unknown): u is Items => typeof u === "object" && !!u && (u as any).type === "items";
-export const isTags = (u: unknown): u is Tags => typeof u === "object" && !!u && (u as any).type === "tags";
 
 export function toIngredients(x: ItemOrTag | ItemOrTags): Ingredient | Ingredient[];
 export function toIngredients(x: Stack): Ingredient[];

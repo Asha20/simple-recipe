@@ -1,9 +1,9 @@
 import { chain, isLeft, isRight, left, Left, right, Right } from "fp-ts/lib/Either";
 import { NonEmptyArray, of } from "fp-ts/lib/NonEmptyArray";
 import { pipe } from "fp-ts/lib/pipeable";
-import { Item, ItemOrTag, ItemOrTags, parseItem, parseItemOrTag } from "../parts";
+import { Item, ItemOrTag, ItemOrTags, parseItem, parseItemOrTag, item } from "../parts";
 import { hasKeys, isObject, PEither, seqS, err, ValidationError, tryParseGroup, encodeGroup } from "../util";
-import { Ingredient, stringify, toIngredients } from "./common";
+import { Ingredient, stringify, toIngredients, fromIngredientsToItemOrTags } from "./common";
 
 export interface MCCooking {
 	type: "minecraft:blasting" | "minecraft:campfire_cooking" | "minecraft:smelting" | "minecraft:smoking";
@@ -87,5 +87,17 @@ export function encodeCooking(x: OwnCooking): MCCooking {
 		experience: x.experience,
 		cookingtime: x.cookingtime,
 		result: stringify(x.result),
+	};
+}
+
+export function decodeCooking(x: MCCooking): OwnCooking {
+	const tokens = x.type.split(":");
+	const type = tokens[1] as OwnCooking["type"];
+	return {
+		type,
+		cookingtime: x.cookingtime as any,
+		experience: x.experience as any,
+		ingredients: fromIngredientsToItemOrTags(x.ingredient),
+		result: item(x.result),
 	};
 }

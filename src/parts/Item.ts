@@ -6,6 +6,7 @@ import { config } from "../config";
 import { findSuggestions, items } from "../items";
 import { applicativeValidation, expectedString, nonEmpty, PEither, err } from "../util";
 import { of } from "fp-ts/lib/NonEmptyArray";
+import { stringifyName } from "./common";
 
 export interface Item {
 	type: "item";
@@ -63,6 +64,14 @@ export function parseItem(u: unknown): PEither<Item> {
 		chain(s => sequenceT(applicativeValidation)(nonEmpty(s), cannotStartWithPlus(s), validFormat(s))),
 		chain(([_, __, item]) => validItemName(item)),
 	);
+}
+
+export function decodeItem(item: Item): string {
+	return stringifyName(item);
+}
+
+export function isItem(u: unknown): u is Item {
+	return typeof u === "object" && !!u && (u as any).type === "item";
 }
 
 export function item(name: string, namespace = "minecraft"): Item {

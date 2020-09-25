@@ -79,3 +79,8 @@ export function encodeCraftingSpecial(x: OwnCraftingSpecial): MCCraftingSpecial 
 		...encodeGroup(x.group),
 	};
 }
+
+export function decodeCraftingSpecial(x: MCCraftingSpecial): OwnCraftingSpecial {
+	const type = x.type.replace("minecraft:crafting_special_", "") as OwnCraftingSpecial["type"];
+	return { type };
+}

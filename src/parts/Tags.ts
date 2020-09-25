@@ -2,6 +2,7 @@ import { chain, left, map, right } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/pipeable";
 import { expectedString, nonEmpty, PEither, seqT, err } from "../util";
 import { parseTag } from "./Tag";
+import { stringifyName } from "./common";
 
 export interface Tags {
 	type: "tags";
@@ -32,6 +33,14 @@ export function parseTags(u: unknown): PEither<Tags> {
 		chain(([_, [count, name]]) => seqT(validCount(count), parseTag(name))),
 		map(([count, item]) => tags(item.name, count, item.namespace)),
 	);
+}
+
+export function decodeTags(tags: Tags): string {
+	return `${tags.count} +${stringifyName(tags)}`;
+}
+
+export function isTags(u: unknown): u is Tags {
+	return typeof u === "object" && !!u && (u as any).type === "tags";
 }
 
 export function tags(name: string, count: number, namespace = "minecraft"): Tags {

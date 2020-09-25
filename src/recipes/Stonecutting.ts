@@ -1,9 +1,9 @@
 import { chain, isLeft, isRight, left, Left, right, Right } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/function";
 import { NonEmptyArray, of } from "fp-ts/lib/NonEmptyArray";
-import { ItemOrTag, ItemOrTags, Items, parseItemOrTag, parseItems } from "../parts";
+import { ItemOrTag, ItemOrTags, Items, parseItemOrTag, parseItems, items } from "../parts";
 import { hasKeys, isObject, PEither, seqS, err, ValidationError, tryParseGroup, encodeGroup } from "../util";
-import { Ingredient, stringify, toIngredients } from "./common";
+import { Ingredient, stringify, toIngredients, fromIngredientsToItemOrTags } from "./common";
 
 export interface MCStonecutting {
 	type: "minecraft:stonecutting";
@@ -68,5 +68,13 @@ export function encodeStonecutting(x: OwnStonecutting): MCStonecutting {
 		ingredient: toIngredients(x.ingredients),
 		result: stringify(x.result),
 		count: x.result.count,
+	};
+}
+
+export function decodeStonecutting(x: MCStonecutting): OwnStonecutting {
+	return {
+		type: "stonecutting",
+		ingredients: fromIngredientsToItemOrTags(x.ingredient),
+		result: items(x.result, x.count),
 	};
 }

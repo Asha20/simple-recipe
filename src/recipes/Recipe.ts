@@ -1,18 +1,38 @@
 import { chain, left, map, right } from "fp-ts/lib/Either";
 import { of } from "fp-ts/lib/NonEmptyArray";
 import { pipe } from "fp-ts/lib/pipeable";
-import { hasKeys, isObject, PEither, seqT, err } from "../util";
-import { encodeCooking, MCCooking, OwnCooking, parseCooking } from "./Cooking";
-import { encodeCraftingShaped, MCCraftingShaped, OwnCraftingShaped, parseCraftingShaped } from "./CraftingShaped";
+import { hasKeys, isObject, PEither, seqT, err, traverse, encodeGroup } from "../util";
+import { encodeCooking, MCCooking, OwnCooking, parseCooking, decodeCooking } from "./Cooking";
+import {
+	encodeCraftingShaped,
+	MCCraftingShaped,
+	OwnCraftingShaped,
+	parseCraftingShaped,
+	decodeCraftingShaped,
+} from "./CraftingShaped";
 import {
 	encodeCraftingShapeless,
 	MCCraftingShapeless,
 	OwnCraftingShapeless,
 	parseCraftingShapeless,
+	decodeCraftingShapeless,
 } from "./CraftingShapeless";
-import { encodeCraftingSpecial, MCCraftingSpecial, OwnCraftingSpecial, parseCraftingSpecial } from "./CraftingSpecial";
-import { encodeSmithing, MCSmithing, OwnSmithing, parseSmithing } from "./Smithing";
-import { encodeStonecutting, MCStonecutting, OwnStonecutting, parseStonecutting } from "./Stonecutting";
+import {
+	encodeCraftingSpecial,
+	MCCraftingSpecial,
+	OwnCraftingSpecial,
+	parseCraftingSpecial,
+	decodeCraftingSpecial,
+} from "./CraftingSpecial";
+import { encodeSmithing, MCSmithing, OwnSmithing, parseSmithing, decodeSmithing } from "./Smithing";
+import {
+	encodeStonecutting,
+	MCStonecutting,
+	OwnStonecutting,
+	parseStonecutting,
+	decodeStonecutting,
+} from "./Stonecutting";
+import { isItem, isTag, decodeItem, decodeTag, decodeItems, decodeTags, isItems, isTags } from "../parts";
 
 export type OwnRecipe =
 	| OwnCraftingShaped
@@ -118,6 +138,46 @@ export function encodeRecipe(recipe: OwnRecipe): MCRecipe {
 	}
 }
 
-export function parseRecipes(u: unknown): PEither<OwnRecipe[]> {
-	return pipe(Array.isArray(u) ? right(u) : left([err("Expected an array.")]));
+export function decodeRecipe(name: string, recipe: MCRecipe): Recipe {
+	const ownRecipe = (() => {
+		switch (recipe.type) {
+			case "minecraft:crafting_shapeless":
+				return decodeCraftingShapeless(recipe);
+			case "minecraft:crafting_shaped":
+				return decodeCraftingShaped(recipe);
+			case "minecraft:blasting":
+			case "minecraft:campfire_cooking":
+			case "minecraft:smelting":
+			case "minecraft:smoking":
+				return decodeCooking(recipe);
+			case "minecraft:smithing":
+				return decodeSmithing(recipe);
+			case "minecraft:stonecutting":
+				return decodeStonecutting(recipe);
+			default:
+				return decodeCraftingSpecial(recipe);
+		}
+	})();
+
+	traverse(ownRecipe, val => {
+		if (isItem(val)) {
+			return decodeItem(val);
+		}
+		if (isTag(val)) {
+			return decodeTag(val);
+		}
+		if (isItems(val)) {
+			return decodeItems(val);
+		}
+		if (isTags(val)) {
+			return decodeTags(val);
+		}
+		return val;
+	});
+
+	return {
+		_name: name,
+		...encodeGroup(recipe.group),
+		...ownRecipe,
+	};
 }

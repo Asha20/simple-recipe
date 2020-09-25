@@ -62,6 +62,16 @@ export const hasKeys = <T extends object, K extends string[]>(
 	return !errors.length ? right(x as any) : left(errors as NonEmptyArray<ValidationError>);
 };
 
+export function traverse(obj: any, fn: (value: any) => any) {
+	for (const [key, value] of Object.entries(obj)) {
+		if (typeof value === "object" && value !== null) {
+			traverse(value, fn);
+		}
+		obj[key] = fn(value);
+	}
+	return obj;
+}
+
 export function tryParseGroup(o: UnknownObject): {} | { group: PEither<string> } {
 	if (!o.hasOwnProperty("group")) {
 		return {};

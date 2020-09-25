@@ -4,6 +4,7 @@ import { isSome, none, Option, some } from "fp-ts/lib/Option";
 import { pipe } from "fp-ts/lib/pipeable";
 import { applicativeValidation, expectedString, nonEmpty, PEither, err } from "../util";
 import { of } from "fp-ts/lib/NonEmptyArray";
+import { stringifyName } from "./common";
 
 export interface Tag {
 	type: "tag";
@@ -40,6 +41,14 @@ export function parseTag(u: unknown): PEither<Tag> {
 		chain(s => sequenceT(applicativeValidation)(nonEmpty(s), cannotStartWithPlus(s), validFormat(s))),
 		map(([_, __, tag]) => tag),
 	);
+}
+
+export function decodeTag(tag: Tag): string {
+	return "+" + stringifyName(tag);
+}
+
+export function isTag(u: unknown): u is Tag {
+	return typeof u === "object" && !!u && (u as any).type === "tag";
 }
 
 export function tag(name: string, namespace = "minecraft"): Tag {

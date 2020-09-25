@@ -15,13 +15,13 @@ import {
 	encodeGroup,
 	encodeCount,
 } from "../util";
-import { RecursiveIngredient, stringify, toIngredients, fromIngredientsToItemOrTags } from "./common";
+import { stringify, toIngredients, fromIngredientsToItemOrTags, Ingredient } from "./common";
 
 export interface MCCraftingShaped {
 	type: "minecraft:crafting_shaped";
 	group?: string;
 	pattern: string[];
-	key: Record<string, RecursiveIngredient>;
+	key: Record<string, Ingredient | Ingredient[]>;
 	result: {
 		count?: number;
 		item: string;

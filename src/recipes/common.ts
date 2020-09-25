@@ -1,5 +1,4 @@
-import * as assert from "assert";
-import { ItemOrTag, Stack, item, tag, items, tags, Item, Tag, Items, Tags, isItem, isTag, ItemsOrTags } from "../parts";
+import { isItem, isTag, item, ItemOrTag, items, Stack, tag, tags } from "../parts";
 
 export type ItemIngredient = { item: string };
 export type TagIngredient = { tag: string };
@@ -47,22 +46,14 @@ export function toIngredients(itemOrTags: ItemOrTag | ItemOrTag[] | Stack) {
 	return isItem(itemOrTags) || isTag(itemOrTags) ? result[0] : result;
 }
 
-export function fromIngredient(ing: ItemIngredient | TagIngredient): ItemOrTag {
-	const isItem = typeof (ing as any).item === "string";
-	const fullName = isItem ? (ing as any).item : (ing as any).tag;
+export function fromIngredient(ing: Ingredient): ItemOrTag {
+	const fullName = "item" in ing ? ing.item : ing.tag;
 	const [namespace, name] = fullName.split(":");
-	return isItem ? item(name, namespace) : tag(name, namespace);
+	return "item" in ing ? item(name, namespace) : tag(name, namespace);
 }
 
-export function fromIngredientsToItemOrTags(ing: RecursiveIngredient): ItemOrTag | ItemOrTag[] {
-	if (!Array.isArray(ing)) {
-		return fromIngredient(ing);
-	}
-
-	return ing.map(x => {
-		assert(!Array.isArray(x));
-		return fromIngredient(x);
-	});
+export function fromIngredientsToItemOrTags(ing: Ingredient | Ingredient[]): ItemOrTag | ItemOrTag[] {
+	return Array.isArray(ing) ? ing.map(fromIngredient) : fromIngredient(ing);
 }
 
 export function fromIngredientsToStack(ing: RecursiveIngredient): Stack[] {

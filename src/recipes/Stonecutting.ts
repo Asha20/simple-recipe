@@ -4,12 +4,12 @@ import { of } from "fp-ts/lib/NonEmptyArray";
 import { ItemOrTag, Items, items, parseItemOrTag, parseItems } from "../parts";
 import { parseArray } from "../parts/common";
 import { encodeGroup, err, hasKeys, isObject, PEither, seqS, tryParseGroup } from "../util";
-import { fromIngredientsToItemOrTags, RecursiveIngredient, stringify, toIngredients } from "./common";
+import { fromIngredientsToItemOrTags, stringify, toIngredients, Ingredient } from "./common";
 
 export interface MCStonecutting {
 	type: "minecraft:stonecutting";
 	group?: string;
-	ingredient: RecursiveIngredient;
+	ingredient: Ingredient | Ingredient[];
 	result: string;
 	count: number;
 }

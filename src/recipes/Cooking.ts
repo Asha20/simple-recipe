@@ -4,12 +4,12 @@ import { pipe } from "fp-ts/lib/pipeable";
 import { Item, item, ItemOrTag, parseItem, parseItemOrTag } from "../parts";
 import { parseArray } from "../parts/common";
 import { encodeGroup, err, hasKeys, isObject, PEither, seqS, tryParseGroup } from "../util";
-import { fromIngredientsToItemOrTags, RecursiveIngredient, stringify, toIngredients } from "./common";
+import { fromIngredientsToItemOrTags, stringify, toIngredients, Ingredient } from "./common";
 
 export interface MCCooking {
 	type: "minecraft:blasting" | "minecraft:campfire_cooking" | "minecraft:smelting" | "minecraft:smoking";
 	group?: string;
-	ingredient: RecursiveIngredient;
+	ingredient: Ingredient | Ingredient[];
 	experience: number;
 	cookingtime: number;
 	result: string;

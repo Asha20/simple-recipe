@@ -20,7 +20,7 @@ test("compile", async () => {
 		const expectedPath = path.join("json", file);
 		const outputPath = path.join(OUTPUT, file);
 		const expected = require("./" + expectedPath);
-		const output = require("./" + outputPath);
+		const output = require(outputPath);
 		expect(output).toEqual(expected);
 	}
 });

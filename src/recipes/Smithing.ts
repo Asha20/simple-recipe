@@ -3,14 +3,13 @@ import { pipe } from "fp-ts/lib/function";
 import { of } from "fp-ts/lib/NonEmptyArray";
 import { Item, ItemOrTag, parseItem, parseItemOrTag, item } from "../parts";
 import { hasKeys, isObject, PEither, seqS, err, tryParseGroup, encodeGroup } from "../util";
-import { RecursiveIngredient, ItemIngredient, stringify, toIngredient, fromIngredient } from "./common";
-import * as assert from "assert";
+import { ItemIngredient, stringify, toIngredient, fromIngredient, Ingredient } from "./common";
 
 export interface MCSmithing {
 	type: "minecraft:smithing";
 	group?: string;
-	base: RecursiveIngredient;
-	addition: RecursiveIngredient;
+	base: Ingredient;
+	addition: Ingredient;
 	result: ItemIngredient;
 }
 
@@ -50,8 +49,6 @@ export function encodeSmithing(x: OwnSmithing): MCSmithing {
 }
 
 export function decodeSmithing(x: MCSmithing): OwnSmithing {
-	assert(!Array.isArray(x.base));
-	assert(!Array.isArray(x.addition));
 	return {
 		type: "smithing",
 		base: fromIngredient(x.base),

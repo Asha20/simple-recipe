@@ -4,7 +4,7 @@ import { PEither, err, ValidationError } from "../util";
 import { Items, parseItems } from "./Items";
 import { parseTags, Tags } from "./Tags";
 
-type ItemsOrTags = Items | Tags;
+export type ItemsOrTags = Items | Tags;
 export type Stack = Items | Tags | Stack[];
 
 export function parseItemsOrTags(u: unknown): PEither<ItemsOrTags> {
@@ -18,6 +18,7 @@ export function parseItemsOrTags(u: unknown): PEither<ItemsOrTags> {
 		return tags;
 	}
 
+	// TODO: Predictive error display
 	const errors = concat(concat(of(err("Expected an ItemStack or a TagStack.")), items.left), tags.left);
 	return left(errors);
 }

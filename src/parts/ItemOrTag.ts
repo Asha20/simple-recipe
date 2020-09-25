@@ -5,7 +5,6 @@ import { Item, parseItem } from "./Item";
 import { parseTag, Tag } from "./Tag";
 
 export type ItemOrTag = Item | Tag;
-export type ItemOrTags = ItemOrTag[];
 
 export function parseItemOrTag(u: unknown): PEither<ItemOrTag> {
 	const item = parseItem(u);
@@ -22,7 +21,7 @@ export function parseItemOrTag(u: unknown): PEither<ItemOrTag> {
 	return left(errors);
 }
 
-export function parseItemOrTags(u: unknown): PEither<ItemOrTags> {
+export function parseItemOrTags(u: unknown): PEither<ItemOrTag[]> {
 	if (!Array.isArray(u)) {
 		return left([err("Expected an array of Item or Tag.")]);
 	}

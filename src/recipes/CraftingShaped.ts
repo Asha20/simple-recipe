@@ -1,7 +1,7 @@
 import { chain, isLeft, isRight, left, Left, map, right, Right } from "fp-ts/lib/Either";
 import { NonEmptyArray, of } from "fp-ts/lib/NonEmptyArray";
 import { pipe } from "fp-ts/lib/pipeable";
-import { ItemOrTag, ItemOrTags, Items, parseItemOrTag, parseItems, items } from "../parts";
+import { ItemOrTag, Items, parseItemOrTag, parseItems, items } from "../parts";
 import {
 	hasKeys,
 	isObject,
@@ -13,21 +13,22 @@ import {
 	ValidationError,
 	tryParseGroup,
 	encodeGroup,
+	encodeCount,
 } from "../util";
-import { Ingredient, stringify, toIngredients, fromIngredientsToItemOrTags } from "./common";
+import { RecursiveIngredient, stringify, toIngredients, fromIngredientsToItemOrTags } from "./common";
 
 export interface MCCraftingShaped {
 	type: "minecraft:crafting_shaped";
 	group?: string;
 	pattern: string[];
-	key: Record<string, Ingredient>;
+	key: Record<string, RecursiveIngredient>;
 	result: {
-		count: number;
+		count?: number;
 		item: string;
 	};
 }
 
-type OwnKey = Record<string, ItemOrTag | ItemOrTags>;
+type OwnKey = Record<string, ItemOrTag | ItemOrTag[]>;
 
 export interface OwnCraftingShaped {
 	type: "crafting_shaped";
@@ -169,14 +170,14 @@ export function encodeCraftingShaped(x: OwnCraftingShaped): MCCraftingShaped {
 		pattern: x.pattern,
 		key: keyRecord,
 		result: {
-			count: x.result.count,
+			...encodeCount(x.result.count),
 			item: stringify(x.result),
 		},
 	};
 }
 
 export function decodeCraftingShaped(x: MCCraftingShaped): OwnCraftingShaped {
-	const ownKey: Record<string, ItemOrTag | ItemOrTags> = {};
+	const ownKey: Record<string, ItemOrTag | ItemOrTag[]> = {};
 	for (const [key, value] of Object.entries(x.key)) {
 		ownKey[key] = fromIngredientsToItemOrTags(value);
 	}

@@ -1,14 +1,14 @@
 import { chain, isLeft, isRight, left, Left, right, Right } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/function";
 import { NonEmptyArray, of } from "fp-ts/lib/NonEmptyArray";
-import { ItemOrTag, ItemOrTags, Items, parseItemOrTag, parseItems, items } from "../parts";
+import { ItemOrTag, Items, parseItemOrTag, parseItems, items } from "../parts";
 import { hasKeys, isObject, PEither, seqS, err, ValidationError, tryParseGroup, encodeGroup } from "../util";
-import { Ingredient, stringify, toIngredients, fromIngredientsToItemOrTags } from "./common";
+import { RecursiveIngredient, stringify, toIngredients, fromIngredientsToItemOrTags } from "./common";
 
 export interface MCStonecutting {
 	type: "minecraft:stonecutting";
 	group?: string;
-	ingredient: Ingredient;
+	ingredient: RecursiveIngredient;
 	result: string;
 	count: number;
 }
@@ -16,11 +16,11 @@ export interface MCStonecutting {
 export interface OwnStonecutting {
 	type: "stonecutting";
 	group?: string;
-	ingredients: ItemOrTag | ItemOrTags;
+	ingredients: ItemOrTag | ItemOrTag[];
 	result: Items;
 }
 
-function parseIngredients(u: unknown): PEither<ItemOrTag | ItemOrTags> {
+function parseIngredients(u: unknown): PEither<ItemOrTag | ItemOrTag[]> {
 	const itemOrTag = parseItemOrTag(u);
 	if (isRight(itemOrTag)) {
 		return itemOrTag;

@@ -1,14 +1,14 @@
 import { chain, isLeft, isRight, left, Left, right, Right } from "fp-ts/lib/Either";
 import { NonEmptyArray, of } from "fp-ts/lib/NonEmptyArray";
 import { pipe } from "fp-ts/lib/pipeable";
-import { Item, ItemOrTag, ItemOrTags, parseItem, parseItemOrTag, item } from "../parts";
+import { Item, ItemOrTag, parseItem, parseItemOrTag, item } from "../parts";
 import { hasKeys, isObject, PEither, seqS, err, ValidationError, tryParseGroup, encodeGroup } from "../util";
-import { Ingredient, stringify, toIngredients, fromIngredientsToItemOrTags } from "./common";
+import { RecursiveIngredient, stringify, toIngredients, fromIngredientsToItemOrTags } from "./common";
 
 export interface MCCooking {
 	type: "minecraft:blasting" | "minecraft:campfire_cooking" | "minecraft:smelting" | "minecraft:smoking";
 	group?: string;
-	ingredient: Ingredient;
+	ingredient: RecursiveIngredient;
 	experience: number;
 	cookingtime: number;
 	result: string;
@@ -17,13 +17,13 @@ export interface MCCooking {
 export interface OwnCooking {
 	type: "blasting" | "campfire_cooking" | "smelting" | "smoking";
 	group?: string;
-	ingredients: ItemOrTag | ItemOrTags;
+	ingredients: ItemOrTag | ItemOrTag[];
 	experience: number;
 	cookingtime: number;
 	result: Item;
 }
 
-function parseIngredients(u: unknown): PEither<ItemOrTag | ItemOrTags> {
+function parseIngredients(u: unknown): PEither<ItemOrTag | ItemOrTag[]> {
 	const itemOrTag = parseItemOrTag(u);
 	if (isRight(itemOrTag)) {
 		return itemOrTag;

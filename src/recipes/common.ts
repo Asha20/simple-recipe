@@ -1,9 +1,10 @@
 import * as assert from "assert";
-import { ItemOrTag, ItemOrTags, Stack, item, tag, items, tags, Item, Tag, Items, Tags, isItem, isTag } from "../parts";
+import { ItemOrTag, Stack, item, tag, items, tags, Item, Tag, Items, Tags, isItem, isTag, ItemsOrTags } from "../parts";
 
 export type ItemIngredient = { item: string };
 export type TagIngredient = { tag: string };
-export type Ingredient = ItemIngredient | TagIngredient | Ingredient[];
+export type Ingredient = ItemIngredient | TagIngredient;
+export type RecursiveIngredient = Ingredient | RecursiveIngredient[];
 
 export function arrayOf<T>(length: number, value: T) {
 	return Array.from({ length }, () => value);
@@ -20,12 +21,14 @@ export function toIngredient(itemOrTag: ItemOrTag): Ingredient {
 	return tagIng(itemOrTag.name, itemOrTag.namespace);
 }
 
-export function toIngredients(x: ItemOrTag | ItemOrTags): Ingredient | Ingredient[];
-export function toIngredients(x: Stack): Ingredient[];
-export function toIngredients(itemOrTags: ItemOrTag | ItemOrTags | Stack): Ingredient {
+export function toIngredients(x: ItemOrTag): Ingredient;
+export function toIngredients(x: ItemOrTag[]): Ingredient[];
+export function toIngredients(x: ItemOrTag | ItemOrTag[]): Ingredient | Ingredient[];
+export function toIngredients(x: Stack): RecursiveIngredient;
+export function toIngredients(itemOrTags: ItemOrTag | ItemOrTag[] | Stack) {
 	const boxed: Array<ItemOrTag | Stack> = Array.isArray(itemOrTags) ? itemOrTags : [itemOrTags];
 
-	const result: Ingredient[] = [];
+	const result: RecursiveIngredient[] = [];
 
 	boxed.forEach(x => {
 		if (Array.isArray(x)) return result.push(toIngredients(x));
@@ -51,7 +54,7 @@ export function fromIngredient(ing: ItemIngredient | TagIngredient): ItemOrTag {
 	return isItem ? item(name, namespace) : tag(name, namespace);
 }
 
-export function fromIngredientsToItemOrTags(ing: Ingredient): ItemOrTag | ItemOrTags {
+export function fromIngredientsToItemOrTags(ing: RecursiveIngredient): ItemOrTag | ItemOrTag[] {
 	if (!Array.isArray(ing)) {
 		return fromIngredient(ing);
 	}
@@ -62,7 +65,7 @@ export function fromIngredientsToItemOrTags(ing: Ingredient): ItemOrTag | ItemOr
 	});
 }
 
-export function fromIngredientsToStack(ing: Ingredient): Stack[] {
+export function fromIngredientsToStack(ing: RecursiveIngredient): Stack[] {
 	const result: Stack[] = [];
 	let currentVal: null | ItemOrTag = null;
 	let count = 0;

@@ -3,14 +3,14 @@ import { pipe } from "fp-ts/lib/function";
 import { of } from "fp-ts/lib/NonEmptyArray";
 import { Item, ItemOrTag, parseItem, parseItemOrTag, item } from "../parts";
 import { hasKeys, isObject, PEither, seqS, err, tryParseGroup, encodeGroup } from "../util";
-import { Ingredient, ItemIngredient, stringify, toIngredient, fromIngredient } from "./common";
+import { RecursiveIngredient, ItemIngredient, stringify, toIngredient, fromIngredient } from "./common";
 import * as assert from "assert";
 
 export interface MCSmithing {
 	type: "minecraft:smithing";
 	group?: string;
-	base: Ingredient;
-	addition: Ingredient;
+	base: RecursiveIngredient;
+	addition: RecursiveIngredient;
 	result: ItemIngredient;
 }
 

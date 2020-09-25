@@ -85,3 +85,7 @@ export function tryParseGroup(o: UnknownObject): {} | { group: PEither<string> }
 export function encodeGroup(group?: string): {} | { group: string } {
 	return group ? { group } : {};
 }
+
+export function encodeCount(count: number): {} | { count: number } {
+	return count !== 1 ? { count } : {};
+}

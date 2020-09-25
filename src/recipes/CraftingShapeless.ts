@@ -1,16 +1,16 @@
 import { chain, left, right } from "fp-ts/lib/Either";
 import { of } from "fp-ts/lib/NonEmptyArray";
 import { pipe } from "fp-ts/lib/pipeable";
-import { Items, parseItems, parseStack, Stack, items } from "../parts";
-import { hasKeys, isObject, PEither, seqS, err, tryParseGroup, encodeGroup } from "../util";
+import { Items, parseItems, parseStack, Stack, items, Tags, ItemsOrTags } from "../parts";
+import { hasKeys, isObject, PEither, seqS, err, tryParseGroup, encodeGroup, encodeCount } from "../util";
 import { Ingredient, stringify, toIngredients, fromIngredientsToStack } from "./common";
 
 export interface MCCraftingShapeless {
 	type: "minecraft:crafting_shapeless";
 	group?: string;
-	ingredients: Ingredient[];
+	ingredients: Array<Ingredient | Ingredient[]>;
 	result: {
-		count: number;
+		count?: number;
 		item: string;
 	};
 }
@@ -18,7 +18,7 @@ export interface MCCraftingShapeless {
 export interface OwnCraftingShapeless {
 	type: "crafting_shapeless";
 	group?: string;
-	ingredients: Stack;
+	ingredients: ItemsOrTags | Array<ItemsOrTags | Array<ItemsOrTags>>;
 	result: Items;
 }
 
@@ -30,7 +30,7 @@ export function parseCraftingShapeless(u: unknown): PEither<OwnCraftingShapeless
 			seqS({
 				type: o.type === "crafting_shapeless" ? right(o.type) : left(of(err("Wrong type"))),
 				...tryParseGroup(o),
-				ingredients: parseStack(o.ingredients),
+				ingredients: parseStack(o.ingredients) as PEither<OwnCraftingShapeless["ingredients"]>,
 				result: parseItems(o.result),
 			}),
 		),
@@ -42,9 +42,9 @@ export function encodeCraftingShapeless(x: OwnCraftingShapeless): MCCraftingShap
 	return {
 		type,
 		...encodeGroup(x.group),
-		ingredients: toIngredients(x.ingredients),
+		ingredients: toIngredients(x.ingredients) as MCCraftingShapeless["ingredients"],
 		result: {
-			count: x.result.count,
+			...encodeCount(x.result.count),
 			item: stringify(x.result),
 		},
 	};
@@ -53,7 +53,7 @@ export function encodeCraftingShapeless(x: OwnCraftingShapeless): MCCraftingShap
 export function decodeCraftingShapeless(x: MCCraftingShapeless): OwnCraftingShapeless {
 	return {
 		type: "crafting_shapeless",
-		ingredients: fromIngredientsToStack(x.ingredients),
+		ingredients: fromIngredientsToStack(x.ingredients) as OwnCraftingShapeless["ingredients"],
 		result: items(x.result.item, x.result.count ?? 1),
 	};
 }

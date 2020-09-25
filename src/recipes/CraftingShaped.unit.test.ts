@@ -112,14 +112,14 @@ describe("Shaped crafting", () => {
 				type: "crafting_shaped",
 				pattern: ["pp", "pp"],
 				key: { p: "+planks" },
-				result: "1 crafting_table",
+				result: "2 crafting_table",
 			});
 
 			expect(recipe).toBeRight({
 				type: "crafting_shaped",
 				pattern: ["pp", "pp"],
 				key: { p: tag("planks") },
-				result: items("crafting_table", 1),
+				result: items("crafting_table", 2),
 			});
 
 			assert(isRight(recipe));
@@ -128,7 +128,7 @@ describe("Shaped crafting", () => {
 				pattern: ["pp", "pp"],
 				key: { p: tagIng("planks") },
 				result: {
-					count: 1,
+					count: 2,
 					item: "minecraft:crafting_table",
 				},
 			});
@@ -155,7 +155,6 @@ describe("Shaped crafting", () => {
 				pattern: [" b ", "dod", "ooo"],
 				key: { b: itemIng("book"), d: itemIng("diamond"), o: itemIng("obsidian") },
 				result: {
-					count: 1,
 					item: "minecraft:enchanting_table",
 				},
 			});

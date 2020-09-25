@@ -4,10 +4,5 @@
     "item": "minecraft:andesite"
   },
   "result": "minecraft:polished_andesite",
-  "count": 1,
-  "ingredients": {
-    "type": "item",
-    "name": "andesite",
-    "namespace": "minecraft"
-  }
+  "count": 1
 }

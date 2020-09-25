@@ -5,10 +5,5 @@
   },
   "experience": 0.35,
   "cookingtime": 600,
-  "result": "minecraft:cooked_chicken",
-  "ingredients": {
-    "type": "item",
-    "name": "chicken",
-    "namespace": "minecraft"
-  }
+  "result": "minecraft:cooked_chicken"
 }

@@ -5,10 +5,5 @@
   },
   "experience": 0.35,
   "cookingtime": 200,
-  "result": "minecraft:baked_potato",
-  "ingredients": {
-    "type": "item",
-    "name": "potato",
-    "namespace": "minecraft"
-  }
+  "result": "minecraft:baked_potato"
 }

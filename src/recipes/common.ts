@@ -69,6 +69,16 @@ export function fromIngredientsToStack(ing: Ingredient): Stack[] {
 	ing = Array.isArray(ing) ? ing : [ing];
 	for (const i of ing) {
 		if (Array.isArray(i)) {
+			if (currentVal !== null) {
+				const r =
+					currentVal.type === "item"
+						? items(currentVal.name, count, currentVal.namespace)
+						: tags(currentVal.name, count, currentVal.namespace);
+
+				result.push(r);
+				currentVal = null;
+				count = 0;
+			}
 			result.push(fromIngredientsToStack(i));
 			continue;
 		}

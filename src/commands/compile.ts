@@ -1,4 +1,3 @@
-import * as chalk from "chalk";
 import { isRight } from "fp-ts/lib/Either";
 import * as fs from "fs";
 import * as glob from "glob";
@@ -7,7 +6,8 @@ import * as path from "path";
 import * as rimraf from "rimraf";
 import { parseRecipes } from "../parser";
 import { encodeRecipe, Recipe } from "../recipes";
-import { log, ValidationError } from "../util";
+import { ValidationError } from "../util";
+import { printCompilationResults } from "../printer";
 
 type Cache = Map<
 	string,
@@ -20,17 +20,17 @@ type Cache = Map<
 	>
 >;
 
-interface ValidRecipe {
+export interface ValidRecipe {
 	origin: string;
 	recipe: Recipe;
 }
 
-interface FailedRecipe {
+export interface FailedRecipe {
 	origin: string;
 	errors: ValidationError[];
 }
 
-interface Duplicate {
+export interface Duplicate {
 	name: string;
 	files: Set<string>;
 	recipes: Set<Recipe>;
@@ -45,62 +45,6 @@ function processRecipes(outputDir: string, recipes: ValidRecipe[]) {
 		delete recipe._name;
 		const stringRecipe = JSON.stringify(encodeRecipe(recipe), null, 2);
 		fs.writeFileSync(path.resolve(outputDir, dirname, outFile), stringRecipe);
-	}
-}
-
-function printDuplicates(duplicates: Duplicate[]) {
-	if (duplicates.length === 0) {
-		return;
-	}
-
-	log("  Name conflicts:\n");
-
-	for (const dupe of duplicates) {
-		log(chalk`Recipe {yellow ${dupe.name}} in files: {yellow ${[...dupe.files].join(", ")}}`);
-	}
-}
-
-function printValidFiles(files: string[]) {
-	for (const file of files.sort()) {
-		log(chalk.green(`  ✓ ${file}`));
-	}
-}
-
-const identifierRegex = /^[a-z_]\w*$/i;
-
-function joinPath(path: string[]) {
-	let result = path[0] ?? "";
-	for (let i = 1; i < path.length; i++) {
-		const part = path[i];
-		if (Number.isInteger(+part)) {
-			result += `[${part}]`;
-		} else if (identifierRegex.test(part)) {
-			result += `.${part}`;
-		} else {
-			result += `["${part}"]`;
-		}
-	}
-	return result;
-}
-
-function printFailedRecipes(fails: FailedRecipe[]) {
-	const groupedByOrigin = fails.reduce<Map<string, ValidationError[][]>>((acc, x) => {
-		const array = acc.get(x.origin) ?? [];
-		array.push(x.errors);
-		acc.set(x.origin, array);
-		return acc;
-	}, new Map());
-
-	for (const [origin, errorGroup] of groupedByOrigin) {
-		log(chalk.red(`  ✗ ${origin}\n`));
-		for (const errors of errorGroup) {
-			for (const error of errors) {
-				const path = joinPath(error.origin);
-				const colon = path.length ? ":" : "";
-				log(chalk`{cyan ${path}${colon}} {white ${error.message}}`);
-			}
-		}
-		log("\n\n");
 	}
 }
 
@@ -124,7 +68,7 @@ export function compile(inputDir: string, outputDir: string) {
 		for (const recipe of recipes) {
 			if (isRight(recipe)) {
 				const name = recipe.right._name;
-				const folderCache: ReturnType<Cache["get"]> = cache.get(dirname) ?? new Map();
+				const folderCache: NonNullable<ReturnType<Cache["get"]>> = cache.get(dirname) ?? new Map();
 				const nameCache = folderCache.get(name) ?? { recipes: new Set(), files: new Set() };
 				const oldSize = nameCache.files.size;
 				nameCache.files.add(file);
@@ -150,9 +94,5 @@ export function compile(inputDir: string, outputDir: string) {
 	const validFiles = files.filter(x => !invalidFiles.has(x));
 
 	processRecipes(outputDir, uniqueRecipes);
-
-	printValidFiles(validFiles);
-	printDuplicates(duplicateRecipes);
-	log("\n\n");
-	printFailedRecipes(failedRecipes);
+	printCompilationResults(validFiles, duplicateRecipes, failedRecipes);
 }

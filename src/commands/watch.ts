@@ -1,7 +1,7 @@
 import * as path from "path";
 import * as chokidar from "chokidar";
 import { compile } from "./compile";
-import { clearConsole } from "../util";
+import { clearConsole } from "../printer";
 
 export interface WatcherEvent {
 	type: "add" | "addDir" | "change" | "unlink" | "unlinkDir";

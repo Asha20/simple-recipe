@@ -1,7 +1,6 @@
 import { sequenceS, sequenceT } from "fp-ts/lib/Apply";
 import { Either, either, getValidation, left, right } from "fp-ts/lib/Either";
 import { getSemigroup, NonEmptyArray, of } from "fp-ts/lib/NonEmptyArray";
-import { config } from "./config";
 
 export type UnknownObject = Record<string, unknown>;
 export type PEither<T> = Either<NonEmptyArray<ValidationError>, T>;
@@ -13,18 +12,6 @@ export interface ValidationError {
 
 export function err(message: string, origin: string[] = []): ValidationError {
 	return { origin, message };
-}
-
-export function log(...args: any[]) {
-	if (!config.silent) {
-		console.log(...args);
-	}
-}
-
-export function clearConsole() {
-	if (!config.silent) {
-		console.clear();
-	}
 }
 
 export const applicativeValidation = getValidation(getSemigroup<ValidationError>());

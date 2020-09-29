@@ -55,7 +55,6 @@ export function compile(input: Exists & (RecipeFile | Folder), outputDir: string
 	const allRecipes: ValidRecipe[] = [];
 	const duplicateRecipes: Duplicate[] = [];
 	const invalidRecipes: InvalidRecipe[] = [];
-	const duplicateSet = new Set<Recipe>();
 	const invalidFiles = new Set<string>();
 
 	for (const file of files) {
@@ -84,11 +83,16 @@ export function compile(input: Exists & (RecipeFile | Folder), outputDir: string
 		}
 	}
 
+	const duplicateRecipesSet = new Set<Recipe>();
+	const duplicateFilesSet = new Set<string>();
+
 	for (const dupe of duplicateRecipes) {
-		dupe.recipes.forEach(duplicateSet.add, duplicateSet);
+		dupe.recipes.forEach(duplicateRecipesSet.add, duplicateRecipesSet);
+		dupe.files.forEach(duplicateFilesSet.add, duplicateFilesSet);
 	}
-	const uniqueRecipes = allRecipes.filter(x => !duplicateSet.has(x.recipe));
-	const validFiles = files.filter(x => !invalidFiles.has(x));
+
+	const uniqueRecipes = allRecipes.filter(x => !duplicateRecipesSet.has(x.recipe));
+	const validFiles = files.filter(x => !invalidFiles.has(x) && !duplicateFilesSet.has(x));
 
 	processRecipes(outputDir, uniqueRecipes, inputIsFile);
 	printCompilationResults(validFiles, duplicateRecipes, invalidRecipes);

@@ -1,10 +1,16 @@
 import * as fs from "fs";
+import { ValidationError } from "../util";
 
 type Brand<T, K extends string> = T & { brands: { [P in K]: true } };
 
 export type Exists = Brand<string, "Exists">;
 export type RecipeFile = Exists & Brand<string, "RecipeFile">;
 export type Folder = Exists & Brand<string, "Folder">;
+
+export interface InvalidRecipe {
+	origin: string;
+	errors: ValidationError[];
+}
 
 export function doesExist<T extends string>(s: T): s is T & Exists {
 	return fs.existsSync(s);

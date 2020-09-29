@@ -5,10 +5,9 @@ import * as mkdirp from "mkdirp";
 import * as path from "path";
 import * as rimraf from "rimraf";
 import { parseRecipes } from "../parser";
-import { encodeRecipe, Recipe } from "../recipes";
-import { ValidationError } from "../util";
 import { printCompilationResults } from "../printer";
-import { RecipeFile, Folder, isRecipeFile, Exists } from "./common";
+import { encodeRecipe, Recipe } from "../recipes";
+import { Exists, Folder, InvalidRecipe, isRecipeFile, RecipeFile } from "./common";
 
 type Cache = Map<
 	string,
@@ -24,11 +23,6 @@ type Cache = Map<
 export interface ValidRecipe {
 	origin: string;
 	recipe: Recipe;
-}
-
-export interface FailedRecipe {
-	origin: string;
-	errors: ValidationError[];
 }
 
 export interface Duplicate {
@@ -60,7 +54,7 @@ export function compile(input: Exists & (RecipeFile | Folder), outputDir: string
 
 	const allRecipes: ValidRecipe[] = [];
 	const duplicateRecipes: Duplicate[] = [];
-	const failedRecipes: FailedRecipe[] = [];
+	const invalidRecipes: InvalidRecipe[] = [];
 	const duplicateSet = new Set<Recipe>();
 	const invalidFiles = new Set<string>();
 
@@ -84,7 +78,7 @@ export function compile(input: Exists & (RecipeFile | Folder), outputDir: string
 				cache.set(dirname, folderCache);
 				allRecipes.push({ origin: inputIsFile ? input : file, recipe: recipe.right });
 			} else {
-				failedRecipes.push({ origin: file, errors: recipe.left });
+				invalidRecipes.push({ origin: file, errors: recipe.left });
 				invalidFiles.add(file);
 			}
 		}
@@ -97,5 +91,5 @@ export function compile(input: Exists & (RecipeFile | Folder), outputDir: string
 	const validFiles = files.filter(x => !invalidFiles.has(x));
 
 	processRecipes(outputDir, uniqueRecipes, inputIsFile);
-	printCompilationResults(validFiles, duplicateRecipes, failedRecipes);
+	printCompilationResults(validFiles, duplicateRecipes, invalidRecipes);
 }

@@ -1,5 +1,5 @@
 import * as chalk from "chalk";
-import { Duplicate, FailedRecipe } from "./commands";
+import { Duplicate, InvalidRecipe } from "./commands";
 import { ValidationError } from "./util";
 import { config } from "./config";
 
@@ -54,7 +54,7 @@ function joinPath(path: string[]) {
 	return result;
 }
 
-function stringifyFailedRecipes(fails: FailedRecipe[]): string {
+function stringifyInvalidRecipes(fails: InvalidRecipe[]): string {
 	const groupedByOrigin = fails.reduce<Map<string, ValidationError[][]>>((acc, x) => {
 		const array = acc.get(x.origin) ?? [];
 		array.push(x.errors);
@@ -81,9 +81,13 @@ function stringifyFailedRecipes(fails: FailedRecipe[]): string {
 export function getCompilationResults(
 	validFiles: string[],
 	duplicateRecipes: Duplicate[],
-	failedRecipes: FailedRecipe[],
+	failedRecipes: InvalidRecipe[],
 ) {
-	return [stringifyValidFiles(validFiles), stringifyDuplicates(duplicateRecipes), stringifyFailedRecipes(failedRecipes)]
+	return [
+		stringifyValidFiles(validFiles),
+		stringifyDuplicates(duplicateRecipes),
+		stringifyInvalidRecipes(failedRecipes),
+	]
 		.filter(x => x.length)
 		.join("\n\n");
 }
@@ -91,7 +95,17 @@ export function getCompilationResults(
 export function printCompilationResults(
 	validFiles: string[],
 	duplicateRecipes: Duplicate[],
-	failedRecipes: FailedRecipe[],
+	failedRecipes: InvalidRecipe[],
 ) {
 	log(getCompilationResults(validFiles, duplicateRecipes, failedRecipes));
+}
+
+export function getMigrationResults(validRecipes: string[], invalidRecipes: InvalidRecipe[]) {
+	return [stringifyValidFiles(validRecipes), stringifyInvalidRecipes(invalidRecipes)]
+		.filter(x => x.length)
+		.join("\n\n");
+}
+
+export function printMigrationResults(validRecipes: string[], invalidRecipes: InvalidRecipe[]) {
+	log(getMigrationResults(validRecipes, invalidRecipes));
 }

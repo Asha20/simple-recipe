@@ -138,46 +138,70 @@ export function encodeRecipe(recipe: OwnRecipe): MCRecipe {
 	}
 }
 
-export function decodeRecipe(name: string, recipe: MCRecipe): Recipe {
-	const ownRecipe = (() => {
-		switch (recipe.type) {
-			case "minecraft:crafting_shapeless":
-				return decodeCraftingShapeless(recipe);
-			case "minecraft:crafting_shaped":
-				return decodeCraftingShaped(recipe);
-			case "minecraft:blasting":
-			case "minecraft:campfire_cooking":
-			case "minecraft:smelting":
-			case "minecraft:smoking":
-				return decodeCooking(recipe);
-			case "minecraft:smithing":
-				return decodeSmithing(recipe);
-			case "minecraft:stonecutting":
-				return decodeStonecutting(recipe);
-			default:
-				return decodeCraftingSpecial(recipe);
-		}
-	})();
-
-	traverse(ownRecipe, val => {
-		if (isItem(val)) {
-			return decodeItem(val);
-		}
-		if (isTag(val)) {
-			return decodeTag(val);
-		}
-		if (isItems(val)) {
-			return decodeItems(val);
-		}
-		if (isTags(val)) {
-			return decodeTags(val);
-		}
-		return val;
-	});
-
-	return {
-		_name: name,
-		...encodeGroup(recipe.group),
-		...ownRecipe,
-	};
+export function decodeRecipe(name: string, recipe: unknown): PEither<Recipe> {
+	return pipe(
+		isObject(recipe),
+		chain(o => hasKeys(o, "type") as PEither<MCRecipe>),
+		chain(
+			(o): PEither<OwnRecipe> => {
+				try {
+					switch (o.type) {
+						case "minecraft:crafting_shapeless":
+							return right(decodeCraftingShapeless(o));
+						case "minecraft:crafting_shaped":
+							return right(decodeCraftingShaped(o));
+						case "minecraft:blasting":
+						case "minecraft:campfire_cooking":
+						case "minecraft:smelting":
+						case "minecraft:smoking":
+							return right(decodeCooking(o));
+						case "minecraft:smithing":
+							return right(decodeSmithing(o));
+						case "minecraft:stonecutting":
+							return right(decodeStonecutting(o));
+						case "minecraft:crafting_special_armordye":
+						case "minecraft:crafting_special_bannerduplicate":
+						case "minecraft:crafting_special_bookcloning":
+						case "minecraft:crafting_special_firework_rocket":
+						case "minecraft:crafting_special_firework_star":
+						case "minecraft:crafting_special_firework_star_fade":
+						case "minecraft:crafting_special_mapcloning":
+						case "minecraft:crafting_special_mapextending":
+						case "minecraft:crafting_special_repairitem":
+						case "minecraft:crafting_special_shielddecoration":
+						case "minecraft:crafting_special_shulkerboxcoloring":
+						case "minecraft:crafting_special_tippedarrow":
+						case "minecraft:crafting_special_suspiciousstew":
+							return right(decodeCraftingSpecial(o));
+						default:
+							return left(of(err("Unknown type provided.")));
+					}
+				} catch (e) {
+					return left(of(err("Could not parse recipe.")));
+				}
+			},
+		),
+		map(o =>
+			traverse(o, val => {
+				if (isItem(val)) {
+					return decodeItem(val);
+				}
+				if (isTag(val)) {
+					return decodeTag(val);
+				}
+				if (isItems(val)) {
+					return decodeItems(val);
+				}
+				if (isTags(val)) {
+					return decodeTags(val);
+				}
+				return val;
+			}),
+		),
+		map(o => ({
+			_name: name,
+			...encodeGroup((recipe as any).group),
+			...o,
+		})),
+	);
 }

@@ -4,8 +4,9 @@ import * as yaml from "js-yaml";
 import * as mkdirp from "mkdirp";
 import * as path from "path";
 import { decodeRecipe, MCRecipe } from "../recipes";
+import { Folder } from "./common";
 
-export function migrate(inputDir: string, outputDir: string) {
+export function migrate(inputDir: Folder, outputDir: string) {
 	const groupedByDirname = glob.sync("**/*.json", { cwd: inputDir }).reduce<Map<string, string[]>>((acc, file) => {
 		const dirname = path.dirname(file);
 		const array = acc.get(dirname) ?? [];

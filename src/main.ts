@@ -3,6 +3,7 @@ import { Command } from "commander";
 import { availableVersions, validTarget } from "./items";
 import { config } from "./config";
 import { migrate, compile, watch } from "./commands";
+import { isRecipeFile, doesExist, isFolder } from "./commands/common";
 
 interface Options {
 	target: string;
@@ -28,7 +29,16 @@ export function main(args: string | string[]) {
 			}
 			config.silent = opts.silent;
 			config.target = opts.target;
-			compile(resolve(source), resolve(destination));
+
+			if (!doesExist(source)) {
+				console.log("Provided source does not exist.");
+				return;
+			}
+			if (!isRecipeFile(source) && !isFolder(source)) {
+				console.log("You must provide a folder or a .yml file as the source.");
+				return;
+			}
+			compile(source, destination);
 		});
 
 	program
@@ -43,7 +53,16 @@ export function main(args: string | string[]) {
 			}
 			config.silent = opts.silent;
 			config.target = opts.target;
-			watch(resolve(source), resolve(destination));
+
+			if (!doesExist(source)) {
+				console.log("Provided source does not exist.");
+				return;
+			}
+			if (!isRecipeFile(source) && !isFolder(source)) {
+				console.log("You must provide a folder or a .yml file as the source.");
+				return;
+			}
+			watch(source, destination);
 		});
 
 	program
@@ -52,7 +71,16 @@ export function main(args: string | string[]) {
 		.description("Convert a vanilla datapack to the simple-recipe format")
 		.action((source: string, destination: string, opts: Pick<Options, "silent">) => {
 			config.silent = opts.silent;
-			migrate(resolve(source), resolve(destination));
+
+			if (!doesExist(source)) {
+				console.log("Provided source does not exist.");
+				return;
+			}
+			if (!isFolder(source)) {
+				console.log("You must provide a folder as the source.");
+				return;
+			}
+			migrate(source, destination);
 		});
 
 	if (args === process.argv) {

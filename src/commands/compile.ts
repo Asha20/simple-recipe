@@ -8,6 +8,7 @@ import { parseRecipes } from "../parser";
 import { encodeRecipe, Recipe } from "../recipes";
 import { ValidationError } from "../util";
 import { printCompilationResults } from "../printer";
+import { RecipeFile, Folder, isRecipeFile, Exists } from "./common";
 
 type Cache = Map<
 	string,
@@ -36,20 +37,22 @@ export interface Duplicate {
 	recipes: Set<Recipe>;
 }
 
-function processRecipes(outputDir: string, recipes: ValidRecipe[]) {
+function processRecipes(outputDir: string, recipes: ValidRecipe[], inputIsFile: boolean) {
 	for (const { origin, recipe } of recipes) {
 		const dirname = path.dirname(origin);
-		const outFile = recipe._name + ".json";
-		mkdirp.sync(path.resolve(outputDir, dirname)); // TODO: Handle throw
+		const outName = recipe._name + ".json";
+		mkdirp.sync(path.resolve(outputDir, inputIsFile ? "" : dirname)); // TODO: Handle throw
 		// Remove meta properties
 		delete recipe._name;
 		const stringRecipe = JSON.stringify(encodeRecipe(recipe), null, 2);
-		fs.writeFileSync(path.resolve(outputDir, dirname, outFile), stringRecipe);
+		const outFile = inputIsFile ? path.resolve(outputDir, outName) : path.resolve(outputDir, dirname, outName);
+		fs.writeFileSync(outFile, stringRecipe);
 	}
 }
 
-export function compile(inputDir: string, outputDir: string) {
-	const files = glob.sync("**/*.yml", { cwd: inputDir });
+export function compile(input: Exists & (RecipeFile | Folder), outputDir: string) {
+	const inputIsFile = isRecipeFile(input);
+	const files = inputIsFile ? [input] : glob.sync("**/*.yml", { cwd: input });
 
 	rimraf.sync(outputDir);
 
@@ -62,7 +65,7 @@ export function compile(inputDir: string, outputDir: string) {
 	const invalidFiles = new Set<string>();
 
 	for (const file of files) {
-		const recipes = parseRecipes(path.resolve(inputDir, file));
+		const recipes = parseRecipes(inputIsFile ? file : path.resolve(input, file));
 		const dirname = path.dirname(file);
 
 		for (const recipe of recipes) {
@@ -79,7 +82,7 @@ export function compile(inputDir: string, outputDir: string) {
 				}
 				folderCache.set(name, nameCache);
 				cache.set(dirname, folderCache);
-				allRecipes.push({ origin: file, recipe: recipe.right });
+				allRecipes.push({ origin: inputIsFile ? input : file, recipe: recipe.right });
 			} else {
 				failedRecipes.push({ origin: file, errors: recipe.left });
 				invalidFiles.add(file);
@@ -93,6 +96,6 @@ export function compile(inputDir: string, outputDir: string) {
 	const uniqueRecipes = allRecipes.filter(x => !duplicateSet.has(x.recipe));
 	const validFiles = files.filter(x => !invalidFiles.has(x));
 
-	processRecipes(outputDir, uniqueRecipes);
+	processRecipes(outputDir, uniqueRecipes, inputIsFile);
 	printCompilationResults(validFiles, duplicateRecipes, failedRecipes);
 }

@@ -97,6 +97,5 @@ export function printCompilationResults(
 	duplicateRecipes: Duplicate[],
 	failedRecipes: FailedRecipe[],
 ) {
-	clearConsole();
 	log(getCompilationResults(validFiles, duplicateRecipes, failedRecipes));
 }

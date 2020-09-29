@@ -38,6 +38,10 @@ const validFormat = (u: string): PEither<Item> => {
 };
 
 function validItemName({ name, namespace }: Item): PEither<Item> {
+	if (!config.spellcheck) {
+		return right(item(name, namespace));
+	}
+
 	if (namespace !== "minecraft") {
 		return right(item(name, namespace));
 	}

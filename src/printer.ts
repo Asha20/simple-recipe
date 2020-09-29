@@ -83,13 +83,9 @@ export function getCompilationResults(
 	duplicateRecipes: Duplicate[],
 	failedRecipes: FailedRecipe[],
 ) {
-	return (
-		stringifyValidFiles(validFiles) +
-		"\n\n" +
-		stringifyDuplicates(duplicateRecipes) +
-		"\n\n" +
-		stringifyFailedRecipes(failedRecipes)
-	);
+	return [stringifyValidFiles(validFiles), stringifyDuplicates(duplicateRecipes), stringifyFailedRecipes(failedRecipes)]
+		.filter(x => x.length)
+		.join("\n\n");
 }
 
 export function printCompilationResults(

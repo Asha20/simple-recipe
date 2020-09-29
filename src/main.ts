@@ -1,4 +1,3 @@
-import * as path from "path";
 import { Command } from "commander";
 import { availableVersions, validTarget } from "./items";
 import { initConfig, Config } from "./config";
@@ -7,6 +6,7 @@ import { isRecipeFile, doesExist, isFolder } from "./commands/common";
 
 export function main(args: string | string[]) {
 	const program = new Command();
+	program.version("0.0.0", "--version");
 
 	program
 		.command("compile <source> <destination>")

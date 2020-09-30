@@ -2,7 +2,7 @@ import * as assert from "assert";
 import { isRight } from "fp-ts/lib/Either";
 import { parseStonecutting, encodeStonecutting } from "./Stonecutting";
 import { item, items, tag } from "../parts";
-import { itemIng, tagIng } from "./common";
+import * as ingredient from "./ingredient";
 
 describe("Stonecutting", () => {
 	test("decode and encode 1", () => {
@@ -21,7 +21,7 @@ describe("Stonecutting", () => {
 		assert(isRight(recipe));
 		expect(encodeStonecutting(recipe.right)).toEqual({
 			type: "minecraft:stonecutting",
-			ingredient: itemIng("apple"),
+			ingredient: ingredient.item("apple"),
 			result: "minecraft:apple",
 			count: 1,
 		});
@@ -43,7 +43,7 @@ describe("Stonecutting", () => {
 		assert(isRight(recipe));
 		expect(encodeStonecutting(recipe.right)).toEqual({
 			type: "minecraft:stonecutting",
-			ingredient: tagIng("breakable"),
+			ingredient: ingredient.tag("breakable"),
 			result: "minecraft:dirt",
 			count: 4,
 		});
@@ -65,7 +65,7 @@ describe("Stonecutting", () => {
 		assert(isRight(recipe));
 		expect(encodeStonecutting(recipe.right)).toEqual({
 			type: "minecraft:stonecutting",
-			ingredient: [itemIng("apple"), tagIng("edible"), itemIng("bar", "foo")],
+			ingredient: [ingredient.item("apple"), ingredient.tag("edible"), ingredient.item("bar", "foo")],
 			result: "minecraft:apple",
 			count: 3,
 		});

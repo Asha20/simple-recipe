@@ -2,7 +2,7 @@ import * as assert from "assert";
 import { isRight } from "fp-ts/lib/Either";
 import { parseCraftingShapeless, encodeCraftingShapeless } from "./CraftingShapeless";
 import { items, tags } from "../parts";
-import { arrayOf, itemIng, tagIng } from "./common";
+import * as ingredient from "./ingredient";
 
 describe("Shapeless crafting", () => {
 	test("single item stack", () => {
@@ -21,7 +21,7 @@ describe("Shapeless crafting", () => {
 		assert(isRight(recipe));
 		expect(encodeCraftingShapeless(recipe.right)).toEqual({
 			type: "minecraft:crafting_shapeless",
-			ingredients: [itemIng("oak_log"), itemIng("oak_log")],
+			ingredients: ingredient.items(2, "oak_log"),
 			result: {
 				count: 4,
 				item: "minecraft:oak_planks",
@@ -45,7 +45,7 @@ describe("Shapeless crafting", () => {
 		assert(isRight(recipe));
 		expect(encodeCraftingShapeless(recipe.right)).toEqual({
 			type: "minecraft:crafting_shapeless",
-			ingredients: [tagIng("log"), tagIng("log")],
+			ingredients: ingredient.tags(2, "log"),
 			result: {
 				count: 16,
 				item: "minecraft:stick",
@@ -69,7 +69,10 @@ describe("Shapeless crafting", () => {
 		assert(isRight(recipe));
 		expect(encodeCraftingShapeless(recipe.right)).toEqual({
 			type: "minecraft:crafting_shapeless",
-			ingredients: [...arrayOf(8, itemIng("sand")), [itemIng("fire_charge"), itemIng("flint_and_steel")]],
+			ingredients: [
+				...ingredient.items(8, "sand"),
+				[ingredient.item("fire_charge"), ingredient.item("flint_and_steel")],
+			],
 			result: {
 				count: 8,
 				item: "minecraft:glass",

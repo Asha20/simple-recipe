@@ -1,7 +1,7 @@
 import { chain, isLeft, isRight, left, Left, map, right, Right } from "fp-ts/lib/Either";
 import { NonEmptyArray, of } from "fp-ts/lib/NonEmptyArray";
 import { pipe } from "fp-ts/lib/pipeable";
-import { ItemOrTag, Items, parseItemOrTag, parseItems, items } from "../parts";
+import { ItemOrTag, Items, parseItemOrTag, parseItems, items, stringifyName } from "../parts";
 import {
 	hasKeys,
 	isObject,
@@ -15,7 +15,8 @@ import {
 	encodeGroup,
 	encodeCount,
 } from "../util";
-import { stringify, toIngredients, fromIngredientsToItemOrTags, Ingredient } from "./common";
+import { Ingredient } from "./ingredient";
+import * as ingredient from "./ingredient";
 
 export interface MCCraftingShaped {
 	type: "minecraft:crafting_shaped";
@@ -162,7 +163,7 @@ export function encodeCraftingShaped(x: OwnCraftingShaped): MCCraftingShaped {
 	const keyRecord: MCCraftingShaped["key"] = {};
 
 	for (const key of Object.keys(x.key)) {
-		keyRecord[key] = toIngredients(x.key[key]);
+		keyRecord[key] = ingredient.from(x.key[key]);
 	}
 
 	return {
@@ -172,7 +173,7 @@ export function encodeCraftingShaped(x: OwnCraftingShaped): MCCraftingShaped {
 		key: keyRecord,
 		result: {
 			...encodeCount(x.result.count),
-			item: stringify(x.result),
+			item: stringifyName(x.result, true),
 		},
 	};
 }
@@ -180,7 +181,7 @@ export function encodeCraftingShaped(x: OwnCraftingShaped): MCCraftingShaped {
 export function decodeCraftingShaped(x: MCCraftingShaped): OwnCraftingShaped {
 	const ownKey: Record<string, ItemOrTag | ItemOrTag[]> = {};
 	for (const [key, value] of Object.entries(x.key)) {
-		ownKey[key] = fromIngredientsToItemOrTags(value);
+		ownKey[key] = ingredient.toItemOrTags(value);
 	}
 
 	return {

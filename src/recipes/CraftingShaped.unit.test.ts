@@ -2,7 +2,7 @@ import * as assert from "assert";
 import { isRight } from "fp-ts/lib/Either";
 import { parseCraftingShaped, encodeCraftingShaped } from "./CraftingShaped";
 import { items, item, tag } from "../parts";
-import { itemIng, tagIng } from "./common";
+import * as ingredient from "./ingredient";
 
 describe("Shaped crafting", () => {
 	describe("Invalid inputs", () => {
@@ -126,7 +126,7 @@ describe("Shaped crafting", () => {
 			expect(encodeCraftingShaped(recipe.right)).toEqual({
 				type: "minecraft:crafting_shaped",
 				pattern: ["pp", "pp"],
-				key: { p: tagIng("planks") },
+				key: { p: ingredient.tag("planks") },
 				result: {
 					count: 2,
 					item: "minecraft:crafting_table",
@@ -153,7 +153,7 @@ describe("Shaped crafting", () => {
 			expect(encodeCraftingShaped(recipe.right)).toEqual({
 				type: "minecraft:crafting_shaped",
 				pattern: [" b ", "dod", "ooo"],
-				key: { b: itemIng("book"), d: itemIng("diamond"), o: itemIng("obsidian") },
+				key: { b: ingredient.item("book"), d: ingredient.item("diamond"), o: ingredient.item("obsidian") },
 				result: {
 					item: "minecraft:enchanting_table",
 				},

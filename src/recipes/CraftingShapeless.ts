@@ -1,9 +1,10 @@
 import { chain, left, right } from "fp-ts/lib/Either";
 import { of } from "fp-ts/lib/NonEmptyArray";
 import { pipe } from "fp-ts/lib/pipeable";
-import { Items, parseItems, parseStack, Stack, items, Tags, ItemsOrTags } from "../parts";
-import { hasKeys, isObject, PEither, seqS, err, tryParseGroup, encodeGroup, encodeCount } from "../util";
-import { Ingredient, stringify, toIngredients, fromIngredientsToStack } from "./common";
+import { Items, items, ItemsOrTags, parseItems, parseStack, stringifyName } from "../parts";
+import { encodeCount, encodeGroup, err, hasKeys, isObject, PEither, seqS, tryParseGroup } from "../util";
+import { Ingredient } from "./ingredient";
+import * as ingredient from "./ingredient";
 
 export interface MCCraftingShapeless {
 	type: "minecraft:crafting_shapeless";
@@ -42,10 +43,10 @@ export function encodeCraftingShapeless(x: OwnCraftingShapeless): MCCraftingShap
 	return {
 		type,
 		...encodeGroup(x.group),
-		ingredients: toIngredients(x.ingredients) as MCCraftingShapeless["ingredients"],
+		ingredients: ingredient.from(x.ingredients) as MCCraftingShapeless["ingredients"],
 		result: {
 			...encodeCount(x.result.count),
-			item: stringify(x.result),
+			item: stringifyName(x.result, true),
 		},
 	};
 }
@@ -53,7 +54,7 @@ export function encodeCraftingShapeless(x: OwnCraftingShapeless): MCCraftingShap
 export function decodeCraftingShapeless(x: MCCraftingShapeless): OwnCraftingShapeless {
 	return {
 		type: "crafting_shapeless",
-		ingredients: fromIngredientsToStack(x.ingredients) as OwnCraftingShapeless["ingredients"],
+		ingredients: ingredient.toStack(x.ingredients) as OwnCraftingShapeless["ingredients"],
 		result: items(x.result.item, x.result.count ?? 1),
 	};
 }

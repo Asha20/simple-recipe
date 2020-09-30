@@ -2,9 +2,9 @@ import { isRight, right, Right, left, isLeft, Left } from "fp-ts/lib/Either";
 import { NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
 import { ValidationError, err, PEither } from "../util";
 
-export function stringifyName(x: { name: string; namespace: string }) {
+export function stringifyName(x: { name: string; namespace: string }, forceNamespace = false) {
 	const { name, namespace } = x;
-	return namespace === "minecraft" ? name : namespace + ":" + name;
+	return !forceNamespace && namespace === "minecraft" ? name : namespace + ":" + name;
 }
 
 export function parseArray<T>(xs: unknown[], parser: (x: unknown) => PEither<T>) {

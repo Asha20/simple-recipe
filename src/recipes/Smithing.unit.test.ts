@@ -2,7 +2,7 @@ import * as assert from "assert";
 import { isRight } from "fp-ts/lib/Either";
 import { parseSmithing, encodeSmithing } from "./Smithing";
 import { item } from "../parts";
-import { itemIng } from "./common";
+import * as ingredient from "./ingredient";
 
 describe("Smithing", () => {
 	test("iron sword", () => {
@@ -23,9 +23,9 @@ describe("Smithing", () => {
 		assert(isRight(recipe));
 		expect(encodeSmithing(recipe.right)).toEqual({
 			type: "minecraft:smithing",
-			base: itemIng("stone_sword"),
-			addition: itemIng("iron_ingot"),
-			result: itemIng("iron_sword"),
+			base: ingredient.item("stone_sword"),
+			addition: ingredient.item("iron_ingot"),
+			result: ingredient.item("iron_sword"),
 		});
 	});
 });

@@ -2,7 +2,7 @@ import * as assert from "assert";
 import { isRight } from "fp-ts/lib/Either";
 import { parseCooking, encodeCooking } from "./Cooking";
 import { item } from "../parts";
-import { itemIng } from "./common";
+import * as ingredient from "./ingredient";
 
 describe("Cooking", () => {
 	describe("invalid inputs", () => {
@@ -74,7 +74,7 @@ describe("Cooking", () => {
 			assert(isRight(recipe));
 			expect(encodeCooking(recipe.right)).toEqual({
 				type: "minecraft:blasting",
-				ingredient: itemIng("cobblestone"),
+				ingredient: ingredient.item("cobblestone"),
 				cookingtime: 100,
 				experience: 10,
 				result: "minecraft:stone",
@@ -101,7 +101,7 @@ describe("Cooking", () => {
 			assert(isRight(recipe));
 			expect(encodeCooking(recipe.right)).toEqual({
 				type: "minecraft:campfire_cooking",
-				ingredient: itemIng("cod"),
+				ingredient: ingredient.item("cod"),
 				cookingtime: 100,
 				experience: 0.5,
 				result: "minecraft:cooked_cod",

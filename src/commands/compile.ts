@@ -4,7 +4,7 @@ import * as glob from "glob";
 import * as mkdirp from "mkdirp";
 import * as path from "path";
 import * as rimraf from "rimraf";
-import { parseRecipes } from "../parser";
+import { readAndParseRecipes } from "../parser";
 import { printCompilationResults } from "../printer";
 import { encodeRecipe, Recipe } from "../recipes";
 import { Exists, Folder, InvalidRecipe, isRecipeFile, RecipeFile } from "./common";
@@ -58,7 +58,7 @@ export function compile(input: Exists & (RecipeFile | Folder), outputDir: string
 	const invalidFiles = new Set<string>();
 
 	for (const file of files) {
-		const recipes = parseRecipes(inputIsFile ? file : path.resolve(input, file));
+		const recipes = readAndParseRecipes(inputIsFile ? file : path.resolve(input, file));
 		const dirname = path.dirname(file);
 
 		for (const recipe of recipes) {

@@ -1,14 +1,44 @@
-import { either, left } from "fp-ts/Either";
-import { pipe } from "fp-ts/lib/function";
-import { NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
+import { either, left, isLeft, chain, map, right, Either, isRight } from "fp-ts/Either";
+import { pipe } from "fp-ts/lib/pipeable";
+import { NonEmptyArray, nonEmptyArray } from "fp-ts/lib/NonEmptyArray";
 import * as fs from "fs";
 import * as yaml from "js-yaml";
 import { parseRecipe, Recipe } from "./recipes";
-import { PEither, err, ValidationError } from "./util";
+import { PEither, err, ValidationError, isObject, hasKeys } from "./util";
 
-type ParsedRecipes = Array<PEither<Recipe>>;
+function addName(errors: NonEmptyArray<ValidationError>, name: string): NonEmptyArray<ValidationError> {
+	return nonEmptyArray.map(errors, x => x.prepend(name).prepend("root"));
+}
 
-function parseYAML(yamlContent: string): ParsedRecipes {
+function addRoot(errors: NonEmptyArray<ValidationError>, index: number): NonEmptyArray<ValidationError> {
+	return nonEmptyArray.map(errors, x => x.prepend(index).prepend("root"));
+}
+
+function parseName(u: unknown): Either<any, string> {
+	return pipe(
+		isObject(u),
+		chain(o => hasKeys(o, "_name")),
+		chain(o => (typeof o._name === "string" && o._name.length ? right(o._name) : left(null))),
+	);
+}
+
+function parseRecipes(xs: unknown[]): PEither<Recipe>[] {
+	return xs.map((x, index) => {
+		const r = parseRecipe(x);
+		if (isLeft(r)) {
+			const name = parseName(x);
+			if (isRight(name)) {
+				return left(addName(r.left, name.right));
+			} else {
+				return left(addRoot(r.left, index));
+			}
+		}
+
+		return r;
+	});
+}
+
+function parseYAML(yamlContent: string): Array<PEither<Recipe>> {
 	try {
 		const x = yaml.safeLoad(yamlContent);
 		if (!Array.isArray(x)) {
@@ -19,21 +49,12 @@ function parseYAML(yamlContent: string): ParsedRecipes {
 			return [left([err("Expected at least one recipe.")])];
 		}
 
-		return x.map(parseRecipe);
+		return parseRecipes(x);
 	} catch (e) {
 		return [left([err("Could not parse YAML.")])];
 	}
 }
 
-function addRoot(errors: NonEmptyArray<ValidationError>, index: number) {
-	return errors.map(x => {
-		x.origin.unshift("root", index.toString());
-		return x;
-	});
-}
-
-export function parseRecipes(filename: string) {
-	return pipe(fs.readFileSync(filename, "utf8"), parseYAML, arr =>
-		arr.map((x, i) => either.mapLeft(x, e => addRoot(e, i))),
-	);
+export function readAndParseRecipes(filename: string) {
+	return pipe(fs.readFileSync(filename, "utf8"), parseYAML);
 }

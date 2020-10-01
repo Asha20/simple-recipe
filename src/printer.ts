@@ -40,13 +40,13 @@ function stringifyValidFiles(files: string[]): string {
 const identifierRegex = /^[a-z_]\w*$/i;
 
 function joinPath(path: string[]) {
-	let result = path[0] ?? "";
-	for (let i = 1; i < path.length; i++) {
+	let result = "";
+	for (let i = 0; i < path.length; i++) {
 		const part = path[i];
 		if (Number.isInteger(+part)) {
 			result += `[${part}]`;
 		} else if (identifierRegex.test(part)) {
-			result += `.${part}`;
+			result += i > 0 ? `.${part}` : part;
 		} else {
 			result += `["${part}"]`;
 		}

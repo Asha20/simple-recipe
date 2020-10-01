@@ -1,23 +1,23 @@
-import { chain, isLeft, isRight, left, Left, map, right, Right } from "fp-ts/lib/Either";
-import { NonEmptyArray, of } from "fp-ts/lib/NonEmptyArray";
+import { chain, isRight, left, map, right } from "fp-ts/lib/Either";
+import { of } from "fp-ts/lib/NonEmptyArray";
 import { pipe } from "fp-ts/lib/pipeable";
-import { ItemOrTag, Items, parseItemOrTag, parseItems, items, stringifyName } from "../parts";
+import { ItemOrTag, Items, items, parseItemOrTag, parseItems, stringifyName } from "../parts";
+import { parseArray } from "../parts/common";
 import {
+	encodeCount,
+	encodeGroup,
+	err,
 	hasKeys,
 	isObject,
 	PEither,
 	seqS,
 	seqT,
-	UnknownObject,
-	err,
-	ValidationError,
 	tryParseGroup,
-	encodeGroup,
-	encodeCount,
+	UnknownObject,
+	ValidationError,
 } from "../util";
-import { Ingredient } from "./ingredient";
 import * as ingredient from "./ingredient";
-import { parseArray } from "../parts/common";
+import { Ingredient } from "./ingredient";
 
 export interface MCCraftingShaped {
 	type: "minecraft:crafting_shaped";
@@ -128,7 +128,7 @@ function validateKeyAndPattern(key: OwnKey, pattern: string[]): PEither<[OwnKey,
 
 	for (const k of Object.keys(key)) {
 		if (!charsInPattern.has(k)) {
-			errors.push(err(`"${key}" exists in key but not in pattern.`));
+			errors.push(err(`"${k}" exists in key but not in pattern.`));
 		}
 	}
 

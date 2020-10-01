@@ -1,3 +1,4 @@
+import * as assert from "assert";
 import {
 	isItem,
 	isTag,
@@ -5,9 +6,9 @@ import {
 	ItemOrTag,
 	items as createItems,
 	Stack,
+	stringifyName,
 	tag as createTag,
 	tags as createTags,
-	stringifyName,
 } from "../parts";
 
 export type ItemIngredient = { item: string };
@@ -55,55 +56,61 @@ export function toItemOrTags(ing: Ingredient | Ingredient[]): ItemOrTag | ItemOr
 	return Array.isArray(ing) ? ing.map(toItemOrTag) : toItemOrTag(ing);
 }
 
-export function toStack(ing: RecursiveIngredient): Stack[] {
+export function toStack(ingredients: RecursiveIngredient): Stack[] {
 	const result: Stack[] = [];
-	let currentVal: null | ItemOrTag = null;
-	let count = 0;
-	ing = Array.isArray(ing) ? ing : [ing];
-	for (const i of ing) {
-		if (Array.isArray(i)) {
-			if (currentVal !== null) {
-				const r =
-					currentVal.type === "item"
-						? createItems(currentVal.name, count, currentVal.namespace)
-						: createTags(currentVal.name, count, currentVal.namespace);
 
-				result.push(r);
-				currentVal = null;
-				count = 0;
+	const current = {
+		val: null as null | ItemOrTag,
+		count: 0,
+		get() {
+			return this.val;
+		},
+		set(val: ItemOrTag | null) {
+			this.val = val;
+			this.count = 1;
+		},
+		add() {
+			this.count += 1;
+		},
+		convert() {
+			assert(this.val);
+			return this.val.type === "item"
+				? createItems(this.val.name, this.count, this.val.namespace)
+				: createTags(this.val.name, this.count, this.val.namespace);
+		},
+		isEqual(itemOrTag: ItemOrTag) {
+			return (
+				this.val !== null &&
+				this.val.type === itemOrTag.type &&
+				this.val.namespace === itemOrTag.namespace &&
+				this.val.name === itemOrTag.name
+			);
+		},
+	};
+
+	const boxed = Array.isArray(ingredients) ? ingredients : [ingredients];
+	for (const ing of boxed) {
+		if (Array.isArray(ing)) {
+			if (current.get() !== null) {
+				result.push(current.convert());
+				current.set(null);
 			}
-			result.push(toStack(i));
+			result.push(toStack(ing));
 			continue;
 		}
-		const itemOrTag = toItemOrTag(i);
-		if (currentVal === null) {
-			currentVal = itemOrTag;
-			count = 1;
-		} else if (
-			itemOrTag.type !== currentVal.type ||
-			itemOrTag.namespace !== currentVal.namespace ||
-			itemOrTag.name !== currentVal.name
-		) {
-			const r =
-				currentVal.type === "item"
-					? createItems(currentVal.name, count, currentVal.namespace)
-					: createTags(currentVal.name, count, currentVal.namespace);
-
-			result.push(r);
-			currentVal = itemOrTag;
-			count = 1;
+		const itemOrTag = toItemOrTag(ing);
+		if (current.get() === null) {
+			current.set(itemOrTag);
+		} else if (!current.isEqual(itemOrTag)) {
+			result.push(current.convert());
+			current.set(itemOrTag);
 		} else {
-			count += 1;
+			current.add();
 		}
 	}
 
-	if (currentVal) {
-		const r =
-			currentVal.type === "item"
-				? createItems(currentVal.name, count, currentVal.namespace)
-				: createTags(currentVal.name, count, currentVal.namespace);
-
-		result.push(r);
+	if (current.get()) {
+		result.push(current.convert());
 	}
 
 	return result;

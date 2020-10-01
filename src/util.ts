@@ -5,13 +5,19 @@ import { getSemigroup, NonEmptyArray, of } from "fp-ts/lib/NonEmptyArray";
 export type UnknownObject = Record<string, unknown>;
 export type PEither<T> = Either<NonEmptyArray<ValidationError>, T>;
 
-export interface ValidationError {
-	origin: string[];
-	message: string;
+class ValidationError {
+	constructor(public message: string, public origin: string[]) {}
+
+	prepend(origin: string | number) {
+		this.origin.unshift(origin.toString());
+		return this;
+	}
 }
 
+export type { ValidationError };
+
 export function err(message: string, origin: string[] = []): ValidationError {
-	return { origin, message };
+	return new ValidationError(message, origin);
 }
 
 export const applicativeValidation = getValidation(getSemigroup<ValidationError>());

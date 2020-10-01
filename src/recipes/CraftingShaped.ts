@@ -17,6 +17,7 @@ import {
 } from "../util";
 import { Ingredient } from "./ingredient";
 import * as ingredient from "./ingredient";
+import { parseArray } from "../parts/common";
 
 export interface MCCraftingShaped {
 	type: "minecraft:crafting_shaped";
@@ -88,22 +89,16 @@ const validKey = (k: UnknownObject): PEither<OwnKey> => {
 
 		if (!Array.isArray(value)) {
 			errors.push(err("Expected an Item, a Tag, or an array of Item or Tag.", [key]));
-			errors.push(...itemOrTag.left.map(x => err(x.message, [key, ...x.origin])));
+			errors.push(...itemOrTag.left.map(x => x.prepend(key)));
 			continue;
 		}
 
-		const parsed = value.map((x, index) => ({ index, result: parseItemOrTag(x) }));
-
-		if (parsed.every(x => isRight(x.result))) {
-			result[key] = parsed.map(x => (x.result as Right<ItemOrTag>).right);
-			continue;
+		const parsed = parseArray(value, parseItemOrTag);
+		if (isRight(parsed)) {
+			result[key] = parsed.right;
+		} else {
+			errors.push(...parsed.left);
 		}
-
-		errors.push(
-			...parsed
-				.filter((x): x is { index: number; result: Left<NonEmptyArray<ValidationError>> } => isLeft(x.result))
-				.map(x => err((x.result as any).left, [x.index.toString()])),
-		);
 	}
 
 	return !errors.length ? right(result) : left(errors as any);

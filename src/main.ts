@@ -1,3 +1,4 @@
+import "source-map-support/register";
 import { Command } from "commander";
 import { availableVersions, validTarget } from "./items";
 import { initConfig, Config } from "./config";

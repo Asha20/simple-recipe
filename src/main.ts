@@ -1,4 +1,4 @@
-import "source-map-support/register";
+#!/usr/bin/env node
 import { Command } from "commander";
 import { availableVersions, validTarget } from "./items";
 import { initConfig, Config } from "./config";

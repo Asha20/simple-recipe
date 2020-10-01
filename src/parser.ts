@@ -1,10 +1,10 @@
-import { either, left, isLeft, chain, map, right, Either, isRight } from "fp-ts/Either";
-import { pipe } from "fp-ts/lib/pipeable";
+import { chain, Either, isLeft, isRight, left, right } from "fp-ts/lib/Either";
 import { NonEmptyArray, nonEmptyArray } from "fp-ts/lib/NonEmptyArray";
+import { pipe } from "fp-ts/lib/pipeable";
 import * as fs from "fs";
 import * as yaml from "js-yaml";
 import { parseRecipe, Recipe } from "./recipes";
-import { PEither, err, ValidationError, isObject, hasKeys } from "./util";
+import { err, hasKeys, isObject, PEither, ValidationError } from "./util";
 
 function addName(errors: NonEmptyArray<ValidationError>, name: string): NonEmptyArray<ValidationError> {
 	return nonEmptyArray.map(errors, x => x.prepend(name).prepend("root"));

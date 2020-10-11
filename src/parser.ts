@@ -41,15 +41,13 @@ function parseRecipes(xs: unknown[]): PEither<Recipe>[] {
 function parseYAML(yamlContent: string): Array<PEither<Recipe>> {
 	try {
 		const x = yaml.safeLoad(yamlContent);
-		if (!Array.isArray(x)) {
-			return [left([err("Expected an array of recipes.")])];
-		}
+		const boxed = Array.isArray(x) ? x : [x];
 
-		if (x.length === 0) {
+		if (boxed.length === 0) {
 			return [left([err("Expected at least one recipe.")])];
 		}
 
-		return parseRecipes(x);
+		return parseRecipes(boxed);
 	} catch (e) {
 		return [left([err("Could not parse YAML.")])];
 	}

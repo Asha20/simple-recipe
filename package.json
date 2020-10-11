@@ -5,14 +5,19 @@
     "simple-recipe": "./dist/main.js"
   },
   "main": "./dist/main.js",
-  "description": "Easily create recipes for Minecraft datapacks.",
+  "description": "A command line interface that makes writing Minecraft datapack recipes simpler and more pleasant.",
+  "homepage": "https://github.com/Asha20/simple-recipe",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Asha20/simple-recipe"
+  },
   "scripts": {
+    "test": "jest",
     "test:unit": "jest unit",
     "test:unit:watch": "jest unit --watch",
     "test:e2e": "jest e2e",
-    "build": "tsc -p tsconfig.build.json",
     "watch": "tsc -p tsconfig.build.json --watch",
-    "pkg": "npm run build && pkg --out-path bin ."
+    "build": "rimraf dist && tsc -p tsconfig.build.json && pkg --out-path bin ."
   },
   "author": "Vukašin Stepanović <vukasinstepanovic@gmail.com>",
   "license": "MIT",

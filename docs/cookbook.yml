@@ -1,0 +1,7484 @@
+# This cookbook contains all of the recipes from the latest version of Minecraft.
+
+- _name: acacia_boat
+  group: boat
+  type: crafting_shaped
+  pattern:
+    - '# #'
+    - '###'
+  key:
+    '#': acacia_planks
+  result: 1 acacia_boat
+
+- _name: acacia_button
+  group: wooden_button
+  type: crafting_shapeless
+  ingredients:
+    - 1 acacia_planks
+  result: 1 acacia_button
+
+- _name: acacia_door
+  group: wooden_door
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+    - '##'
+  key:
+    '#': acacia_planks
+  result: 3 acacia_door
+
+- _name: acacia_fence_gate
+  group: wooden_fence_gate
+  type: crafting_shaped
+  pattern:
+    - '#W#'
+    - '#W#'
+  key:
+    '#': stick
+    W: acacia_planks
+  result: 1 acacia_fence_gate
+
+- _name: acacia_fence
+  group: wooden_fence
+  type: crafting_shaped
+  pattern:
+    - W#W
+    - W#W
+  key:
+    '#': stick
+    W: acacia_planks
+  result: 3 acacia_fence
+
+- _name: acacia_planks
+  group: planks
+  type: crafting_shapeless
+  ingredients:
+    - 1 +acacia_logs
+  result: 4 acacia_planks
+
+- _name: acacia_pressure_plate
+  group: wooden_pressure_plate
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': acacia_planks
+  result: 1 acacia_pressure_plate
+
+- _name: acacia_sign
+  group: sign
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - ' X '
+  key:
+    '#': acacia_planks
+    X: stick
+  result: 3 acacia_sign
+
+- _name: acacia_slab
+  group: wooden_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': acacia_planks
+  result: 6 acacia_slab
+
+- _name: acacia_stairs
+  group: wooden_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': acacia_planks
+  result: 4 acacia_stairs
+
+- _name: acacia_trapdoor
+  group: wooden_trapdoor
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': acacia_planks
+  result: 2 acacia_trapdoor
+
+- _name: acacia_wood
+  group: bark
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': acacia_log
+  result: 3 acacia_wood
+
+- _name: activator_rail
+  type: crafting_shaped
+  pattern:
+    - XSX
+    - X#X
+    - XSX
+  key:
+    '#': redstone_torch
+    S: stick
+    X: iron_ingot
+  result: 6 activator_rail
+
+- _name: andesite_slab_from_andesite_stonecutting
+  type: stonecutting
+  ingredients: andesite
+  result: 2 andesite_slab
+
+- _name: andesite_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': andesite
+  result: 6 andesite_slab
+
+- _name: andesite_stairs_from_andesite_stonecutting
+  type: stonecutting
+  ingredients: andesite
+  result: 1 andesite_stairs
+
+- _name: andesite_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': andesite
+  result: 4 andesite_stairs
+
+- _name: andesite_wall_from_andesite_stonecutting
+  type: stonecutting
+  ingredients: andesite
+  result: 1 andesite_wall
+
+- _name: andesite_wall
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': andesite
+  result: 6 andesite_wall
+
+- _name: andesite
+  type: crafting_shapeless
+  ingredients:
+    - 1 diorite
+    - 1 cobblestone
+  result: 2 andesite
+
+- _name: anvil
+  type: crafting_shaped
+  pattern:
+    - III
+    - ' i '
+    - iii
+  key:
+    I: iron_block
+    i: iron_ingot
+  result: 1 anvil
+
+- _name: armor_dye
+  type: armordye
+
+- _name: armor_stand
+  type: crafting_shaped
+  pattern:
+    - ///
+    - ' / '
+    - /_/
+  key:
+    /: stick
+    _: smooth_stone_slab
+  result: 1 armor_stand
+
+- _name: arrow
+  type: crafting_shaped
+  pattern:
+    - X
+    - '#'
+    - 'Y'
+  key:
+    '#': stick
+    X: flint
+    'Y': feather
+  result: 4 arrow
+
+- _name: baked_potato_from_campfire_cooking
+  type: campfire_cooking
+  cookingtime: 600
+  experience: 0.35
+  ingredients: potato
+  result: baked_potato
+
+- _name: baked_potato_from_smoking
+  type: smoking
+  cookingtime: 100
+  experience: 0.35
+  ingredients: potato
+  result: baked_potato
+
+- _name: baked_potato
+  type: smelting
+  cookingtime: 200
+  experience: 0.35
+  ingredients: potato
+  result: baked_potato
+
+- _name: banner_duplicate
+  type: bannerduplicate
+
+- _name: barrel
+  type: crafting_shaped
+  pattern:
+    - PSP
+    - P P
+    - PSP
+  key:
+    P: +planks
+    S: +wooden_slabs
+  result: 1 barrel
+
+- _name: beacon
+  type: crafting_shaped
+  pattern:
+    - GGG
+    - GSG
+    - OOO
+  key:
+    S: nether_star
+    G: glass
+    O: obsidian
+  result: 1 beacon
+
+- _name: beehive
+  type: crafting_shaped
+  pattern:
+    - PPP
+    - HHH
+    - PPP
+  key:
+    P: +planks
+    H: honeycomb
+  result: 1 beehive
+
+- _name: beetroot_soup
+  type: crafting_shapeless
+  ingredients:
+    - 1 bowl
+    - 6 beetroot
+  result: 1 beetroot_soup
+
+- _name: birch_boat
+  group: boat
+  type: crafting_shaped
+  pattern:
+    - '# #'
+    - '###'
+  key:
+    '#': birch_planks
+  result: 1 birch_boat
+
+- _name: birch_button
+  group: wooden_button
+  type: crafting_shapeless
+  ingredients:
+    - 1 birch_planks
+  result: 1 birch_button
+
+- _name: birch_door
+  group: wooden_door
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+    - '##'
+  key:
+    '#': birch_planks
+  result: 3 birch_door
+
+- _name: birch_fence_gate
+  group: wooden_fence_gate
+  type: crafting_shaped
+  pattern:
+    - '#W#'
+    - '#W#'
+  key:
+    '#': stick
+    W: birch_planks
+  result: 1 birch_fence_gate
+
+- _name: birch_fence
+  group: wooden_fence
+  type: crafting_shaped
+  pattern:
+    - W#W
+    - W#W
+  key:
+    '#': stick
+    W: birch_planks
+  result: 3 birch_fence
+
+- _name: birch_planks
+  group: planks
+  type: crafting_shapeless
+  ingredients:
+    - 1 +birch_logs
+  result: 4 birch_planks
+
+- _name: birch_pressure_plate
+  group: wooden_pressure_plate
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': birch_planks
+  result: 1 birch_pressure_plate
+
+- _name: birch_sign
+  group: sign
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - ' X '
+  key:
+    '#': birch_planks
+    X: stick
+  result: 3 birch_sign
+
+- _name: birch_slab
+  group: wooden_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': birch_planks
+  result: 6 birch_slab
+
+- _name: birch_stairs
+  group: wooden_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': birch_planks
+  result: 4 birch_stairs
+
+- _name: birch_trapdoor
+  group: wooden_trapdoor
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': birch_planks
+  result: 2 birch_trapdoor
+
+- _name: birch_wood
+  group: bark
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': birch_log
+  result: 3 birch_wood
+
+- _name: black_banner
+  group: banner
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - ' | '
+  key:
+    '#': black_wool
+    '|': stick
+  result: 1 black_banner
+
+- _name: black_bed_from_white_bed
+  group: dyed_bed
+  type: crafting_shapeless
+  ingredients:
+    - 1 white_bed
+    - 1 black_dye
+  result: 1 black_bed
+
+- _name: black_bed
+  group: bed
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - XXX
+  key:
+    '#': black_wool
+    X: +planks
+  result: 1 black_bed
+
+- _name: black_carpet_from_white_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': white_carpet
+    $: black_dye
+  result: 8 black_carpet
+
+- _name: black_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': black_wool
+  result: 3 black_carpet
+
+- _name: black_concrete_powder
+  group: concrete_powder
+  type: crafting_shapeless
+  ingredients:
+    - 1 black_dye
+    - 4 sand
+    - 4 gravel
+  result: 8 black_concrete_powder
+
+- _name: black_dye_from_wither_rose
+  group: black_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 wither_rose
+  result: 1 black_dye
+
+- _name: black_dye
+  group: black_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 ink_sac
+  result: 1 black_dye
+
+- _name: black_glazed_terracotta
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: black_terracotta
+  result: black_glazed_terracotta
+
+- _name: black_stained_glass_pane_from_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': glass_pane
+    $: black_dye
+  result: 8 black_stained_glass_pane
+
+- _name: black_stained_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': black_stained_glass
+  result: 16 black_stained_glass_pane
+
+- _name: black_stained_glass
+  group: stained_glass
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': glass
+    X: black_dye
+  result: 8 black_stained_glass
+
+- _name: black_terracotta
+  group: stained_terracotta
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': terracotta
+    X: black_dye
+  result: 8 black_terracotta
+
+- _name: black_wool
+  group: wool
+  type: crafting_shapeless
+  ingredients:
+    - 1 black_dye
+    - 1 white_wool
+  result: 1 black_wool
+
+- _name: blackstone_slab_from_blackstone_stonecutting
+  type: stonecutting
+  ingredients: blackstone
+  result: 2 blackstone_slab
+
+- _name: blackstone_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': blackstone
+  result: 6 blackstone_slab
+
+- _name: blackstone_stairs_from_blackstone_stonecutting
+  type: stonecutting
+  ingredients: blackstone
+  result: 1 blackstone_stairs
+
+- _name: blackstone_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': blackstone
+  result: 4 blackstone_stairs
+
+- _name: blackstone_wall_from_blackstone_stonecutting
+  type: stonecutting
+  ingredients: blackstone
+  result: 1 blackstone_wall
+
+- _name: blackstone_wall
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': blackstone
+  result: 6 blackstone_wall
+
+- _name: blast_furnace
+  type: crafting_shaped
+  pattern:
+    - III
+    - IXI
+    - '###'
+  key:
+    '#': smooth_stone
+    X: furnace
+    I: iron_ingot
+  result: 1 blast_furnace
+
+- _name: blaze_powder
+  type: crafting_shapeless
+  ingredients:
+    - 1 blaze_rod
+  result: 2 blaze_powder
+
+- _name: blue_banner
+  group: banner
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - ' | '
+  key:
+    '#': blue_wool
+    '|': stick
+  result: 1 blue_banner
+
+- _name: blue_bed_from_white_bed
+  group: dyed_bed
+  type: crafting_shapeless
+  ingredients:
+    - 1 white_bed
+    - 1 blue_dye
+  result: 1 blue_bed
+
+- _name: blue_bed
+  group: bed
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - XXX
+  key:
+    '#': blue_wool
+    X: +planks
+  result: 1 blue_bed
+
+- _name: blue_carpet_from_white_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': white_carpet
+    $: blue_dye
+  result: 8 blue_carpet
+
+- _name: blue_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': blue_wool
+  result: 3 blue_carpet
+
+- _name: blue_concrete_powder
+  group: concrete_powder
+  type: crafting_shapeless
+  ingredients:
+    - 1 blue_dye
+    - 4 sand
+    - 4 gravel
+  result: 8 blue_concrete_powder
+
+- _name: blue_dye_from_cornflower
+  group: blue_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 cornflower
+  result: 1 blue_dye
+
+- _name: blue_dye
+  group: blue_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 lapis_lazuli
+  result: 1 blue_dye
+
+- _name: blue_glazed_terracotta
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: blue_terracotta
+  result: blue_glazed_terracotta
+
+- _name: blue_ice
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - '###'
+  key:
+    '#': packed_ice
+  result: 1 blue_ice
+
+- _name: blue_stained_glass_pane_from_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': glass_pane
+    $: blue_dye
+  result: 8 blue_stained_glass_pane
+
+- _name: blue_stained_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': blue_stained_glass
+  result: 16 blue_stained_glass_pane
+
+- _name: blue_stained_glass
+  group: stained_glass
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': glass
+    X: blue_dye
+  result: 8 blue_stained_glass
+
+- _name: blue_terracotta
+  group: stained_terracotta
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': terracotta
+    X: blue_dye
+  result: 8 blue_terracotta
+
+- _name: blue_wool
+  group: wool
+  type: crafting_shapeless
+  ingredients:
+    - 1 blue_dye
+    - 1 white_wool
+  result: 1 blue_wool
+
+- _name: bone_block
+  type: crafting_shaped
+  pattern:
+    - XXX
+    - XXX
+    - XXX
+  key:
+    X: bone_meal
+  result: 1 bone_block
+
+- _name: bone_meal_from_bone_block
+  group: bonemeal
+  type: crafting_shapeless
+  ingredients:
+    - 1 bone_block
+  result: 9 bone_meal
+
+- _name: bone_meal
+  group: bonemeal
+  type: crafting_shapeless
+  ingredients:
+    - 1 bone
+  result: 3 bone_meal
+
+- _name: book_cloning
+  type: bookcloning
+
+- _name: book
+  type: crafting_shapeless
+  ingredients:
+    - 3 paper
+    - 1 leather
+  result: 1 book
+
+- _name: bookshelf
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - XXX
+    - '###'
+  key:
+    '#': +planks
+    X: book
+  result: 1 bookshelf
+
+- _name: bow
+  type: crafting_shaped
+  pattern:
+    - ' #X'
+    - '# X'
+    - ' #X'
+  key:
+    '#': stick
+    X: string
+  result: 1 bow
+
+- _name: bowl
+  type: crafting_shaped
+  pattern:
+    - '# #'
+    - ' # '
+  key:
+    '#': +planks
+  result: 4 bowl
+
+- _name: bread
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': wheat
+  result: 1 bread
+
+- _name: brewing_stand
+  type: crafting_shaped
+  pattern:
+    - ' B '
+    - '###'
+  key:
+    B: blaze_rod
+    '#': +stone_crafting_materials
+  result: 1 brewing_stand
+
+- _name: brick_slab_from_bricks_stonecutting
+  type: stonecutting
+  ingredients: bricks
+  result: 2 brick_slab
+
+- _name: brick_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': bricks
+  result: 6 brick_slab
+
+- _name: brick_stairs_from_bricks_stonecutting
+  type: stonecutting
+  ingredients: bricks
+  result: 1 brick_stairs
+
+- _name: brick_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': bricks
+  result: 4 brick_stairs
+
+- _name: brick_wall_from_bricks_stonecutting
+  type: stonecutting
+  ingredients: bricks
+  result: 1 brick_wall
+
+- _name: brick_wall
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': bricks
+  result: 6 brick_wall
+
+- _name: brick
+  type: smelting
+  cookingtime: 200
+  experience: 0.3
+  ingredients: clay_ball
+  result: brick
+
+- _name: bricks
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': brick
+  result: 1 bricks
+
+- _name: brown_banner
+  group: banner
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - ' | '
+  key:
+    '#': brown_wool
+    '|': stick
+  result: 1 brown_banner
+
+- _name: brown_bed_from_white_bed
+  group: dyed_bed
+  type: crafting_shapeless
+  ingredients:
+    - 1 white_bed
+    - 1 brown_dye
+  result: 1 brown_bed
+
+- _name: brown_bed
+  group: bed
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - XXX
+  key:
+    '#': brown_wool
+    X: +planks
+  result: 1 brown_bed
+
+- _name: brown_carpet_from_white_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': white_carpet
+    $: brown_dye
+  result: 8 brown_carpet
+
+- _name: brown_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': brown_wool
+  result: 3 brown_carpet
+
+- _name: brown_concrete_powder
+  group: concrete_powder
+  type: crafting_shapeless
+  ingredients:
+    - 1 brown_dye
+    - 4 sand
+    - 4 gravel
+  result: 8 brown_concrete_powder
+
+- _name: brown_dye
+  group: brown_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 cocoa_beans
+  result: 1 brown_dye
+
+- _name: brown_glazed_terracotta
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: brown_terracotta
+  result: brown_glazed_terracotta
+
+- _name: brown_stained_glass_pane_from_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': glass_pane
+    $: brown_dye
+  result: 8 brown_stained_glass_pane
+
+- _name: brown_stained_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': brown_stained_glass
+  result: 16 brown_stained_glass_pane
+
+- _name: brown_stained_glass
+  group: stained_glass
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': glass
+    X: brown_dye
+  result: 8 brown_stained_glass
+
+- _name: brown_terracotta
+  group: stained_terracotta
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': terracotta
+    X: brown_dye
+  result: 8 brown_terracotta
+
+- _name: brown_wool
+  group: wool
+  type: crafting_shapeless
+  ingredients:
+    - 1 brown_dye
+    - 1 white_wool
+  result: 1 brown_wool
+
+- _name: bucket
+  type: crafting_shaped
+  pattern:
+    - '# #'
+    - ' # '
+  key:
+    '#': iron_ingot
+  result: 1 bucket
+
+- _name: cake
+  type: crafting_shaped
+  pattern:
+    - AAA
+    - BEB
+    - CCC
+  key:
+    A: milk_bucket
+    B: sugar
+    C: wheat
+    E: egg
+  result: 1 cake
+
+- _name: campfire
+  type: crafting_shaped
+  pattern:
+    - ' S '
+    - SCS
+    - LLL
+  key:
+    L: +logs
+    S: stick
+    C: +coals
+  result: 1 campfire
+
+- _name: carrot_on_a_stick
+  type: crafting_shaped
+  pattern:
+    - '# '
+    - ' X'
+  key:
+    '#': fishing_rod
+    X: carrot
+  result: 1 carrot_on_a_stick
+
+- _name: cartography_table
+  type: crafting_shaped
+  pattern:
+    - '@@'
+    - '##'
+    - '##'
+  key:
+    '#': +planks
+    '@': paper
+  result: 1 cartography_table
+
+- _name: cauldron
+  type: crafting_shaped
+  pattern:
+    - '# #'
+    - '# #'
+    - '###'
+  key:
+    '#': iron_ingot
+  result: 1 cauldron
+
+- _name: chain
+  type: crafting_shaped
+  pattern:
+    - 'N'
+    - I
+    - 'N'
+  key:
+    I: iron_ingot
+    'N': iron_nugget
+  result: 1 chain
+
+- _name: charcoal
+  type: smelting
+  cookingtime: 200
+  experience: 0.15
+  ingredients: +logs_that_burn
+  result: charcoal
+
+- _name: chest_minecart
+  type: crafting_shaped
+  pattern:
+    - A
+    - B
+  key:
+    A: chest
+    B: minecart
+  result: 1 chest_minecart
+
+- _name: chest
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '# #'
+    - '###'
+  key:
+    '#': +planks
+  result: 1 chest
+
+- _name: chiseled_nether_bricks_from_nether_bricks_stonecutting
+  type: stonecutting
+  ingredients: nether_bricks
+  result: 1 chiseled_nether_bricks
+
+- _name: chiseled_nether_bricks
+  type: crafting_shaped
+  pattern:
+    - '#'
+    - '#'
+  key:
+    '#': nether_brick_slab
+  result: 1 chiseled_nether_bricks
+
+- _name: chiseled_polished_blackstone_from_blackstone_stonecutting
+  type: stonecutting
+  ingredients: blackstone
+  result: 1 chiseled_polished_blackstone
+
+- _name: chiseled_polished_blackstone_from_polished_blackstone_stonecutting
+  type: stonecutting
+  ingredients: polished_blackstone
+  result: 1 chiseled_polished_blackstone
+
+- _name: chiseled_polished_blackstone
+  type: crafting_shaped
+  pattern:
+    - '#'
+    - '#'
+  key:
+    '#': polished_blackstone_slab
+  result: 1 chiseled_polished_blackstone
+
+- _name: chiseled_quartz_block_from_quartz_block_stonecutting
+  type: stonecutting
+  ingredients: quartz_block
+  result: 1 chiseled_quartz_block
+
+- _name: chiseled_quartz_block
+  type: crafting_shaped
+  pattern:
+    - '#'
+    - '#'
+  key:
+    '#': quartz_slab
+  result: 1 chiseled_quartz_block
+
+- _name: chiseled_red_sandstone_from_red_sandstone_stonecutting
+  type: stonecutting
+  ingredients: red_sandstone
+  result: 1 chiseled_red_sandstone
+
+- _name: chiseled_red_sandstone
+  type: crafting_shaped
+  pattern:
+    - '#'
+    - '#'
+  key:
+    '#': red_sandstone_slab
+  result: 1 chiseled_red_sandstone
+
+- _name: chiseled_sandstone_from_sandstone_stonecutting
+  type: stonecutting
+  ingredients: sandstone
+  result: 1 chiseled_sandstone
+
+- _name: chiseled_sandstone
+  type: crafting_shaped
+  pattern:
+    - '#'
+    - '#'
+  key:
+    '#': sandstone_slab
+  result: 1 chiseled_sandstone
+
+- _name: chiseled_stone_bricks_from_stone_bricks_stonecutting
+  type: stonecutting
+  ingredients: stone_bricks
+  result: 1 chiseled_stone_bricks
+
+- _name: chiseled_stone_bricks_stone_from_stonecutting
+  type: stonecutting
+  ingredients: stone
+  result: 1 chiseled_stone_bricks
+
+- _name: chiseled_stone_bricks
+  type: crafting_shaped
+  pattern:
+    - '#'
+    - '#'
+  key:
+    '#': stone_brick_slab
+  result: 1 chiseled_stone_bricks
+
+- _name: clay
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': clay_ball
+  result: 1 clay
+
+- _name: clock
+  type: crafting_shaped
+  pattern:
+    - ' # '
+    - '#X#'
+    - ' # '
+  key:
+    '#': gold_ingot
+    X: redstone
+  result: 1 clock
+
+- _name: coal_block
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - '###'
+  key:
+    '#': coal
+  result: 1 coal_block
+
+- _name: coal_from_blasting
+  type: blasting
+  cookingtime: 100
+  experience: 0.1
+  ingredients: coal_ore
+  result: coal
+
+- _name: coal_from_smelting
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: coal_ore
+  result: coal
+
+- _name: coal
+  type: crafting_shapeless
+  ingredients:
+    - 1 coal_block
+  result: 9 coal
+
+- _name: coarse_dirt
+  type: crafting_shaped
+  pattern:
+    - DG
+    - GD
+  key:
+    D: dirt
+    G: gravel
+  result: 4 coarse_dirt
+
+- _name: cobblestone_slab_from_cobblestone_stonecutting
+  type: stonecutting
+  ingredients: cobblestone
+  result: 2 cobblestone_slab
+
+- _name: cobblestone_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': cobblestone
+  result: 6 cobblestone_slab
+
+- _name: cobblestone_stairs_from_cobblestone_stonecutting
+  type: stonecutting
+  ingredients: cobblestone
+  result: 1 cobblestone_stairs
+
+- _name: cobblestone_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': cobblestone
+  result: 4 cobblestone_stairs
+
+- _name: cobblestone_wall_from_cobblestone_stonecutting
+  type: stonecutting
+  ingredients: cobblestone
+  result: 1 cobblestone_wall
+
+- _name: cobblestone_wall
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': cobblestone
+  result: 6 cobblestone_wall
+
+- _name: comparator
+  type: crafting_shaped
+  pattern:
+    - ' # '
+    - '#X#'
+    - III
+  key:
+    '#': redstone_torch
+    X: quartz
+    I: stone
+  result: 1 comparator
+
+- _name: compass
+  type: crafting_shaped
+  pattern:
+    - ' # '
+    - '#X#'
+    - ' # '
+  key:
+    '#': iron_ingot
+    X: redstone
+  result: 1 compass
+
+- _name: composter
+  type: crafting_shaped
+  pattern:
+    - '# #'
+    - '# #'
+    - '###'
+  key:
+    '#': +wooden_slabs
+  result: 1 composter
+
+- _name: conduit
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': nautilus_shell
+    X: heart_of_the_sea
+  result: 1 conduit
+
+- _name: cooked_beef_from_campfire_cooking
+  type: campfire_cooking
+  cookingtime: 600
+  experience: 0.35
+  ingredients: beef
+  result: cooked_beef
+
+- _name: cooked_beef_from_smoking
+  type: smoking
+  cookingtime: 100
+  experience: 0.35
+  ingredients: beef
+  result: cooked_beef
+
+- _name: cooked_beef
+  type: smelting
+  cookingtime: 200
+  experience: 0.35
+  ingredients: beef
+  result: cooked_beef
+
+- _name: cooked_chicken_from_campfire_cooking
+  type: campfire_cooking
+  cookingtime: 600
+  experience: 0.35
+  ingredients: chicken
+  result: cooked_chicken
+
+- _name: cooked_chicken_from_smoking
+  type: smoking
+  cookingtime: 100
+  experience: 0.35
+  ingredients: chicken
+  result: cooked_chicken
+
+- _name: cooked_chicken
+  type: smelting
+  cookingtime: 200
+  experience: 0.35
+  ingredients: chicken
+  result: cooked_chicken
+
+- _name: cooked_cod_from_campfire_cooking
+  type: campfire_cooking
+  cookingtime: 600
+  experience: 0.35
+  ingredients: cod
+  result: cooked_cod
+
+- _name: cooked_cod_from_smoking
+  type: smoking
+  cookingtime: 100
+  experience: 0.35
+  ingredients: cod
+  result: cooked_cod
+
+- _name: cooked_cod
+  type: smelting
+  cookingtime: 200
+  experience: 0.35
+  ingredients: cod
+  result: cooked_cod
+
+- _name: cooked_mutton_from_campfire_cooking
+  type: campfire_cooking
+  cookingtime: 600
+  experience: 0.35
+  ingredients: mutton
+  result: cooked_mutton
+
+- _name: cooked_mutton_from_smoking
+  type: smoking
+  cookingtime: 100
+  experience: 0.35
+  ingredients: mutton
+  result: cooked_mutton
+
+- _name: cooked_mutton
+  type: smelting
+  cookingtime: 200
+  experience: 0.35
+  ingredients: mutton
+  result: cooked_mutton
+
+- _name: cooked_porkchop_from_campfire_cooking
+  type: campfire_cooking
+  cookingtime: 600
+  experience: 0.35
+  ingredients: porkchop
+  result: cooked_porkchop
+
+- _name: cooked_porkchop_from_smoking
+  type: smoking
+  cookingtime: 100
+  experience: 0.35
+  ingredients: porkchop
+  result: cooked_porkchop
+
+- _name: cooked_porkchop
+  type: smelting
+  cookingtime: 200
+  experience: 0.35
+  ingredients: porkchop
+  result: cooked_porkchop
+
+- _name: cooked_rabbit_from_campfire_cooking
+  type: campfire_cooking
+  cookingtime: 600
+  experience: 0.35
+  ingredients: rabbit
+  result: cooked_rabbit
+
+- _name: cooked_rabbit_from_smoking
+  type: smoking
+  cookingtime: 100
+  experience: 0.35
+  ingredients: rabbit
+  result: cooked_rabbit
+
+- _name: cooked_rabbit
+  type: smelting
+  cookingtime: 200
+  experience: 0.35
+  ingredients: rabbit
+  result: cooked_rabbit
+
+- _name: cooked_salmon_from_campfire_cooking
+  type: campfire_cooking
+  cookingtime: 600
+  experience: 0.35
+  ingredients: salmon
+  result: cooked_salmon
+
+- _name: cooked_salmon_from_smoking
+  type: smoking
+  cookingtime: 100
+  experience: 0.35
+  ingredients: salmon
+  result: cooked_salmon
+
+- _name: cooked_salmon
+  type: smelting
+  cookingtime: 200
+  experience: 0.35
+  ingredients: salmon
+  result: cooked_salmon
+
+- _name: cookie
+  type: crafting_shaped
+  pattern:
+    - '#X#'
+  key:
+    '#': wheat
+    X: cocoa_beans
+  result: 8 cookie
+
+- _name: cracked_nether_bricks
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: nether_bricks
+  result: cracked_nether_bricks
+
+- _name: cracked_polished_blackstone_bricks
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: polished_blackstone_bricks
+  result: cracked_polished_blackstone_bricks
+
+- _name: cracked_stone_bricks
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: stone_bricks
+  result: cracked_stone_bricks
+
+- _name: crafting_table
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': +planks
+  result: 1 crafting_table
+
+- _name: creeper_banner_pattern
+  type: crafting_shapeless
+  ingredients:
+    - 1 paper
+    - 1 creeper_head
+  result: 1 creeper_banner_pattern
+
+- _name: crimson_button
+  group: wooden_button
+  type: crafting_shapeless
+  ingredients:
+    - 1 crimson_planks
+  result: 1 crimson_button
+
+- _name: crimson_door
+  group: wooden_door
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+    - '##'
+  key:
+    '#': crimson_planks
+  result: 3 crimson_door
+
+- _name: crimson_fence_gate
+  group: wooden_fence_gate
+  type: crafting_shaped
+  pattern:
+    - '#W#'
+    - '#W#'
+  key:
+    '#': stick
+    W: crimson_planks
+  result: 1 crimson_fence_gate
+
+- _name: crimson_fence
+  group: wooden_fence
+  type: crafting_shaped
+  pattern:
+    - W#W
+    - W#W
+  key:
+    '#': stick
+    W: crimson_planks
+  result: 3 crimson_fence
+
+- _name: crimson_hyphae
+  group: bark
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': crimson_stem
+  result: 3 crimson_hyphae
+
+- _name: crimson_planks
+  group: planks
+  type: crafting_shapeless
+  ingredients:
+    - 1 +crimson_stems
+  result: 4 crimson_planks
+
+- _name: crimson_pressure_plate
+  group: wooden_pressure_plate
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': crimson_planks
+  result: 1 crimson_pressure_plate
+
+- _name: crimson_sign
+  group: sign
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - ' X '
+  key:
+    '#': crimson_planks
+    X: stick
+  result: 3 crimson_sign
+
+- _name: crimson_slab
+  group: wooden_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': crimson_planks
+  result: 6 crimson_slab
+
+- _name: crimson_stairs
+  group: wooden_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': crimson_planks
+  result: 4 crimson_stairs
+
+- _name: crimson_trapdoor
+  group: wooden_trapdoor
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': crimson_planks
+  result: 2 crimson_trapdoor
+
+- _name: crossbow
+  type: crafting_shaped
+  pattern:
+    - '#&#'
+    - ~$~
+    - ' # '
+  key:
+    '~': string
+    '#': stick
+    '&': iron_ingot
+    $: tripwire_hook
+  result: 1 crossbow
+
+- _name: cut_red_sandstone_from_red_sandstone_stonecutting
+  type: stonecutting
+  ingredients: red_sandstone
+  result: 1 cut_red_sandstone
+
+- _name: cut_red_sandstone_slab_from_cut_red_sandstone_stonecutting
+  type: stonecutting
+  ingredients: cut_red_sandstone
+  result: 2 cut_red_sandstone_slab
+
+- _name: cut_red_sandstone_slab_from_red_sandstone_stonecutting
+  type: stonecutting
+  ingredients: red_sandstone
+  result: 2 cut_red_sandstone_slab
+
+- _name: cut_red_sandstone_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': cut_red_sandstone
+  result: 6 cut_red_sandstone_slab
+
+- _name: cut_red_sandstone
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': red_sandstone
+  result: 4 cut_red_sandstone
+
+- _name: cut_sandstone_from_sandstone_stonecutting
+  type: stonecutting
+  ingredients: sandstone
+  result: 1 cut_sandstone
+
+- _name: cut_sandstone_slab_from_cut_sandstone_stonecutting
+  type: stonecutting
+  ingredients: cut_sandstone
+  result: 2 cut_sandstone_slab
+
+- _name: cut_sandstone_slab_from_sandstone_stonecutting
+  type: stonecutting
+  ingredients: sandstone
+  result: 2 cut_sandstone_slab
+
+- _name: cut_sandstone_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': cut_sandstone
+  result: 6 cut_sandstone_slab
+
+- _name: cut_sandstone
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': sandstone
+  result: 4 cut_sandstone
+
+- _name: cyan_banner
+  group: banner
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - ' | '
+  key:
+    '#': cyan_wool
+    '|': stick
+  result: 1 cyan_banner
+
+- _name: cyan_bed_from_white_bed
+  group: dyed_bed
+  type: crafting_shapeless
+  ingredients:
+    - 1 white_bed
+    - 1 cyan_dye
+  result: 1 cyan_bed
+
+- _name: cyan_bed
+  group: bed
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - XXX
+  key:
+    '#': cyan_wool
+    X: +planks
+  result: 1 cyan_bed
+
+- _name: cyan_carpet_from_white_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': white_carpet
+    $: cyan_dye
+  result: 8 cyan_carpet
+
+- _name: cyan_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': cyan_wool
+  result: 3 cyan_carpet
+
+- _name: cyan_concrete_powder
+  group: concrete_powder
+  type: crafting_shapeless
+  ingredients:
+    - 1 cyan_dye
+    - 4 sand
+    - 4 gravel
+  result: 8 cyan_concrete_powder
+
+- _name: cyan_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 blue_dye
+    - 1 green_dye
+  result: 2 cyan_dye
+
+- _name: cyan_glazed_terracotta
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: cyan_terracotta
+  result: cyan_glazed_terracotta
+
+- _name: cyan_stained_glass_pane_from_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': glass_pane
+    $: cyan_dye
+  result: 8 cyan_stained_glass_pane
+
+- _name: cyan_stained_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': cyan_stained_glass
+  result: 16 cyan_stained_glass_pane
+
+- _name: cyan_stained_glass
+  group: stained_glass
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': glass
+    X: cyan_dye
+  result: 8 cyan_stained_glass
+
+- _name: cyan_terracotta
+  group: stained_terracotta
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': terracotta
+    X: cyan_dye
+  result: 8 cyan_terracotta
+
+- _name: cyan_wool
+  group: wool
+  type: crafting_shapeless
+  ingredients:
+    - 1 cyan_dye
+    - 1 white_wool
+  result: 1 cyan_wool
+
+- _name: dark_oak_boat
+  group: boat
+  type: crafting_shaped
+  pattern:
+    - '# #'
+    - '###'
+  key:
+    '#': dark_oak_planks
+  result: 1 dark_oak_boat
+
+- _name: dark_oak_button
+  group: wooden_button
+  type: crafting_shapeless
+  ingredients:
+    - 1 dark_oak_planks
+  result: 1 dark_oak_button
+
+- _name: dark_oak_door
+  group: wooden_door
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+    - '##'
+  key:
+    '#': dark_oak_planks
+  result: 3 dark_oak_door
+
+- _name: dark_oak_fence_gate
+  group: wooden_fence_gate
+  type: crafting_shaped
+  pattern:
+    - '#W#'
+    - '#W#'
+  key:
+    '#': stick
+    W: dark_oak_planks
+  result: 1 dark_oak_fence_gate
+
+- _name: dark_oak_fence
+  group: wooden_fence
+  type: crafting_shaped
+  pattern:
+    - W#W
+    - W#W
+  key:
+    '#': stick
+    W: dark_oak_planks
+  result: 3 dark_oak_fence
+
+- _name: dark_oak_planks
+  group: planks
+  type: crafting_shapeless
+  ingredients:
+    - 1 +dark_oak_logs
+  result: 4 dark_oak_planks
+
+- _name: dark_oak_pressure_plate
+  group: wooden_pressure_plate
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': dark_oak_planks
+  result: 1 dark_oak_pressure_plate
+
+- _name: dark_oak_sign
+  group: sign
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - ' X '
+  key:
+    '#': dark_oak_planks
+    X: stick
+  result: 3 dark_oak_sign
+
+- _name: dark_oak_slab
+  group: wooden_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': dark_oak_planks
+  result: 6 dark_oak_slab
+
+- _name: dark_oak_stairs
+  group: wooden_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': dark_oak_planks
+  result: 4 dark_oak_stairs
+
+- _name: dark_oak_trapdoor
+  group: wooden_trapdoor
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': dark_oak_planks
+  result: 2 dark_oak_trapdoor
+
+- _name: dark_oak_wood
+  group: bark
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': dark_oak_log
+  result: 3 dark_oak_wood
+
+- _name: dark_prismarine_slab_from_dark_prismarine_stonecutting
+  type: stonecutting
+  ingredients: dark_prismarine
+  result: 2 dark_prismarine_slab
+
+- _name: dark_prismarine_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': dark_prismarine
+  result: 6 dark_prismarine_slab
+
+- _name: dark_prismarine_stairs_from_dark_prismarine_stonecutting
+  type: stonecutting
+  ingredients: dark_prismarine
+  result: 1 dark_prismarine_stairs
+
+- _name: dark_prismarine_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': dark_prismarine
+  result: 4 dark_prismarine_stairs
+
+- _name: dark_prismarine
+  type: crafting_shaped
+  pattern:
+    - SSS
+    - SIS
+    - SSS
+  key:
+    S: prismarine_shard
+    I: black_dye
+  result: 1 dark_prismarine
+
+- _name: daylight_detector
+  type: crafting_shaped
+  pattern:
+    - GGG
+    - QQQ
+    - WWW
+  key:
+    Q: quartz
+    G: glass
+    W: +wooden_slabs
+  result: 1 daylight_detector
+
+- _name: detector_rail
+  type: crafting_shaped
+  pattern:
+    - X X
+    - X#X
+    - XRX
+  key:
+    R: redstone
+    '#': stone_pressure_plate
+    X: iron_ingot
+  result: 6 detector_rail
+
+- _name: diamond_axe
+  type: crafting_shaped
+  pattern:
+    - XX
+    - X#
+    - ' #'
+  key:
+    '#': stick
+    X: diamond
+  result: 1 diamond_axe
+
+- _name: diamond_block
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - '###'
+  key:
+    '#': diamond
+  result: 1 diamond_block
+
+- _name: diamond_boots
+  type: crafting_shaped
+  pattern:
+    - X X
+    - X X
+  key:
+    X: diamond
+  result: 1 diamond_boots
+
+- _name: diamond_chestplate
+  type: crafting_shaped
+  pattern:
+    - X X
+    - XXX
+    - XXX
+  key:
+    X: diamond
+  result: 1 diamond_chestplate
+
+- _name: diamond_from_blasting
+  type: blasting
+  cookingtime: 100
+  experience: 1
+  ingredients: diamond_ore
+  result: diamond
+
+- _name: diamond_from_smelting
+  type: smelting
+  cookingtime: 200
+  experience: 1
+  ingredients: diamond_ore
+  result: diamond
+
+- _name: diamond_helmet
+  type: crafting_shaped
+  pattern:
+    - XXX
+    - X X
+  key:
+    X: diamond
+  result: 1 diamond_helmet
+
+- _name: diamond_hoe
+  type: crafting_shaped
+  pattern:
+    - XX
+    - ' #'
+    - ' #'
+  key:
+    '#': stick
+    X: diamond
+  result: 1 diamond_hoe
+
+- _name: diamond_leggings
+  type: crafting_shaped
+  pattern:
+    - XXX
+    - X X
+    - X X
+  key:
+    X: diamond
+  result: 1 diamond_leggings
+
+- _name: diamond_pickaxe
+  type: crafting_shaped
+  pattern:
+    - XXX
+    - ' # '
+    - ' # '
+  key:
+    '#': stick
+    X: diamond
+  result: 1 diamond_pickaxe
+
+- _name: diamond_shovel
+  type: crafting_shaped
+  pattern:
+    - X
+    - '#'
+    - '#'
+  key:
+    '#': stick
+    X: diamond
+  result: 1 diamond_shovel
+
+- _name: diamond_sword
+  type: crafting_shaped
+  pattern:
+    - X
+    - X
+    - '#'
+  key:
+    '#': stick
+    X: diamond
+  result: 1 diamond_sword
+
+- _name: diamond
+  type: crafting_shapeless
+  ingredients:
+    - 1 diamond_block
+  result: 9 diamond
+
+- _name: diorite_slab_from_diorite_stonecutting
+  type: stonecutting
+  ingredients: diorite
+  result: 2 diorite_slab
+
+- _name: diorite_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': diorite
+  result: 6 diorite_slab
+
+- _name: diorite_stairs_from_diorite_stonecutting
+  type: stonecutting
+  ingredients: diorite
+  result: 1 diorite_stairs
+
+- _name: diorite_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': diorite
+  result: 4 diorite_stairs
+
+- _name: diorite_wall_from_diorite_stonecutting
+  type: stonecutting
+  ingredients: diorite
+  result: 1 diorite_wall
+
+- _name: diorite_wall
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': diorite
+  result: 6 diorite_wall
+
+- _name: diorite
+  type: crafting_shaped
+  pattern:
+    - CQ
+    - QC
+  key:
+    Q: quartz
+    C: cobblestone
+  result: 2 diorite
+
+- _name: dispenser
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '#R#'
+  key:
+    R: redstone
+    '#': cobblestone
+    X: bow
+  result: 1 dispenser
+
+- _name: dried_kelp_block
+  type: crafting_shapeless
+  ingredients:
+    - 9 dried_kelp
+  result: 1 dried_kelp_block
+
+- _name: dried_kelp_from_campfire_cooking
+  type: campfire_cooking
+  cookingtime: 600
+  experience: 0.1
+  ingredients: kelp
+  result: dried_kelp
+
+- _name: dried_kelp_from_smelting
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: kelp
+  result: dried_kelp
+
+- _name: dried_kelp_from_smoking
+  type: smoking
+  cookingtime: 100
+  experience: 0.1
+  ingredients: kelp
+  result: dried_kelp
+
+- _name: dried_kelp
+  type: crafting_shapeless
+  ingredients:
+    - 1 dried_kelp_block
+  result: 9 dried_kelp
+
+- _name: dropper
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '# #'
+    - '#R#'
+  key:
+    R: redstone
+    '#': cobblestone
+  result: 1 dropper
+
+- _name: emerald_block
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - '###'
+  key:
+    '#': emerald
+  result: 1 emerald_block
+
+- _name: emerald_from_blasting
+  type: blasting
+  cookingtime: 100
+  experience: 1
+  ingredients: emerald_ore
+  result: emerald
+
+- _name: emerald_from_smelting
+  type: smelting
+  cookingtime: 200
+  experience: 1
+  ingredients: emerald_ore
+  result: emerald
+
+- _name: emerald
+  type: crafting_shapeless
+  ingredients:
+    - 1 emerald_block
+  result: 9 emerald
+
+- _name: enchanting_table
+  type: crafting_shaped
+  pattern:
+    - ' B '
+    - D#D
+    - '###'
+  key:
+    B: book
+    '#': obsidian
+    D: diamond
+  result: 1 enchanting_table
+
+- _name: end_crystal
+  type: crafting_shaped
+  pattern:
+    - GGG
+    - GEG
+    - GTG
+  key:
+    T: ghast_tear
+    E: ender_eye
+    G: glass
+  result: 1 end_crystal
+
+- _name: end_rod
+  type: crafting_shaped
+  pattern:
+    - /
+    - '#'
+  key:
+    '#': popped_chorus_fruit
+    /: blaze_rod
+  result: 4 end_rod
+
+- _name: end_stone_brick_slab_from_end_stone_brick_stonecutting
+  type: stonecutting
+  ingredients: end_stone_bricks
+  result: 2 end_stone_brick_slab
+
+- _name: end_stone_brick_slab_from_end_stone_stonecutting
+  type: stonecutting
+  ingredients: end_stone
+  result: 2 end_stone_brick_slab
+
+- _name: end_stone_brick_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': end_stone_bricks
+  result: 6 end_stone_brick_slab
+
+- _name: end_stone_brick_stairs_from_end_stone_brick_stonecutting
+  type: stonecutting
+  ingredients: end_stone_bricks
+  result: 1 end_stone_brick_stairs
+
+- _name: end_stone_brick_stairs_from_end_stone_stonecutting
+  type: stonecutting
+  ingredients: end_stone
+  result: 1 end_stone_brick_stairs
+
+- _name: end_stone_brick_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': end_stone_bricks
+  result: 4 end_stone_brick_stairs
+
+- _name: end_stone_brick_wall_from_end_stone_brick_stonecutting
+  type: stonecutting
+  ingredients: end_stone_bricks
+  result: 1 end_stone_brick_wall
+
+- _name: end_stone_brick_wall_from_end_stone_stonecutting
+  type: stonecutting
+  ingredients: end_stone
+  result: 1 end_stone_brick_wall
+
+- _name: end_stone_brick_wall
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': end_stone_bricks
+  result: 6 end_stone_brick_wall
+
+- _name: end_stone_bricks_from_end_stone_stonecutting
+  type: stonecutting
+  ingredients: end_stone
+  result: 1 end_stone_bricks
+
+- _name: end_stone_bricks
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': end_stone
+  result: 4 end_stone_bricks
+
+- _name: ender_chest
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#E#'
+    - '###'
+  key:
+    '#': obsidian
+    E: ender_eye
+  result: 1 ender_chest
+
+- _name: ender_eye
+  type: crafting_shapeless
+  ingredients:
+    - 1 ender_pearl
+    - 1 blaze_powder
+  result: 1 ender_eye
+
+- _name: fermented_spider_eye
+  type: crafting_shapeless
+  ingredients:
+    - 1 spider_eye
+    - 1 brown_mushroom
+    - 1 sugar
+  result: 1 fermented_spider_eye
+
+- _name: fire_charge
+  type: crafting_shapeless
+  ingredients:
+    - 1 gunpowder
+    - 1 blaze_powder
+    - - 1 coal
+      - 1 charcoal
+  result: 3 fire_charge
+
+- _name: firework_rocket
+  type: firework_rocket
+
+- _name: firework_star_fade
+  type: firework_star_fade
+
+- _name: firework_star
+  type: firework_star
+
+- _name: fishing_rod
+  type: crafting_shaped
+  pattern:
+    - '  #'
+    - ' #X'
+    - '# X'
+  key:
+    '#': stick
+    X: string
+  result: 1 fishing_rod
+
+- _name: fletching_table
+  type: crafting_shaped
+  pattern:
+    - '@@'
+    - '##'
+    - '##'
+  key:
+    '#': +planks
+    '@': flint
+  result: 1 fletching_table
+
+- _name: flint_and_steel
+  type: crafting_shapeless
+  ingredients:
+    - 1 iron_ingot
+    - 1 flint
+  result: 1 flint_and_steel
+
+- _name: flower_banner_pattern
+  type: crafting_shapeless
+  ingredients:
+    - 1 paper
+    - 1 oxeye_daisy
+  result: 1 flower_banner_pattern
+
+- _name: flower_pot
+  type: crafting_shaped
+  pattern:
+    - '# #'
+    - ' # '
+  key:
+    '#': brick
+  result: 1 flower_pot
+
+- _name: furnace_minecart
+  type: crafting_shaped
+  pattern:
+    - A
+    - B
+  key:
+    A: furnace
+    B: minecart
+  result: 1 furnace_minecart
+
+- _name: furnace
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '# #'
+    - '###'
+  key:
+    '#': +stone_crafting_materials
+  result: 1 furnace
+
+- _name: glass_bottle
+  type: crafting_shaped
+  pattern:
+    - '# #'
+    - ' # '
+  key:
+    '#': glass
+  result: 3 glass_bottle
+
+- _name: glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': glass
+  result: 16 glass_pane
+
+- _name: glass
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: +sand
+  result: glass
+
+- _name: glistering_melon_slice
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': gold_nugget
+    X: melon_slice
+  result: 1 glistering_melon_slice
+
+- _name: glowstone
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': glowstone_dust
+  result: 1 glowstone
+
+- _name: gold_block
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - '###'
+  key:
+    '#': gold_ingot
+  result: 1 gold_block
+
+- _name: gold_ingot_from_blasting
+  type: blasting
+  cookingtime: 100
+  experience: 1
+  ingredients: +gold_ores
+  result: gold_ingot
+
+- _name: gold_ingot_from_gold_block
+  group: gold_ingot
+  type: crafting_shapeless
+  ingredients:
+    - 1 gold_block
+  result: 9 gold_ingot
+
+- _name: gold_ingot_from_nuggets
+  group: gold_ingot
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - '###'
+  key:
+    '#': gold_nugget
+  result: 1 gold_ingot
+
+- _name: gold_ingot
+  type: smelting
+  cookingtime: 200
+  experience: 1
+  ingredients: +gold_ores
+  result: gold_ingot
+
+- _name: gold_nugget_from_blasting
+  type: blasting
+  cookingtime: 100
+  experience: 0.1
+  ingredients:
+    - golden_pickaxe
+    - golden_shovel
+    - golden_axe
+    - golden_hoe
+    - golden_sword
+    - golden_helmet
+    - golden_chestplate
+    - golden_leggings
+    - golden_boots
+    - golden_horse_armor
+  result: gold_nugget
+
+- _name: gold_nugget_from_smelting
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients:
+    - golden_pickaxe
+    - golden_shovel
+    - golden_axe
+    - golden_hoe
+    - golden_sword
+    - golden_helmet
+    - golden_chestplate
+    - golden_leggings
+    - golden_boots
+    - golden_horse_armor
+  result: gold_nugget
+
+- _name: gold_nugget
+  type: crafting_shapeless
+  ingredients:
+    - 1 gold_ingot
+  result: 9 gold_nugget
+
+- _name: golden_apple
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': gold_ingot
+    X: apple
+  result: 1 golden_apple
+
+- _name: golden_axe
+  type: crafting_shaped
+  pattern:
+    - XX
+    - X#
+    - ' #'
+  key:
+    '#': stick
+    X: gold_ingot
+  result: 1 golden_axe
+
+- _name: golden_boots
+  type: crafting_shaped
+  pattern:
+    - X X
+    - X X
+  key:
+    X: gold_ingot
+  result: 1 golden_boots
+
+- _name: golden_carrot
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': gold_nugget
+    X: carrot
+  result: 1 golden_carrot
+
+- _name: golden_chestplate
+  type: crafting_shaped
+  pattern:
+    - X X
+    - XXX
+    - XXX
+  key:
+    X: gold_ingot
+  result: 1 golden_chestplate
+
+- _name: golden_helmet
+  type: crafting_shaped
+  pattern:
+    - XXX
+    - X X
+  key:
+    X: gold_ingot
+  result: 1 golden_helmet
+
+- _name: golden_hoe
+  type: crafting_shaped
+  pattern:
+    - XX
+    - ' #'
+    - ' #'
+  key:
+    '#': stick
+    X: gold_ingot
+  result: 1 golden_hoe
+
+- _name: golden_leggings
+  type: crafting_shaped
+  pattern:
+    - XXX
+    - X X
+    - X X
+  key:
+    X: gold_ingot
+  result: 1 golden_leggings
+
+- _name: golden_pickaxe
+  type: crafting_shaped
+  pattern:
+    - XXX
+    - ' # '
+    - ' # '
+  key:
+    '#': stick
+    X: gold_ingot
+  result: 1 golden_pickaxe
+
+- _name: golden_shovel
+  type: crafting_shaped
+  pattern:
+    - X
+    - '#'
+    - '#'
+  key:
+    '#': stick
+    X: gold_ingot
+  result: 1 golden_shovel
+
+- _name: golden_sword
+  type: crafting_shaped
+  pattern:
+    - X
+    - X
+    - '#'
+  key:
+    '#': stick
+    X: gold_ingot
+  result: 1 golden_sword
+
+- _name: granite_slab_from_granite_stonecutting
+  type: stonecutting
+  ingredients: granite
+  result: 2 granite_slab
+
+- _name: granite_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': granite
+  result: 6 granite_slab
+
+- _name: granite_stairs_from_granite_stonecutting
+  type: stonecutting
+  ingredients: granite
+  result: 1 granite_stairs
+
+- _name: granite_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': granite
+  result: 4 granite_stairs
+
+- _name: granite_wall_from_granite_stonecutting
+  type: stonecutting
+  ingredients: granite
+  result: 1 granite_wall
+
+- _name: granite_wall
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': granite
+  result: 6 granite_wall
+
+- _name: granite
+  type: crafting_shapeless
+  ingredients:
+    - 1 diorite
+    - 1 quartz
+  result: 1 granite
+
+- _name: gray_banner
+  group: banner
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - ' | '
+  key:
+    '#': gray_wool
+    '|': stick
+  result: 1 gray_banner
+
+- _name: gray_bed_from_white_bed
+  group: dyed_bed
+  type: crafting_shapeless
+  ingredients:
+    - 1 white_bed
+    - 1 gray_dye
+  result: 1 gray_bed
+
+- _name: gray_bed
+  group: bed
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - XXX
+  key:
+    '#': gray_wool
+    X: +planks
+  result: 1 gray_bed
+
+- _name: gray_carpet_from_white_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': white_carpet
+    $: gray_dye
+  result: 8 gray_carpet
+
+- _name: gray_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': gray_wool
+  result: 3 gray_carpet
+
+- _name: gray_concrete_powder
+  group: concrete_powder
+  type: crafting_shapeless
+  ingredients:
+    - 1 gray_dye
+    - 4 sand
+    - 4 gravel
+  result: 8 gray_concrete_powder
+
+- _name: gray_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 black_dye
+    - 1 white_dye
+  result: 2 gray_dye
+
+- _name: gray_glazed_terracotta
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: gray_terracotta
+  result: gray_glazed_terracotta
+
+- _name: gray_stained_glass_pane_from_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': glass_pane
+    $: gray_dye
+  result: 8 gray_stained_glass_pane
+
+- _name: gray_stained_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': gray_stained_glass
+  result: 16 gray_stained_glass_pane
+
+- _name: gray_stained_glass
+  group: stained_glass
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': glass
+    X: gray_dye
+  result: 8 gray_stained_glass
+
+- _name: gray_terracotta
+  group: stained_terracotta
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': terracotta
+    X: gray_dye
+  result: 8 gray_terracotta
+
+- _name: gray_wool
+  group: wool
+  type: crafting_shapeless
+  ingredients:
+    - 1 gray_dye
+    - 1 white_wool
+  result: 1 gray_wool
+
+- _name: green_banner
+  group: banner
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - ' | '
+  key:
+    '#': green_wool
+    '|': stick
+  result: 1 green_banner
+
+- _name: green_bed_from_white_bed
+  group: dyed_bed
+  type: crafting_shapeless
+  ingredients:
+    - 1 white_bed
+    - 1 green_dye
+  result: 1 green_bed
+
+- _name: green_bed
+  group: bed
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - XXX
+  key:
+    '#': green_wool
+    X: +planks
+  result: 1 green_bed
+
+- _name: green_carpet_from_white_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': white_carpet
+    $: green_dye
+  result: 8 green_carpet
+
+- _name: green_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': green_wool
+  result: 3 green_carpet
+
+- _name: green_concrete_powder
+  group: concrete_powder
+  type: crafting_shapeless
+  ingredients:
+    - 1 green_dye
+    - 4 sand
+    - 4 gravel
+  result: 8 green_concrete_powder
+
+- _name: green_dye
+  type: smelting
+  cookingtime: 200
+  experience: 1
+  ingredients: cactus
+  result: green_dye
+
+- _name: green_glazed_terracotta
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: green_terracotta
+  result: green_glazed_terracotta
+
+- _name: green_stained_glass_pane_from_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': glass_pane
+    $: green_dye
+  result: 8 green_stained_glass_pane
+
+- _name: green_stained_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': green_stained_glass
+  result: 16 green_stained_glass_pane
+
+- _name: green_stained_glass
+  group: stained_glass
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': glass
+    X: green_dye
+  result: 8 green_stained_glass
+
+- _name: green_terracotta
+  group: stained_terracotta
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': terracotta
+    X: green_dye
+  result: 8 green_terracotta
+
+- _name: green_wool
+  group: wool
+  type: crafting_shapeless
+  ingredients:
+    - 1 green_dye
+    - 1 white_wool
+  result: 1 green_wool
+
+- _name: grindstone
+  type: crafting_shaped
+  pattern:
+    - I-I
+    - '# #'
+  key:
+    I: stick
+    '-': stone_slab
+    '#': +planks
+  result: 1 grindstone
+
+- _name: hay_block
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - '###'
+  key:
+    '#': wheat
+  result: 1 hay_block
+
+- _name: heavy_weighted_pressure_plate
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': iron_ingot
+  result: 1 heavy_weighted_pressure_plate
+
+- _name: honey_block
+  type: crafting_shaped
+  pattern:
+    - SS
+    - SS
+  key:
+    S: honey_bottle
+  result: 1 honey_block
+
+- _name: honey_bottle
+  type: crafting_shapeless
+  ingredients:
+    - 1 honey_block
+    - 4 glass_bottle
+  result: 4 honey_bottle
+
+- _name: honeycomb_block
+  type: crafting_shaped
+  pattern:
+    - HH
+    - HH
+  key:
+    H: honeycomb
+  result: 1 honeycomb_block
+
+- _name: hopper_minecart
+  type: crafting_shaped
+  pattern:
+    - A
+    - B
+  key:
+    A: hopper
+    B: minecart
+  result: 1 hopper_minecart
+
+- _name: hopper
+  type: crafting_shaped
+  pattern:
+    - I I
+    - ICI
+    - ' I '
+  key:
+    C: chest
+    I: iron_ingot
+  result: 1 hopper
+
+- _name: iron_axe
+  type: crafting_shaped
+  pattern:
+    - XX
+    - X#
+    - ' #'
+  key:
+    '#': stick
+    X: iron_ingot
+  result: 1 iron_axe
+
+- _name: iron_bars
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': iron_ingot
+  result: 16 iron_bars
+
+- _name: iron_block
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - '###'
+  key:
+    '#': iron_ingot
+  result: 1 iron_block
+
+- _name: iron_boots
+  type: crafting_shaped
+  pattern:
+    - X X
+    - X X
+  key:
+    X: iron_ingot
+  result: 1 iron_boots
+
+- _name: iron_chestplate
+  type: crafting_shaped
+  pattern:
+    - X X
+    - XXX
+    - XXX
+  key:
+    X: iron_ingot
+  result: 1 iron_chestplate
+
+- _name: iron_door
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+    - '##'
+  key:
+    '#': iron_ingot
+  result: 3 iron_door
+
+- _name: iron_helmet
+  type: crafting_shaped
+  pattern:
+    - XXX
+    - X X
+  key:
+    X: iron_ingot
+  result: 1 iron_helmet
+
+- _name: iron_hoe
+  type: crafting_shaped
+  pattern:
+    - XX
+    - ' #'
+    - ' #'
+  key:
+    '#': stick
+    X: iron_ingot
+  result: 1 iron_hoe
+
+- _name: iron_ingot_from_blasting
+  type: blasting
+  cookingtime: 100
+  experience: 0.7
+  ingredients: iron_ore
+  result: iron_ingot
+
+- _name: iron_ingot_from_iron_block
+  group: iron_ingot
+  type: crafting_shapeless
+  ingredients:
+    - 1 iron_block
+  result: 9 iron_ingot
+
+- _name: iron_ingot_from_nuggets
+  group: iron_ingot
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - '###'
+  key:
+    '#': iron_nugget
+  result: 1 iron_ingot
+
+- _name: iron_ingot
+  type: smelting
+  cookingtime: 200
+  experience: 0.7
+  ingredients: iron_ore
+  result: iron_ingot
+
+- _name: iron_leggings
+  type: crafting_shaped
+  pattern:
+    - XXX
+    - X X
+    - X X
+  key:
+    X: iron_ingot
+  result: 1 iron_leggings
+
+- _name: iron_nugget_from_blasting
+  type: blasting
+  cookingtime: 100
+  experience: 0.1
+  ingredients:
+    - iron_pickaxe
+    - iron_shovel
+    - iron_axe
+    - iron_hoe
+    - iron_sword
+    - iron_helmet
+    - iron_chestplate
+    - iron_leggings
+    - iron_boots
+    - iron_horse_armor
+    - chainmail_helmet
+    - chainmail_chestplate
+    - chainmail_leggings
+    - chainmail_boots
+  result: iron_nugget
+
+- _name: iron_nugget_from_smelting
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients:
+    - iron_pickaxe
+    - iron_shovel
+    - iron_axe
+    - iron_hoe
+    - iron_sword
+    - iron_helmet
+    - iron_chestplate
+    - iron_leggings
+    - iron_boots
+    - iron_horse_armor
+    - chainmail_helmet
+    - chainmail_chestplate
+    - chainmail_leggings
+    - chainmail_boots
+  result: iron_nugget
+
+- _name: iron_nugget
+  type: crafting_shapeless
+  ingredients:
+    - 1 iron_ingot
+  result: 9 iron_nugget
+
+- _name: iron_pickaxe
+  type: crafting_shaped
+  pattern:
+    - XXX
+    - ' # '
+    - ' # '
+  key:
+    '#': stick
+    X: iron_ingot
+  result: 1 iron_pickaxe
+
+- _name: iron_shovel
+  type: crafting_shaped
+  pattern:
+    - X
+    - '#'
+    - '#'
+  key:
+    '#': stick
+    X: iron_ingot
+  result: 1 iron_shovel
+
+- _name: iron_sword
+  type: crafting_shaped
+  pattern:
+    - X
+    - X
+    - '#'
+  key:
+    '#': stick
+    X: iron_ingot
+  result: 1 iron_sword
+
+- _name: iron_trapdoor
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': iron_ingot
+  result: 1 iron_trapdoor
+
+- _name: item_frame
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': stick
+    X: leather
+  result: 1 item_frame
+
+- _name: jack_o_lantern
+  type: crafting_shaped
+  pattern:
+    - A
+    - B
+  key:
+    A: carved_pumpkin
+    B: torch
+  result: 1 jack_o_lantern
+
+- _name: jukebox
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': +planks
+    X: diamond
+  result: 1 jukebox
+
+- _name: jungle_boat
+  group: boat
+  type: crafting_shaped
+  pattern:
+    - '# #'
+    - '###'
+  key:
+    '#': jungle_planks
+  result: 1 jungle_boat
+
+- _name: jungle_button
+  group: wooden_button
+  type: crafting_shapeless
+  ingredients:
+    - 1 jungle_planks
+  result: 1 jungle_button
+
+- _name: jungle_door
+  group: wooden_door
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+    - '##'
+  key:
+    '#': jungle_planks
+  result: 3 jungle_door
+
+- _name: jungle_fence_gate
+  group: wooden_fence_gate
+  type: crafting_shaped
+  pattern:
+    - '#W#'
+    - '#W#'
+  key:
+    '#': stick
+    W: jungle_planks
+  result: 1 jungle_fence_gate
+
+- _name: jungle_fence
+  group: wooden_fence
+  type: crafting_shaped
+  pattern:
+    - W#W
+    - W#W
+  key:
+    '#': stick
+    W: jungle_planks
+  result: 3 jungle_fence
+
+- _name: jungle_planks
+  group: planks
+  type: crafting_shapeless
+  ingredients:
+    - 1 +jungle_logs
+  result: 4 jungle_planks
+
+- _name: jungle_pressure_plate
+  group: wooden_pressure_plate
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': jungle_planks
+  result: 1 jungle_pressure_plate
+
+- _name: jungle_sign
+  group: sign
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - ' X '
+  key:
+    '#': jungle_planks
+    X: stick
+  result: 3 jungle_sign
+
+- _name: jungle_slab
+  group: wooden_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': jungle_planks
+  result: 6 jungle_slab
+
+- _name: jungle_stairs
+  group: wooden_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': jungle_planks
+  result: 4 jungle_stairs
+
+- _name: jungle_trapdoor
+  group: wooden_trapdoor
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': jungle_planks
+  result: 2 jungle_trapdoor
+
+- _name: jungle_wood
+  group: bark
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': jungle_log
+  result: 3 jungle_wood
+
+- _name: ladder
+  type: crafting_shaped
+  pattern:
+    - '# #'
+    - '###'
+    - '# #'
+  key:
+    '#': stick
+  result: 3 ladder
+
+- _name: lantern
+  type: crafting_shaped
+  pattern:
+    - XXX
+    - X#X
+    - XXX
+  key:
+    '#': torch
+    X: iron_nugget
+  result: 1 lantern
+
+- _name: lapis_block
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - '###'
+  key:
+    '#': lapis_lazuli
+  result: 1 lapis_block
+
+- _name: lapis_from_blasting
+  type: blasting
+  cookingtime: 100
+  experience: 0.2
+  ingredients: lapis_ore
+  result: lapis_lazuli
+
+- _name: lapis_from_smelting
+  type: smelting
+  cookingtime: 200
+  experience: 0.2
+  ingredients: lapis_ore
+  result: lapis_lazuli
+
+- _name: lapis_lazuli
+  type: crafting_shapeless
+  ingredients:
+    - 1 lapis_block
+  result: 9 lapis_lazuli
+
+- _name: lead
+  type: crafting_shaped
+  pattern:
+    - '~~ '
+    - '~O '
+    - '  ~'
+  key:
+    '~': string
+    O: slime_ball
+  result: 2 lead
+
+- _name: leather_boots
+  type: crafting_shaped
+  pattern:
+    - X X
+    - X X
+  key:
+    X: leather
+  result: 1 leather_boots
+
+- _name: leather_chestplate
+  type: crafting_shaped
+  pattern:
+    - X X
+    - XXX
+    - XXX
+  key:
+    X: leather
+  result: 1 leather_chestplate
+
+- _name: leather_helmet
+  type: crafting_shaped
+  pattern:
+    - XXX
+    - X X
+  key:
+    X: leather
+  result: 1 leather_helmet
+
+- _name: leather_horse_armor
+  type: crafting_shaped
+  pattern:
+    - X X
+    - XXX
+    - X X
+  key:
+    X: leather
+  result: 1 leather_horse_armor
+
+- _name: leather_leggings
+  type: crafting_shaped
+  pattern:
+    - XXX
+    - X X
+    - X X
+  key:
+    X: leather
+  result: 1 leather_leggings
+
+- _name: leather
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': rabbit_hide
+  result: 1 leather
+
+- _name: lectern
+  type: crafting_shaped
+  pattern:
+    - SSS
+    - ' B '
+    - ' S '
+  key:
+    S: +wooden_slabs
+    B: bookshelf
+  result: 1 lectern
+
+- _name: lever
+  type: crafting_shaped
+  pattern:
+    - X
+    - '#'
+  key:
+    '#': cobblestone
+    X: stick
+  result: 1 lever
+
+- _name: light_blue_banner
+  group: banner
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - ' | '
+  key:
+    '#': light_blue_wool
+    '|': stick
+  result: 1 light_blue_banner
+
+- _name: light_blue_bed_from_white_bed
+  group: dyed_bed
+  type: crafting_shapeless
+  ingredients:
+    - 1 white_bed
+    - 1 light_blue_dye
+  result: 1 light_blue_bed
+
+- _name: light_blue_bed
+  group: bed
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - XXX
+  key:
+    '#': light_blue_wool
+    X: +planks
+  result: 1 light_blue_bed
+
+- _name: light_blue_carpet_from_white_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': white_carpet
+    $: light_blue_dye
+  result: 8 light_blue_carpet
+
+- _name: light_blue_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': light_blue_wool
+  result: 3 light_blue_carpet
+
+- _name: light_blue_concrete_powder
+  group: concrete_powder
+  type: crafting_shapeless
+  ingredients:
+    - 1 light_blue_dye
+    - 4 sand
+    - 4 gravel
+  result: 8 light_blue_concrete_powder
+
+- _name: light_blue_dye_from_blue_orchid
+  group: light_blue_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 blue_orchid
+  result: 1 light_blue_dye
+
+- _name: light_blue_dye_from_blue_white_dye
+  group: light_blue_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 blue_dye
+    - 1 white_dye
+  result: 2 light_blue_dye
+
+- _name: light_blue_glazed_terracotta
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: light_blue_terracotta
+  result: light_blue_glazed_terracotta
+
+- _name: light_blue_stained_glass_pane_from_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': glass_pane
+    $: light_blue_dye
+  result: 8 light_blue_stained_glass_pane
+
+- _name: light_blue_stained_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': light_blue_stained_glass
+  result: 16 light_blue_stained_glass_pane
+
+- _name: light_blue_stained_glass
+  group: stained_glass
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': glass
+    X: light_blue_dye
+  result: 8 light_blue_stained_glass
+
+- _name: light_blue_terracotta
+  group: stained_terracotta
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': terracotta
+    X: light_blue_dye
+  result: 8 light_blue_terracotta
+
+- _name: light_blue_wool
+  group: wool
+  type: crafting_shapeless
+  ingredients:
+    - 1 light_blue_dye
+    - 1 white_wool
+  result: 1 light_blue_wool
+
+- _name: light_gray_banner
+  group: banner
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - ' | '
+  key:
+    '#': light_gray_wool
+    '|': stick
+  result: 1 light_gray_banner
+
+- _name: light_gray_bed_from_white_bed
+  group: dyed_bed
+  type: crafting_shapeless
+  ingredients:
+    - 1 white_bed
+    - 1 light_gray_dye
+  result: 1 light_gray_bed
+
+- _name: light_gray_bed
+  group: bed
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - XXX
+  key:
+    '#': light_gray_wool
+    X: +planks
+  result: 1 light_gray_bed
+
+- _name: light_gray_carpet_from_white_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': white_carpet
+    $: light_gray_dye
+  result: 8 light_gray_carpet
+
+- _name: light_gray_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': light_gray_wool
+  result: 3 light_gray_carpet
+
+- _name: light_gray_concrete_powder
+  group: concrete_powder
+  type: crafting_shapeless
+  ingredients:
+    - 1 light_gray_dye
+    - 4 sand
+    - 4 gravel
+  result: 8 light_gray_concrete_powder
+
+- _name: light_gray_dye_from_azure_bluet
+  group: light_gray_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 azure_bluet
+  result: 1 light_gray_dye
+
+- _name: light_gray_dye_from_black_white_dye
+  group: light_gray_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 black_dye
+    - 2 white_dye
+  result: 3 light_gray_dye
+
+- _name: light_gray_dye_from_gray_white_dye
+  group: light_gray_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 gray_dye
+    - 1 white_dye
+  result: 2 light_gray_dye
+
+- _name: light_gray_dye_from_oxeye_daisy
+  group: light_gray_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 oxeye_daisy
+  result: 1 light_gray_dye
+
+- _name: light_gray_dye_from_white_tulip
+  group: light_gray_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 white_tulip
+  result: 1 light_gray_dye
+
+- _name: light_gray_glazed_terracotta
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: light_gray_terracotta
+  result: light_gray_glazed_terracotta
+
+- _name: light_gray_stained_glass_pane_from_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': glass_pane
+    $: light_gray_dye
+  result: 8 light_gray_stained_glass_pane
+
+- _name: light_gray_stained_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': light_gray_stained_glass
+  result: 16 light_gray_stained_glass_pane
+
+- _name: light_gray_stained_glass
+  group: stained_glass
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': glass
+    X: light_gray_dye
+  result: 8 light_gray_stained_glass
+
+- _name: light_gray_terracotta
+  group: stained_terracotta
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': terracotta
+    X: light_gray_dye
+  result: 8 light_gray_terracotta
+
+- _name: light_gray_wool
+  group: wool
+  type: crafting_shapeless
+  ingredients:
+    - 1 light_gray_dye
+    - 1 white_wool
+  result: 1 light_gray_wool
+
+- _name: light_weighted_pressure_plate
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': gold_ingot
+  result: 1 light_weighted_pressure_plate
+
+- _name: lime_banner
+  group: banner
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - ' | '
+  key:
+    '#': lime_wool
+    '|': stick
+  result: 1 lime_banner
+
+- _name: lime_bed_from_white_bed
+  group: dyed_bed
+  type: crafting_shapeless
+  ingredients:
+    - 1 white_bed
+    - 1 lime_dye
+  result: 1 lime_bed
+
+- _name: lime_bed
+  group: bed
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - XXX
+  key:
+    '#': lime_wool
+    X: +planks
+  result: 1 lime_bed
+
+- _name: lime_carpet_from_white_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': white_carpet
+    $: lime_dye
+  result: 8 lime_carpet
+
+- _name: lime_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': lime_wool
+  result: 3 lime_carpet
+
+- _name: lime_concrete_powder
+  group: concrete_powder
+  type: crafting_shapeless
+  ingredients:
+    - 1 lime_dye
+    - 4 sand
+    - 4 gravel
+  result: 8 lime_concrete_powder
+
+- _name: lime_dye_from_smelting
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: sea_pickle
+  result: lime_dye
+
+- _name: lime_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 green_dye
+    - 1 white_dye
+  result: 2 lime_dye
+
+- _name: lime_glazed_terracotta
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: lime_terracotta
+  result: lime_glazed_terracotta
+
+- _name: lime_stained_glass_pane_from_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': glass_pane
+    $: lime_dye
+  result: 8 lime_stained_glass_pane
+
+- _name: lime_stained_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': lime_stained_glass
+  result: 16 lime_stained_glass_pane
+
+- _name: lime_stained_glass
+  group: stained_glass
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': glass
+    X: lime_dye
+  result: 8 lime_stained_glass
+
+- _name: lime_terracotta
+  group: stained_terracotta
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': terracotta
+    X: lime_dye
+  result: 8 lime_terracotta
+
+- _name: lime_wool
+  group: wool
+  type: crafting_shapeless
+  ingredients:
+    - 1 lime_dye
+    - 1 white_wool
+  result: 1 lime_wool
+
+- _name: lodestone
+  type: crafting_shaped
+  pattern:
+    - SSS
+    - S#S
+    - SSS
+  key:
+    S: chiseled_stone_bricks
+    '#': netherite_ingot
+  result: 1 lodestone
+
+- _name: loom
+  type: crafting_shaped
+  pattern:
+    - '@@'
+    - '##'
+  key:
+    '#': +planks
+    '@': string
+  result: 1 loom
+
+- _name: magenta_banner
+  group: banner
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - ' | '
+  key:
+    '#': magenta_wool
+    '|': stick
+  result: 1 magenta_banner
+
+- _name: magenta_bed_from_white_bed
+  group: dyed_bed
+  type: crafting_shapeless
+  ingredients:
+    - 1 white_bed
+    - 1 magenta_dye
+  result: 1 magenta_bed
+
+- _name: magenta_bed
+  group: bed
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - XXX
+  key:
+    '#': magenta_wool
+    X: +planks
+  result: 1 magenta_bed
+
+- _name: magenta_carpet_from_white_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': white_carpet
+    $: magenta_dye
+  result: 8 magenta_carpet
+
+- _name: magenta_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': magenta_wool
+  result: 3 magenta_carpet
+
+- _name: magenta_concrete_powder
+  group: concrete_powder
+  type: crafting_shapeless
+  ingredients:
+    - 1 magenta_dye
+    - 4 sand
+    - 4 gravel
+  result: 8 magenta_concrete_powder
+
+- _name: magenta_dye_from_allium
+  group: magenta_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 allium
+  result: 1 magenta_dye
+
+- _name: magenta_dye_from_blue_red_pink
+  group: magenta_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 blue_dye
+    - 1 red_dye
+    - 1 pink_dye
+  result: 3 magenta_dye
+
+- _name: magenta_dye_from_blue_red_white_dye
+  group: magenta_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 blue_dye
+    - 2 red_dye
+    - 1 white_dye
+  result: 4 magenta_dye
+
+- _name: magenta_dye_from_lilac
+  group: magenta_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 lilac
+  result: 2 magenta_dye
+
+- _name: magenta_dye_from_purple_and_pink
+  group: magenta_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 purple_dye
+    - 1 pink_dye
+  result: 2 magenta_dye
+
+- _name: magenta_glazed_terracotta
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: magenta_terracotta
+  result: magenta_glazed_terracotta
+
+- _name: magenta_stained_glass_pane_from_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': glass_pane
+    $: magenta_dye
+  result: 8 magenta_stained_glass_pane
+
+- _name: magenta_stained_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': magenta_stained_glass
+  result: 16 magenta_stained_glass_pane
+
+- _name: magenta_stained_glass
+  group: stained_glass
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': glass
+    X: magenta_dye
+  result: 8 magenta_stained_glass
+
+- _name: magenta_terracotta
+  group: stained_terracotta
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': terracotta
+    X: magenta_dye
+  result: 8 magenta_terracotta
+
+- _name: magenta_wool
+  group: wool
+  type: crafting_shapeless
+  ingredients:
+    - 1 magenta_dye
+    - 1 white_wool
+  result: 1 magenta_wool
+
+- _name: magma_block
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': magma_cream
+  result: 1 magma_block
+
+- _name: magma_cream
+  type: crafting_shapeless
+  ingredients:
+    - 1 blaze_powder
+    - 1 slime_ball
+  result: 1 magma_cream
+
+- _name: map_cloning
+  type: mapcloning
+
+- _name: map_extending
+  type: mapextending
+
+- _name: map
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': paper
+    X: compass
+  result: 1 map
+
+- _name: melon_seeds
+  type: crafting_shapeless
+  ingredients:
+    - 1 melon_slice
+  result: 1 melon_seeds
+
+- _name: melon
+  type: crafting_shaped
+  pattern:
+    - MMM
+    - MMM
+    - MMM
+  key:
+    M: melon_slice
+  result: 1 melon
+
+- _name: minecart
+  type: crafting_shaped
+  pattern:
+    - '# #'
+    - '###'
+  key:
+    '#': iron_ingot
+  result: 1 minecart
+
+- _name: mojang_banner_pattern
+  type: crafting_shapeless
+  ingredients:
+    - 1 paper
+    - 1 enchanted_golden_apple
+  result: 1 mojang_banner_pattern
+
+- _name: mossy_cobblestone_slab_from_mossy_cobblestone_stonecutting
+  type: stonecutting
+  ingredients: mossy_cobblestone
+  result: 2 mossy_cobblestone_slab
+
+- _name: mossy_cobblestone_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': mossy_cobblestone
+  result: 6 mossy_cobblestone_slab
+
+- _name: mossy_cobblestone_stairs_from_mossy_cobblestone_stonecutting
+  type: stonecutting
+  ingredients: mossy_cobblestone
+  result: 1 mossy_cobblestone_stairs
+
+- _name: mossy_cobblestone_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': mossy_cobblestone
+  result: 4 mossy_cobblestone_stairs
+
+- _name: mossy_cobblestone_wall_from_mossy_cobblestone_stonecutting
+  type: stonecutting
+  ingredients: mossy_cobblestone
+  result: 1 mossy_cobblestone_wall
+
+- _name: mossy_cobblestone_wall
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': mossy_cobblestone
+  result: 6 mossy_cobblestone_wall
+
+- _name: mossy_cobblestone
+  type: crafting_shapeless
+  ingredients:
+    - 1 cobblestone
+    - 1 vine
+  result: 1 mossy_cobblestone
+
+- _name: mossy_stone_brick_slab_from_mossy_stone_brick_stonecutting
+  type: stonecutting
+  ingredients: mossy_stone_bricks
+  result: 2 mossy_stone_brick_slab
+
+- _name: mossy_stone_brick_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': mossy_stone_bricks
+  result: 6 mossy_stone_brick_slab
+
+- _name: mossy_stone_brick_stairs_from_mossy_stone_brick_stonecutting
+  type: stonecutting
+  ingredients: mossy_stone_bricks
+  result: 1 mossy_stone_brick_stairs
+
+- _name: mossy_stone_brick_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': mossy_stone_bricks
+  result: 4 mossy_stone_brick_stairs
+
+- _name: mossy_stone_brick_wall_from_mossy_stone_brick_stonecutting
+  type: stonecutting
+  ingredients: mossy_stone_bricks
+  result: 1 mossy_stone_brick_wall
+
+- _name: mossy_stone_brick_wall
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': mossy_stone_bricks
+  result: 6 mossy_stone_brick_wall
+
+- _name: mossy_stone_bricks
+  type: crafting_shapeless
+  ingredients:
+    - 1 stone_bricks
+    - 1 vine
+  result: 1 mossy_stone_bricks
+
+- _name: mushroom_stew
+  type: crafting_shapeless
+  ingredients:
+    - 1 brown_mushroom
+    - 1 red_mushroom
+    - 1 bowl
+  result: 1 mushroom_stew
+
+- _name: nether_brick_fence
+  type: crafting_shaped
+  pattern:
+    - '#-#'
+    - '#-#'
+  key:
+    '#': nether_bricks
+    '-': nether_brick
+  result: 6 nether_brick_fence
+
+- _name: nether_brick_slab_from_nether_bricks_stonecutting
+  type: stonecutting
+  ingredients: nether_bricks
+  result: 2 nether_brick_slab
+
+- _name: nether_brick_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': nether_bricks
+  result: 6 nether_brick_slab
+
+- _name: nether_brick_stairs_from_nether_bricks_stonecutting
+  type: stonecutting
+  ingredients: nether_bricks
+  result: 1 nether_brick_stairs
+
+- _name: nether_brick_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': nether_bricks
+  result: 4 nether_brick_stairs
+
+- _name: nether_brick_wall_from_nether_bricks_stonecutting
+  type: stonecutting
+  ingredients: nether_bricks
+  result: 1 nether_brick_wall
+
+- _name: nether_brick_wall
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': nether_bricks
+  result: 6 nether_brick_wall
+
+- _name: nether_brick
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: netherrack
+  result: nether_brick
+
+- _name: nether_bricks
+  type: crafting_shaped
+  pattern:
+    - NN
+    - NN
+  key:
+    'N': nether_brick
+  result: 1 nether_bricks
+
+- _name: nether_wart_block
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - '###'
+  key:
+    '#': nether_wart
+  result: 1 nether_wart_block
+
+- _name: netherite_axe_smithing
+  type: smithing
+  base: diamond_axe
+  addition: netherite_ingot
+  result: netherite_axe
+
+- _name: netherite_block
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - '###'
+  key:
+    '#': netherite_ingot
+  result: 1 netherite_block
+
+- _name: netherite_boots_smithing
+  type: smithing
+  base: diamond_boots
+  addition: netherite_ingot
+  result: netherite_boots
+
+- _name: netherite_chestplate_smithing
+  type: smithing
+  base: diamond_chestplate
+  addition: netherite_ingot
+  result: netherite_chestplate
+
+- _name: netherite_helmet_smithing
+  type: smithing
+  base: diamond_helmet
+  addition: netherite_ingot
+  result: netherite_helmet
+
+- _name: netherite_hoe_smithing
+  type: smithing
+  base: diamond_hoe
+  addition: netherite_ingot
+  result: netherite_hoe
+
+- _name: netherite_ingot_from_netherite_block
+  group: netherite_ingot
+  type: crafting_shapeless
+  ingredients:
+    - 1 netherite_block
+  result: 9 netherite_ingot
+
+- _name: netherite_ingot
+  group: netherite_ingot
+  type: crafting_shapeless
+  ingredients:
+    - 4 netherite_scrap
+    - 4 gold_ingot
+  result: 1 netherite_ingot
+
+- _name: netherite_leggings_smithing
+  type: smithing
+  base: diamond_leggings
+  addition: netherite_ingot
+  result: netherite_leggings
+
+- _name: netherite_pickaxe_smithing
+  type: smithing
+  base: diamond_pickaxe
+  addition: netherite_ingot
+  result: netherite_pickaxe
+
+- _name: netherite_scrap_from_blasting
+  type: blasting
+  cookingtime: 100
+  experience: 2
+  ingredients: ancient_debris
+  result: netherite_scrap
+
+- _name: netherite_scrap
+  type: smelting
+  cookingtime: 200
+  experience: 2
+  ingredients: ancient_debris
+  result: netherite_scrap
+
+- _name: netherite_shovel_smithing
+  type: smithing
+  base: diamond_shovel
+  addition: netherite_ingot
+  result: netherite_shovel
+
+- _name: netherite_sword_smithing
+  type: smithing
+  base: diamond_sword
+  addition: netherite_ingot
+  result: netherite_sword
+
+- _name: note_block
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': +planks
+    X: redstone
+  result: 1 note_block
+
+- _name: oak_boat
+  group: boat
+  type: crafting_shaped
+  pattern:
+    - '# #'
+    - '###'
+  key:
+    '#': oak_planks
+  result: 1 oak_boat
+
+- _name: oak_button
+  group: wooden_button
+  type: crafting_shapeless
+  ingredients:
+    - 1 oak_planks
+  result: 1 oak_button
+
+- _name: oak_door
+  group: wooden_door
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+    - '##'
+  key:
+    '#': oak_planks
+  result: 3 oak_door
+
+- _name: oak_fence_gate
+  group: wooden_fence_gate
+  type: crafting_shaped
+  pattern:
+    - '#W#'
+    - '#W#'
+  key:
+    '#': stick
+    W: oak_planks
+  result: 1 oak_fence_gate
+
+- _name: oak_fence
+  group: wooden_fence
+  type: crafting_shaped
+  pattern:
+    - W#W
+    - W#W
+  key:
+    '#': stick
+    W: oak_planks
+  result: 3 oak_fence
+
+- _name: oak_planks
+  group: planks
+  type: crafting_shapeless
+  ingredients:
+    - 1 +oak_logs
+  result: 4 oak_planks
+
+- _name: oak_pressure_plate
+  group: wooden_pressure_plate
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': oak_planks
+  result: 1 oak_pressure_plate
+
+- _name: oak_sign
+  group: sign
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - ' X '
+  key:
+    '#': oak_planks
+    X: stick
+  result: 3 oak_sign
+
+- _name: oak_slab
+  group: wooden_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': oak_planks
+  result: 6 oak_slab
+
+- _name: oak_stairs
+  group: wooden_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': oak_planks
+  result: 4 oak_stairs
+
+- _name: oak_trapdoor
+  group: wooden_trapdoor
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': oak_planks
+  result: 2 oak_trapdoor
+
+- _name: oak_wood
+  group: bark
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': oak_log
+  result: 3 oak_wood
+
+- _name: observer
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - RRQ
+    - '###'
+  key:
+    Q: quartz
+    R: redstone
+    '#': cobblestone
+  result: 1 observer
+
+- _name: orange_banner
+  group: banner
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - ' | '
+  key:
+    '#': orange_wool
+    '|': stick
+  result: 1 orange_banner
+
+- _name: orange_bed_from_white_bed
+  group: dyed_bed
+  type: crafting_shapeless
+  ingredients:
+    - 1 white_bed
+    - 1 orange_dye
+  result: 1 orange_bed
+
+- _name: orange_bed
+  group: bed
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - XXX
+  key:
+    '#': orange_wool
+    X: +planks
+  result: 1 orange_bed
+
+- _name: orange_carpet_from_white_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': white_carpet
+    $: orange_dye
+  result: 8 orange_carpet
+
+- _name: orange_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': orange_wool
+  result: 3 orange_carpet
+
+- _name: orange_concrete_powder
+  group: concrete_powder
+  type: crafting_shapeless
+  ingredients:
+    - 1 orange_dye
+    - 4 sand
+    - 4 gravel
+  result: 8 orange_concrete_powder
+
+- _name: orange_dye_from_orange_tulip
+  group: orange_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 orange_tulip
+  result: 1 orange_dye
+
+- _name: orange_dye_from_red_yellow
+  group: orange_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 red_dye
+    - 1 yellow_dye
+  result: 2 orange_dye
+
+- _name: orange_glazed_terracotta
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: orange_terracotta
+  result: orange_glazed_terracotta
+
+- _name: orange_stained_glass_pane_from_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': glass_pane
+    $: orange_dye
+  result: 8 orange_stained_glass_pane
+
+- _name: orange_stained_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': orange_stained_glass
+  result: 16 orange_stained_glass_pane
+
+- _name: orange_stained_glass
+  group: stained_glass
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': glass
+    X: orange_dye
+  result: 8 orange_stained_glass
+
+- _name: orange_terracotta
+  group: stained_terracotta
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': terracotta
+    X: orange_dye
+  result: 8 orange_terracotta
+
+- _name: orange_wool
+  group: wool
+  type: crafting_shapeless
+  ingredients:
+    - 1 orange_dye
+    - 1 white_wool
+  result: 1 orange_wool
+
+- _name: packed_ice
+  type: crafting_shapeless
+  ingredients:
+    - 9 ice
+  result: 1 packed_ice
+
+- _name: painting
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': stick
+    X: +wool
+  result: 1 painting
+
+- _name: paper
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': sugar_cane
+  result: 3 paper
+
+- _name: pink_banner
+  group: banner
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - ' | '
+  key:
+    '#': pink_wool
+    '|': stick
+  result: 1 pink_banner
+
+- _name: pink_bed_from_white_bed
+  group: dyed_bed
+  type: crafting_shapeless
+  ingredients:
+    - 1 white_bed
+    - 1 pink_dye
+  result: 1 pink_bed
+
+- _name: pink_bed
+  group: bed
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - XXX
+  key:
+    '#': pink_wool
+    X: +planks
+  result: 1 pink_bed
+
+- _name: pink_carpet_from_white_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': white_carpet
+    $: pink_dye
+  result: 8 pink_carpet
+
+- _name: pink_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': pink_wool
+  result: 3 pink_carpet
+
+- _name: pink_concrete_powder
+  group: concrete_powder
+  type: crafting_shapeless
+  ingredients:
+    - 1 pink_dye
+    - 4 sand
+    - 4 gravel
+  result: 8 pink_concrete_powder
+
+- _name: pink_dye_from_peony
+  group: pink_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 peony
+  result: 2 pink_dye
+
+- _name: pink_dye_from_pink_tulip
+  group: pink_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 pink_tulip
+  result: 1 pink_dye
+
+- _name: pink_dye_from_red_white_dye
+  group: pink_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 red_dye
+    - 1 white_dye
+  result: 2 pink_dye
+
+- _name: pink_glazed_terracotta
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: pink_terracotta
+  result: pink_glazed_terracotta
+
+- _name: pink_stained_glass_pane_from_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': glass_pane
+    $: pink_dye
+  result: 8 pink_stained_glass_pane
+
+- _name: pink_stained_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': pink_stained_glass
+  result: 16 pink_stained_glass_pane
+
+- _name: pink_stained_glass
+  group: stained_glass
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': glass
+    X: pink_dye
+  result: 8 pink_stained_glass
+
+- _name: pink_terracotta
+  group: stained_terracotta
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': terracotta
+    X: pink_dye
+  result: 8 pink_terracotta
+
+- _name: pink_wool
+  group: wool
+  type: crafting_shapeless
+  ingredients:
+    - 1 pink_dye
+    - 1 white_wool
+  result: 1 pink_wool
+
+- _name: piston
+  type: crafting_shaped
+  pattern:
+    - TTT
+    - '#X#'
+    - '#R#'
+  key:
+    R: redstone
+    '#': cobblestone
+    T: +planks
+    X: iron_ingot
+  result: 1 piston
+
+- _name: polished_andesite_from_andesite_stonecutting
+  type: stonecutting
+  ingredients: andesite
+  result: 1 polished_andesite
+
+- _name: polished_andesite_slab_from_andesite_stonecutting
+  type: stonecutting
+  ingredients: andesite
+  result: 2 polished_andesite_slab
+
+- _name: polished_andesite_slab_from_polished_andesite_stonecutting
+  type: stonecutting
+  ingredients: polished_andesite
+  result: 2 polished_andesite_slab
+
+- _name: polished_andesite_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': polished_andesite
+  result: 6 polished_andesite_slab
+
+- _name: polished_andesite_stairs_from_andesite_stonecutting
+  type: stonecutting
+  ingredients: andesite
+  result: 1 polished_andesite_stairs
+
+- _name: polished_andesite_stairs_from_polished_andesite_stonecutting
+  type: stonecutting
+  ingredients: polished_andesite
+  result: 1 polished_andesite_stairs
+
+- _name: polished_andesite_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': polished_andesite
+  result: 4 polished_andesite_stairs
+
+- _name: polished_andesite
+  type: crafting_shaped
+  pattern:
+    - SS
+    - SS
+  key:
+    S: andesite
+  result: 4 polished_andesite
+
+- _name: polished_basalt_from_basalt_stonecutting
+  type: stonecutting
+  ingredients: basalt
+  result: 1 polished_basalt
+
+- _name: polished_basalt
+  type: crafting_shaped
+  pattern:
+    - SS
+    - SS
+  key:
+    S: basalt
+  result: 4 polished_basalt
+
+- _name: polished_blackstone_brick_slab_from_blackstone_stonecutting
+  type: stonecutting
+  ingredients: blackstone
+  result: 2 polished_blackstone_brick_slab
+
+- _name: polished_blackstone_brick_slab_from_polished_blackstone_bricks_stonecutting
+  type: stonecutting
+  ingredients: polished_blackstone_bricks
+  result: 2 polished_blackstone_brick_slab
+
+- _name: polished_blackstone_brick_slab_from_polished_blackstone_stonecutting
+  type: stonecutting
+  ingredients: polished_blackstone
+  result: 2 polished_blackstone_brick_slab
+
+- _name: polished_blackstone_brick_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': polished_blackstone_bricks
+  result: 6 polished_blackstone_brick_slab
+
+- _name: polished_blackstone_brick_stairs_from_blackstone_stonecutting
+  type: stonecutting
+  ingredients: blackstone
+  result: 1 polished_blackstone_brick_stairs
+
+- _name: >-
+    polished_blackstone_brick_stairs_from_polished_blackstone_bricks_stonecutting
+  type: stonecutting
+  ingredients: polished_blackstone_bricks
+  result: 1 polished_blackstone_brick_stairs
+
+- _name: polished_blackstone_brick_stairs_from_polished_blackstone_stonecutting
+  type: stonecutting
+  ingredients: polished_blackstone
+  result: 1 polished_blackstone_brick_stairs
+
+- _name: polished_blackstone_brick_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': polished_blackstone_bricks
+  result: 4 polished_blackstone_brick_stairs
+
+- _name: polished_blackstone_brick_wall_from_blackstone_stonecutting
+  type: stonecutting
+  ingredients: blackstone
+  result: 1 polished_blackstone_brick_wall
+
+- _name: polished_blackstone_brick_wall_from_polished_blackstone_bricks_stonecutting
+  type: stonecutting
+  ingredients: polished_blackstone_bricks
+  result: 1 polished_blackstone_brick_wall
+
+- _name: polished_blackstone_brick_wall_from_polished_blackstone_stonecutting
+  type: stonecutting
+  ingredients: polished_blackstone
+  result: 1 polished_blackstone_brick_wall
+
+- _name: polished_blackstone_brick_wall
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': polished_blackstone_bricks
+  result: 6 polished_blackstone_brick_wall
+
+- _name: polished_blackstone_bricks_from_blackstone_stonecutting
+  type: stonecutting
+  ingredients: blackstone
+  result: 1 polished_blackstone_bricks
+
+- _name: polished_blackstone_bricks_from_polished_blackstone_stonecutting
+  type: stonecutting
+  ingredients: polished_blackstone
+  result: 1 polished_blackstone_bricks
+
+- _name: polished_blackstone_bricks
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': polished_blackstone
+  result: 4 polished_blackstone_bricks
+
+- _name: polished_blackstone_button
+  type: crafting_shapeless
+  ingredients:
+    - 1 polished_blackstone
+  result: 1 polished_blackstone_button
+
+- _name: polished_blackstone_from_blackstone_stonecutting
+  type: stonecutting
+  ingredients: blackstone
+  result: 1 polished_blackstone
+
+- _name: polished_blackstone_pressure_plate
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': polished_blackstone
+  result: 1 polished_blackstone_pressure_plate
+
+- _name: polished_blackstone_slab_from_blackstone_stonecutting
+  type: stonecutting
+  ingredients: blackstone
+  result: 2 polished_blackstone_slab
+
+- _name: polished_blackstone_slab_from_polished_blackstone_stonecutting
+  type: stonecutting
+  ingredients: polished_blackstone
+  result: 2 polished_blackstone_slab
+
+- _name: polished_blackstone_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': polished_blackstone
+  result: 6 polished_blackstone_slab
+
+- _name: polished_blackstone_stairs_from_blackstone_stonecutting
+  type: stonecutting
+  ingredients: blackstone
+  result: 1 polished_blackstone_stairs
+
+- _name: polished_blackstone_stairs_from_polished_blackstone_stonecutting
+  type: stonecutting
+  ingredients: polished_blackstone
+  result: 1 polished_blackstone_stairs
+
+- _name: polished_blackstone_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': polished_blackstone
+  result: 4 polished_blackstone_stairs
+
+- _name: polished_blackstone_wall_from_blackstone_stonecutting
+  type: stonecutting
+  ingredients: blackstone
+  result: 1 polished_blackstone_wall
+
+- _name: polished_blackstone_wall_from_polished_blackstone_stonecutting
+  type: stonecutting
+  ingredients: polished_blackstone
+  result: 1 polished_blackstone_wall
+
+- _name: polished_blackstone_wall
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': polished_blackstone
+  result: 6 polished_blackstone_wall
+
+- _name: polished_blackstone
+  type: crafting_shaped
+  pattern:
+    - SS
+    - SS
+  key:
+    S: blackstone
+  result: 4 polished_blackstone
+
+- _name: polished_diorite_from_diorite_stonecutting
+  type: stonecutting
+  ingredients: diorite
+  result: 1 polished_diorite
+
+- _name: polished_diorite_slab_from_diorite_stonecutting
+  type: stonecutting
+  ingredients: diorite
+  result: 2 polished_diorite_slab
+
+- _name: polished_diorite_slab_from_polished_diorite_stonecutting
+  type: stonecutting
+  ingredients: polished_diorite
+  result: 2 polished_diorite_slab
+
+- _name: polished_diorite_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': polished_diorite
+  result: 6 polished_diorite_slab
+
+- _name: polished_diorite_stairs_from_diorite_stonecutting
+  type: stonecutting
+  ingredients: diorite
+  result: 1 polished_diorite_stairs
+
+- _name: polished_diorite_stairs_from_polished_diorite_stonecutting
+  type: stonecutting
+  ingredients: polished_diorite
+  result: 1 polished_diorite_stairs
+
+- _name: polished_diorite_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': polished_diorite
+  result: 4 polished_diorite_stairs
+
+- _name: polished_diorite
+  type: crafting_shaped
+  pattern:
+    - SS
+    - SS
+  key:
+    S: diorite
+  result: 4 polished_diorite
+
+- _name: polished_granite_from_granite_stonecutting
+  type: stonecutting
+  ingredients: granite
+  result: 1 polished_granite
+
+- _name: polished_granite_slab_from_granite_stonecutting
+  type: stonecutting
+  ingredients: granite
+  result: 2 polished_granite_slab
+
+- _name: polished_granite_slab_from_polished_granite_stonecutting
+  type: stonecutting
+  ingredients: polished_granite
+  result: 2 polished_granite_slab
+
+- _name: polished_granite_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': polished_granite
+  result: 6 polished_granite_slab
+
+- _name: polished_granite_stairs_from_granite_stonecutting
+  type: stonecutting
+  ingredients: granite
+  result: 1 polished_granite_stairs
+
+- _name: polished_granite_stairs_from_polished_granite_stonecutting
+  type: stonecutting
+  ingredients: polished_granite
+  result: 1 polished_granite_stairs
+
+- _name: polished_granite_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': polished_granite
+  result: 4 polished_granite_stairs
+
+- _name: polished_granite
+  type: crafting_shaped
+  pattern:
+    - SS
+    - SS
+  key:
+    S: granite
+  result: 4 polished_granite
+
+- _name: popped_chorus_fruit
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: chorus_fruit
+  result: popped_chorus_fruit
+
+- _name: powered_rail
+  type: crafting_shaped
+  pattern:
+    - X X
+    - X#X
+    - XRX
+  key:
+    R: redstone
+    '#': stick
+    X: gold_ingot
+  result: 6 powered_rail
+
+- _name: prismarine_brick_slab_from_prismarine_stonecutting
+  type: stonecutting
+  ingredients: prismarine_bricks
+  result: 2 prismarine_brick_slab
+
+- _name: prismarine_brick_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': prismarine_bricks
+  result: 6 prismarine_brick_slab
+
+- _name: prismarine_brick_stairs_from_prismarine_stonecutting
+  type: stonecutting
+  ingredients: prismarine_bricks
+  result: 1 prismarine_brick_stairs
+
+- _name: prismarine_brick_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': prismarine_bricks
+  result: 4 prismarine_brick_stairs
+
+- _name: prismarine_bricks
+  type: crafting_shaped
+  pattern:
+    - SSS
+    - SSS
+    - SSS
+  key:
+    S: prismarine_shard
+  result: 1 prismarine_bricks
+
+- _name: prismarine_slab_from_prismarine_stonecutting
+  type: stonecutting
+  ingredients: prismarine
+  result: 2 prismarine_slab
+
+- _name: prismarine_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': prismarine
+  result: 6 prismarine_slab
+
+- _name: prismarine_stairs_from_prismarine_stonecutting
+  type: stonecutting
+  ingredients: prismarine
+  result: 1 prismarine_stairs
+
+- _name: prismarine_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': prismarine
+  result: 4 prismarine_stairs
+
+- _name: prismarine_wall_from_prismarine_stonecutting
+  type: stonecutting
+  ingredients: prismarine
+  result: 1 prismarine_wall
+
+- _name: prismarine_wall
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': prismarine
+  result: 6 prismarine_wall
+
+- _name: prismarine
+  type: crafting_shaped
+  pattern:
+    - SS
+    - SS
+  key:
+    S: prismarine_shard
+  result: 1 prismarine
+
+- _name: pumpkin_pie
+  type: crafting_shapeless
+  ingredients:
+    - 1 pumpkin
+    - 1 sugar
+    - 1 egg
+  result: 1 pumpkin_pie
+
+- _name: pumpkin_seeds
+  type: crafting_shapeless
+  ingredients:
+    - 1 pumpkin
+  result: 4 pumpkin_seeds
+
+- _name: purple_banner
+  group: banner
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - ' | '
+  key:
+    '#': purple_wool
+    '|': stick
+  result: 1 purple_banner
+
+- _name: purple_bed_from_white_bed
+  group: dyed_bed
+  type: crafting_shapeless
+  ingredients:
+    - 1 white_bed
+    - 1 purple_dye
+  result: 1 purple_bed
+
+- _name: purple_bed
+  group: bed
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - XXX
+  key:
+    '#': purple_wool
+    X: +planks
+  result: 1 purple_bed
+
+- _name: purple_carpet_from_white_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': white_carpet
+    $: purple_dye
+  result: 8 purple_carpet
+
+- _name: purple_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': purple_wool
+  result: 3 purple_carpet
+
+- _name: purple_concrete_powder
+  group: concrete_powder
+  type: crafting_shapeless
+  ingredients:
+    - 1 purple_dye
+    - 4 sand
+    - 4 gravel
+  result: 8 purple_concrete_powder
+
+- _name: purple_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 blue_dye
+    - 1 red_dye
+  result: 2 purple_dye
+
+- _name: purple_glazed_terracotta
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: purple_terracotta
+  result: purple_glazed_terracotta
+
+- _name: purple_stained_glass_pane_from_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': glass_pane
+    $: purple_dye
+  result: 8 purple_stained_glass_pane
+
+- _name: purple_stained_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': purple_stained_glass
+  result: 16 purple_stained_glass_pane
+
+- _name: purple_stained_glass
+  group: stained_glass
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': glass
+    X: purple_dye
+  result: 8 purple_stained_glass
+
+- _name: purple_terracotta
+  group: stained_terracotta
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': terracotta
+    X: purple_dye
+  result: 8 purple_terracotta
+
+- _name: purple_wool
+  group: wool
+  type: crafting_shapeless
+  ingredients:
+    - 1 purple_dye
+    - 1 white_wool
+  result: 1 purple_wool
+
+- _name: purpur_block
+  type: crafting_shaped
+  pattern:
+    - FF
+    - FF
+  key:
+    F: popped_chorus_fruit
+  result: 4 purpur_block
+
+- _name: purpur_pillar_from_purpur_block_stonecutting
+  type: stonecutting
+  ingredients: purpur_block
+  result: 1 purpur_pillar
+
+- _name: purpur_pillar
+  type: crafting_shaped
+  pattern:
+    - '#'
+    - '#'
+  key:
+    '#': purpur_slab
+  result: 1 purpur_pillar
+
+- _name: purpur_slab_from_purpur_block_stonecutting
+  type: stonecutting
+  ingredients: purpur_block
+  result: 2 purpur_slab
+
+- _name: purpur_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#':
+      - purpur_block
+      - purpur_pillar
+  result: 6 purpur_slab
+
+- _name: purpur_stairs_from_purpur_block_stonecutting
+  type: stonecutting
+  ingredients: purpur_block
+  result: 1 purpur_stairs
+
+- _name: purpur_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#':
+      - purpur_block
+      - purpur_pillar
+  result: 4 purpur_stairs
+
+- _name: quartz_block
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': quartz
+  result: 1 quartz_block
+
+- _name: quartz_bricks_from_quartz_block_stonecutting
+  type: stonecutting
+  ingredients: quartz_block
+  result: 1 quartz_bricks
+
+- _name: quartz_bricks
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': quartz_block
+  result: 4 quartz_bricks
+
+- _name: quartz_from_blasting
+  type: blasting
+  cookingtime: 100
+  experience: 0.2
+  ingredients: nether_quartz_ore
+  result: quartz
+
+- _name: quartz_pillar_from_quartz_block_stonecutting
+  type: stonecutting
+  ingredients: quartz_block
+  result: 1 quartz_pillar
+
+- _name: quartz_pillar
+  type: crafting_shaped
+  pattern:
+    - '#'
+    - '#'
+  key:
+    '#': quartz_block
+  result: 2 quartz_pillar
+
+- _name: quartz_slab_from_stonecutting
+  type: stonecutting
+  ingredients: quartz_block
+  result: 2 quartz_slab
+
+- _name: quartz_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#':
+      - chiseled_quartz_block
+      - quartz_block
+      - quartz_pillar
+  result: 6 quartz_slab
+
+- _name: quartz_stairs_from_quartz_block_stonecutting
+  type: stonecutting
+  ingredients: quartz_block
+  result: 1 quartz_stairs
+
+- _name: quartz_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#':
+      - chiseled_quartz_block
+      - quartz_block
+      - quartz_pillar
+  result: 4 quartz_stairs
+
+- _name: quartz
+  type: smelting
+  cookingtime: 200
+  experience: 0.2
+  ingredients: nether_quartz_ore
+  result: quartz
+
+- _name: rabbit_stew_from_brown_mushroom
+  group: rabbit_stew
+  type: crafting_shapeless
+  ingredients:
+    - 1 baked_potato
+    - 1 cooked_rabbit
+    - 1 bowl
+    - 1 carrot
+    - 1 brown_mushroom
+  result: 1 rabbit_stew
+
+- _name: rabbit_stew_from_red_mushroom
+  group: rabbit_stew
+  type: crafting_shapeless
+  ingredients:
+    - 1 baked_potato
+    - 1 cooked_rabbit
+    - 1 bowl
+    - 1 carrot
+    - 1 red_mushroom
+  result: 1 rabbit_stew
+
+- _name: rail
+  type: crafting_shaped
+  pattern:
+    - X X
+    - X#X
+    - X X
+  key:
+    '#': stick
+    X: iron_ingot
+  result: 16 rail
+
+- _name: red_banner
+  group: banner
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - ' | '
+  key:
+    '#': red_wool
+    '|': stick
+  result: 1 red_banner
+
+- _name: red_bed_from_white_bed
+  group: dyed_bed
+  type: crafting_shapeless
+  ingredients:
+    - 1 white_bed
+    - 1 red_dye
+  result: 1 red_bed
+
+- _name: red_bed
+  group: bed
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - XXX
+  key:
+    '#': red_wool
+    X: +planks
+  result: 1 red_bed
+
+- _name: red_carpet_from_white_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': white_carpet
+    $: red_dye
+  result: 8 red_carpet
+
+- _name: red_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': red_wool
+  result: 3 red_carpet
+
+- _name: red_concrete_powder
+  group: concrete_powder
+  type: crafting_shapeless
+  ingredients:
+    - 1 red_dye
+    - 4 sand
+    - 4 gravel
+  result: 8 red_concrete_powder
+
+- _name: red_dye_from_beetroot
+  group: red_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 beetroot
+  result: 1 red_dye
+
+- _name: red_dye_from_poppy
+  group: red_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 poppy
+  result: 1 red_dye
+
+- _name: red_dye_from_rose_bush
+  group: red_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 rose_bush
+  result: 2 red_dye
+
+- _name: red_dye_from_tulip
+  group: red_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 red_tulip
+  result: 1 red_dye
+
+- _name: red_glazed_terracotta
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: red_terracotta
+  result: red_glazed_terracotta
+
+- _name: red_nether_brick_slab_from_red_nether_bricks_stonecutting
+  type: stonecutting
+  ingredients: red_nether_bricks
+  result: 2 red_nether_brick_slab
+
+- _name: red_nether_brick_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': red_nether_bricks
+  result: 6 red_nether_brick_slab
+
+- _name: red_nether_brick_stairs_from_red_nether_bricks_stonecutting
+  type: stonecutting
+  ingredients: red_nether_bricks
+  result: 1 red_nether_brick_stairs
+
+- _name: red_nether_brick_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': red_nether_bricks
+  result: 4 red_nether_brick_stairs
+
+- _name: red_nether_brick_wall_from_red_nether_bricks_stonecutting
+  type: stonecutting
+  ingredients: red_nether_bricks
+  result: 1 red_nether_brick_wall
+
+- _name: red_nether_brick_wall
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': red_nether_bricks
+  result: 6 red_nether_brick_wall
+
+- _name: red_nether_bricks
+  type: crafting_shaped
+  pattern:
+    - NW
+    - WN
+  key:
+    W: nether_wart
+    'N': nether_brick
+  result: 1 red_nether_bricks
+
+- _name: red_sandstone_slab_from_red_sandstone_stonecutting
+  type: stonecutting
+  ingredients: red_sandstone
+  result: 2 red_sandstone_slab
+
+- _name: red_sandstone_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#':
+      - red_sandstone
+      - chiseled_red_sandstone
+  result: 6 red_sandstone_slab
+
+- _name: red_sandstone_stairs_from_red_sandstone_stonecutting
+  type: stonecutting
+  ingredients: red_sandstone
+  result: 1 red_sandstone_stairs
+
+- _name: red_sandstone_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#':
+      - red_sandstone
+      - chiseled_red_sandstone
+      - cut_red_sandstone
+  result: 4 red_sandstone_stairs
+
+- _name: red_sandstone_wall_from_red_sandstone_stonecutting
+  type: stonecutting
+  ingredients: red_sandstone
+  result: 1 red_sandstone_wall
+
+- _name: red_sandstone_wall
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': red_sandstone
+  result: 6 red_sandstone_wall
+
+- _name: red_sandstone
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': red_sand
+  result: 1 red_sandstone
+
+- _name: red_stained_glass_pane_from_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': glass_pane
+    $: red_dye
+  result: 8 red_stained_glass_pane
+
+- _name: red_stained_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': red_stained_glass
+  result: 16 red_stained_glass_pane
+
+- _name: red_stained_glass
+  group: stained_glass
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': glass
+    X: red_dye
+  result: 8 red_stained_glass
+
+- _name: red_terracotta
+  group: stained_terracotta
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': terracotta
+    X: red_dye
+  result: 8 red_terracotta
+
+- _name: red_wool
+  group: wool
+  type: crafting_shapeless
+  ingredients:
+    - 1 red_dye
+    - 1 white_wool
+  result: 1 red_wool
+
+- _name: redstone_block
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - '###'
+  key:
+    '#': redstone
+  result: 1 redstone_block
+
+- _name: redstone_from_blasting
+  type: blasting
+  cookingtime: 100
+  experience: 0.7
+  ingredients: redstone_ore
+  result: redstone
+
+- _name: redstone_from_smelting
+  type: smelting
+  cookingtime: 200
+  experience: 0.7
+  ingredients: redstone_ore
+  result: redstone
+
+- _name: redstone_lamp
+  type: crafting_shaped
+  pattern:
+    - ' R '
+    - RGR
+    - ' R '
+  key:
+    R: redstone
+    G: glowstone
+  result: 1 redstone_lamp
+
+- _name: redstone_torch
+  type: crafting_shaped
+  pattern:
+    - X
+    - '#'
+  key:
+    '#': stick
+    X: redstone
+  result: 1 redstone_torch
+
+- _name: redstone
+  type: crafting_shapeless
+  ingredients:
+    - 1 redstone_block
+  result: 9 redstone
+
+- _name: repair_item
+  type: repairitem
+
+- _name: repeater
+  type: crafting_shaped
+  pattern:
+    - '#X#'
+    - III
+  key:
+    '#': redstone_torch
+    X: redstone
+    I: stone
+  result: 1 repeater
+
+- _name: respawn_anchor
+  type: crafting_shaped
+  pattern:
+    - OOO
+    - GGG
+    - OOO
+  key:
+    O: crying_obsidian
+    G: glowstone
+  result: 1 respawn_anchor
+
+- _name: sandstone_slab_from_sandstone_stonecutting
+  type: stonecutting
+  ingredients: sandstone
+  result: 2 sandstone_slab
+
+- _name: sandstone_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#':
+      - sandstone
+      - chiseled_sandstone
+  result: 6 sandstone_slab
+
+- _name: sandstone_stairs_from_sandstone_stonecutting
+  type: stonecutting
+  ingredients: sandstone
+  result: 1 sandstone_stairs
+
+- _name: sandstone_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#':
+      - sandstone
+      - chiseled_sandstone
+      - cut_sandstone
+  result: 4 sandstone_stairs
+
+- _name: sandstone_wall_from_sandstone_stonecutting
+  type: stonecutting
+  ingredients: sandstone
+  result: 1 sandstone_wall
+
+- _name: sandstone_wall
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': sandstone
+  result: 6 sandstone_wall
+
+- _name: sandstone
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': sand
+  result: 1 sandstone
+
+- _name: scaffolding
+  type: crafting_shaped
+  pattern:
+    - I~I
+    - I I
+    - I I
+  key:
+    '~': string
+    I: bamboo
+  result: 6 scaffolding
+
+- _name: sea_lantern
+  type: crafting_shaped
+  pattern:
+    - SCS
+    - CCC
+    - SCS
+  key:
+    S: prismarine_shard
+    C: prismarine_crystals
+  result: 1 sea_lantern
+
+- _name: shears
+  type: crafting_shaped
+  pattern:
+    - ' #'
+    - '# '
+  key:
+    '#': iron_ingot
+  result: 1 shears
+
+- _name: shield_decoration
+  type: shielddecoration
+
+- _name: shield
+  type: crafting_shaped
+  pattern:
+    - WoW
+    - WWW
+    - ' W '
+  key:
+    W: +planks
+    o: iron_ingot
+  result: 1 shield
+
+- _name: shulker_box_coloring
+  type: shulkerboxcoloring
+
+- _name: shulker_box
+  type: crafting_shaped
+  pattern:
+    - '-'
+    - '#'
+    - '-'
+  key:
+    '#': chest
+    '-': shulker_shell
+  result: 1 shulker_box
+
+- _name: skull_banner_pattern
+  type: crafting_shapeless
+  ingredients:
+    - 1 paper
+    - 1 wither_skeleton_skull
+  result: 1 skull_banner_pattern
+
+- _name: slime_ball
+  type: crafting_shapeless
+  ingredients:
+    - 1 slime_block
+  result: 9 slime_ball
+
+- _name: slime_block
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - '###'
+  key:
+    '#': slime_ball
+  result: 1 slime_block
+
+- _name: smithing_table
+  type: crafting_shaped
+  pattern:
+    - '@@'
+    - '##'
+    - '##'
+  key:
+    '#': +planks
+    '@': iron_ingot
+  result: 1 smithing_table
+
+- _name: smoker
+  type: crafting_shaped
+  pattern:
+    - ' # '
+    - '#X#'
+    - ' # '
+  key:
+    '#': +logs
+    X: furnace
+  result: 1 smoker
+
+- _name: smooth_quartz_slab_from_smooth_quartz_stonecutting
+  type: stonecutting
+  ingredients: smooth_quartz
+  result: 2 smooth_quartz_slab
+
+- _name: smooth_quartz_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': smooth_quartz
+  result: 6 smooth_quartz_slab
+
+- _name: smooth_quartz_stairs_from_smooth_quartz_stonecutting
+  type: stonecutting
+  ingredients: smooth_quartz
+  result: 1 smooth_quartz_stairs
+
+- _name: smooth_quartz_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': smooth_quartz
+  result: 4 smooth_quartz_stairs
+
+- _name: smooth_quartz
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: quartz_block
+  result: smooth_quartz
+
+- _name: smooth_red_sandstone_slab_from_smooth_red_sandstone_stonecutting
+  type: stonecutting
+  ingredients: smooth_red_sandstone
+  result: 2 smooth_red_sandstone_slab
+
+- _name: smooth_red_sandstone_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': smooth_red_sandstone
+  result: 6 smooth_red_sandstone_slab
+
+- _name: smooth_red_sandstone_stairs_from_smooth_red_sandstone_stonecutting
+  type: stonecutting
+  ingredients: smooth_red_sandstone
+  result: 1 smooth_red_sandstone_stairs
+
+- _name: smooth_red_sandstone_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': smooth_red_sandstone
+  result: 4 smooth_red_sandstone_stairs
+
+- _name: smooth_red_sandstone
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: red_sandstone
+  result: smooth_red_sandstone
+
+- _name: smooth_sandstone_slab_from_smooth_sandstone_stonecutting
+  type: stonecutting
+  ingredients: smooth_sandstone
+  result: 2 smooth_sandstone_slab
+
+- _name: smooth_sandstone_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': smooth_sandstone
+  result: 6 smooth_sandstone_slab
+
+- _name: smooth_sandstone_stairs_from_smooth_sandstone_stonecutting
+  type: stonecutting
+  ingredients: smooth_sandstone
+  result: 1 smooth_sandstone_stairs
+
+- _name: smooth_sandstone_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': smooth_sandstone
+  result: 4 smooth_sandstone_stairs
+
+- _name: smooth_sandstone
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: sandstone
+  result: smooth_sandstone
+
+- _name: smooth_stone_slab_from_smooth_stone_stonecutting
+  type: stonecutting
+  ingredients: smooth_stone
+  result: 2 smooth_stone_slab
+
+- _name: smooth_stone_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': smooth_stone
+  result: 6 smooth_stone_slab
+
+- _name: smooth_stone
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: stone
+  result: smooth_stone
+
+- _name: snow_block
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': snowball
+  result: 1 snow_block
+
+- _name: snow
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': snow_block
+  result: 6 snow
+
+- _name: soul_campfire
+  type: crafting_shaped
+  pattern:
+    - ' S '
+    - S#S
+    - LLL
+  key:
+    L: +logs
+    S: stick
+    '#': +soul_fire_base_blocks
+  result: 1 soul_campfire
+
+- _name: soul_lantern
+  type: crafting_shaped
+  pattern:
+    - XXX
+    - X#X
+    - XXX
+  key:
+    '#': soul_torch
+    X: iron_nugget
+  result: 1 soul_lantern
+
+- _name: soul_torch
+  type: crafting_shaped
+  pattern:
+    - X
+    - '#'
+    - S
+  key:
+    X:
+      - coal
+      - charcoal
+    '#': stick
+    S: +soul_fire_base_blocks
+  result: 4 soul_torch
+
+- _name: spectral_arrow
+  type: crafting_shaped
+  pattern:
+    - ' # '
+    - '#X#'
+    - ' # '
+  key:
+    '#': glowstone_dust
+    X: arrow
+  result: 2 spectral_arrow
+
+- _name: sponge
+  type: smelting
+  cookingtime: 200
+  experience: 0.15
+  ingredients: wet_sponge
+  result: sponge
+
+- _name: spruce_boat
+  group: boat
+  type: crafting_shaped
+  pattern:
+    - '# #'
+    - '###'
+  key:
+    '#': spruce_planks
+  result: 1 spruce_boat
+
+- _name: spruce_button
+  group: wooden_button
+  type: crafting_shapeless
+  ingredients:
+    - 1 spruce_planks
+  result: 1 spruce_button
+
+- _name: spruce_door
+  group: wooden_door
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+    - '##'
+  key:
+    '#': spruce_planks
+  result: 3 spruce_door
+
+- _name: spruce_fence_gate
+  group: wooden_fence_gate
+  type: crafting_shaped
+  pattern:
+    - '#W#'
+    - '#W#'
+  key:
+    '#': stick
+    W: spruce_planks
+  result: 1 spruce_fence_gate
+
+- _name: spruce_fence
+  group: wooden_fence
+  type: crafting_shaped
+  pattern:
+    - W#W
+    - W#W
+  key:
+    '#': stick
+    W: spruce_planks
+  result: 3 spruce_fence
+
+- _name: spruce_planks
+  group: planks
+  type: crafting_shapeless
+  ingredients:
+    - 1 +spruce_logs
+  result: 4 spruce_planks
+
+- _name: spruce_pressure_plate
+  group: wooden_pressure_plate
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': spruce_planks
+  result: 1 spruce_pressure_plate
+
+- _name: spruce_sign
+  group: sign
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - ' X '
+  key:
+    '#': spruce_planks
+    X: stick
+  result: 3 spruce_sign
+
+- _name: spruce_slab
+  group: wooden_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': spruce_planks
+  result: 6 spruce_slab
+
+- _name: spruce_stairs
+  group: wooden_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': spruce_planks
+  result: 4 spruce_stairs
+
+- _name: spruce_trapdoor
+  group: wooden_trapdoor
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': spruce_planks
+  result: 2 spruce_trapdoor
+
+- _name: spruce_wood
+  group: bark
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': spruce_log
+  result: 3 spruce_wood
+
+- _name: stick_from_bamboo_item
+  group: sticks
+  type: crafting_shaped
+  pattern:
+    - '#'
+    - '#'
+  key:
+    '#': bamboo
+  result: 1 stick
+
+- _name: stick
+  group: sticks
+  type: crafting_shaped
+  pattern:
+    - '#'
+    - '#'
+  key:
+    '#': +planks
+  result: 4 stick
+
+- _name: sticky_piston
+  type: crafting_shaped
+  pattern:
+    - S
+    - P
+  key:
+    P: piston
+    S: slime_ball
+  result: 1 sticky_piston
+
+- _name: stone_axe
+  type: crafting_shaped
+  pattern:
+    - XX
+    - X#
+    - ' #'
+  key:
+    '#': stick
+    X: +stone_tool_materials
+  result: 1 stone_axe
+
+- _name: stone_brick_slab_from_stone_bricks_stonecutting
+  type: stonecutting
+  ingredients: stone_bricks
+  result: 2 stone_brick_slab
+
+- _name: stone_brick_slab_from_stone_stonecutting
+  type: stonecutting
+  ingredients: stone
+  result: 2 stone_brick_slab
+
+- _name: stone_brick_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': stone_bricks
+  result: 6 stone_brick_slab
+
+- _name: stone_brick_stairs_from_stone_bricks_stonecutting
+  type: stonecutting
+  ingredients: stone_bricks
+  result: 1 stone_brick_stairs
+
+- _name: stone_brick_stairs_from_stone_stonecutting
+  type: stonecutting
+  ingredients: stone
+  result: 1 stone_brick_stairs
+
+- _name: stone_brick_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': stone_bricks
+  result: 4 stone_brick_stairs
+
+- _name: stone_brick_wall_from_stone_bricks_stonecutting
+  type: stonecutting
+  ingredients: stone_bricks
+  result: 1 stone_brick_wall
+
+- _name: stone_brick_wall
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': stone_bricks
+  result: 6 stone_brick_wall
+
+- _name: stone_brick_walls_from_stone_stonecutting
+  type: stonecutting
+  ingredients: stone
+  result: 1 stone_brick_wall
+
+- _name: stone_bricks_from_stone_stonecutting
+  type: stonecutting
+  ingredients: stone
+  result: 1 stone_bricks
+
+- _name: stone_bricks
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': stone
+  result: 4 stone_bricks
+
+- _name: stone_button
+  type: crafting_shapeless
+  ingredients:
+    - 1 stone
+  result: 1 stone_button
+
+- _name: stone_hoe
+  type: crafting_shaped
+  pattern:
+    - XX
+    - ' #'
+    - ' #'
+  key:
+    '#': stick
+    X: +stone_tool_materials
+  result: 1 stone_hoe
+
+- _name: stone_pickaxe
+  type: crafting_shaped
+  pattern:
+    - XXX
+    - ' # '
+    - ' # '
+  key:
+    '#': stick
+    X: +stone_tool_materials
+  result: 1 stone_pickaxe
+
+- _name: stone_pressure_plate
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': stone
+  result: 1 stone_pressure_plate
+
+- _name: stone_shovel
+  type: crafting_shaped
+  pattern:
+    - X
+    - '#'
+    - '#'
+  key:
+    '#': stick
+    X: +stone_tool_materials
+  result: 1 stone_shovel
+
+- _name: stone_slab_from_stone_stonecutting
+  type: stonecutting
+  ingredients: stone
+  result: 2 stone_slab
+
+- _name: stone_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': stone
+  result: 6 stone_slab
+
+- _name: stone_stairs_from_stone_stonecutting
+  type: stonecutting
+  ingredients: stone
+  result: 1 stone_stairs
+
+- _name: stone_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': stone
+  result: 4 stone_stairs
+
+- _name: stone_sword
+  type: crafting_shaped
+  pattern:
+    - X
+    - X
+    - '#'
+  key:
+    '#': stick
+    X: +stone_tool_materials
+  result: 1 stone_sword
+
+- _name: stone
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: cobblestone
+  result: stone
+
+- _name: stonecutter
+  type: crafting_shaped
+  pattern:
+    - ' I '
+    - '###'
+  key:
+    I: iron_ingot
+    '#': stone
+  result: 1 stonecutter
+
+- _name: stripped_acacia_wood
+  group: bark
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': stripped_acacia_log
+  result: 3 stripped_acacia_wood
+
+- _name: stripped_birch_wood
+  group: bark
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': stripped_birch_log
+  result: 3 stripped_birch_wood
+
+- _name: stripped_crimson_hyphae
+  group: bark
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': stripped_crimson_stem
+  result: 3 stripped_crimson_hyphae
+
+- _name: stripped_dark_oak_wood
+  group: bark
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': stripped_dark_oak_log
+  result: 3 stripped_dark_oak_wood
+
+- _name: stripped_jungle_wood
+  group: bark
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': stripped_jungle_log
+  result: 3 stripped_jungle_wood
+
+- _name: stripped_oak_wood
+  group: bark
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': stripped_oak_log
+  result: 3 stripped_oak_wood
+
+- _name: stripped_spruce_wood
+  group: bark
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': stripped_spruce_log
+  result: 3 stripped_spruce_wood
+
+- _name: stripped_warped_hyphae
+  group: bark
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': stripped_warped_stem
+  result: 3 stripped_warped_hyphae
+
+- _name: sugar_from_honey_bottle
+  group: sugar
+  type: crafting_shapeless
+  ingredients:
+    - 1 honey_bottle
+  result: 3 sugar
+
+- _name: sugar_from_sugar_cane
+  group: sugar
+  type: crafting_shapeless
+  ingredients:
+    - 1 sugar_cane
+  result: 1 sugar
+
+- _name: suspicious_stew
+  type: suspiciousstew
+
+- _name: target
+  type: crafting_shaped
+  pattern:
+    - ' R '
+    - RHR
+    - ' R '
+  key:
+    H: hay_block
+    R: redstone
+  result: 1 target
+
+- _name: terracotta
+  type: smelting
+  cookingtime: 200
+  experience: 0.35
+  ingredients: clay
+  result: terracotta
+
+- _name: tipped_arrow
+  type: tippedarrow
+
+- _name: tnt_minecart
+  type: crafting_shaped
+  pattern:
+    - A
+    - B
+  key:
+    A: tnt
+    B: minecart
+  result: 1 tnt_minecart
+
+- _name: tnt
+  type: crafting_shaped
+  pattern:
+    - X#X
+    - '#X#'
+    - X#X
+  key:
+    '#':
+      - sand
+      - red_sand
+    X: gunpowder
+  result: 1 tnt
+
+- _name: torch
+  type: crafting_shaped
+  pattern:
+    - X
+    - '#'
+  key:
+    '#': stick
+    X:
+      - coal
+      - charcoal
+  result: 4 torch
+
+- _name: trapped_chest
+  type: crafting_shapeless
+  ingredients:
+    - 1 chest
+    - 1 tripwire_hook
+  result: 1 trapped_chest
+
+- _name: tripwire_hook
+  type: crafting_shaped
+  pattern:
+    - I
+    - S
+    - '#'
+  key:
+    '#': +planks
+    S: stick
+    I: iron_ingot
+  result: 2 tripwire_hook
+
+- _name: turtle_helmet
+  type: crafting_shaped
+  pattern:
+    - XXX
+    - X X
+  key:
+    X: scute
+  result: 1 turtle_helmet
+
+- _name: warped_button
+  group: wooden_button
+  type: crafting_shapeless
+  ingredients:
+    - 1 warped_planks
+  result: 1 warped_button
+
+- _name: warped_door
+  group: wooden_door
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+    - '##'
+  key:
+    '#': warped_planks
+  result: 3 warped_door
+
+- _name: warped_fence_gate
+  group: wooden_fence_gate
+  type: crafting_shaped
+  pattern:
+    - '#W#'
+    - '#W#'
+  key:
+    '#': stick
+    W: warped_planks
+  result: 1 warped_fence_gate
+
+- _name: warped_fence
+  group: wooden_fence
+  type: crafting_shaped
+  pattern:
+    - W#W
+    - W#W
+  key:
+    '#': stick
+    W: warped_planks
+  result: 3 warped_fence
+
+- _name: warped_fungus_on_a_stick
+  type: crafting_shaped
+  pattern:
+    - '# '
+    - ' X'
+  key:
+    '#': fishing_rod
+    X: warped_fungus
+  result: 1 warped_fungus_on_a_stick
+
+- _name: warped_hyphae
+  group: bark
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': warped_stem
+  result: 3 warped_hyphae
+
+- _name: warped_planks
+  group: planks
+  type: crafting_shapeless
+  ingredients:
+    - 1 +warped_stems
+  result: 4 warped_planks
+
+- _name: warped_pressure_plate
+  group: wooden_pressure_plate
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': warped_planks
+  result: 1 warped_pressure_plate
+
+- _name: warped_sign
+  group: sign
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - ' X '
+  key:
+    '#': warped_planks
+    X: stick
+  result: 3 warped_sign
+
+- _name: warped_slab
+  group: wooden_slab
+  type: crafting_shaped
+  pattern:
+    - '###'
+  key:
+    '#': warped_planks
+  result: 6 warped_slab
+
+- _name: warped_stairs
+  group: wooden_stairs
+  type: crafting_shaped
+  pattern:
+    - '#  '
+    - '## '
+    - '###'
+  key:
+    '#': warped_planks
+  result: 4 warped_stairs
+
+- _name: warped_trapdoor
+  group: wooden_trapdoor
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': warped_planks
+  result: 2 warped_trapdoor
+
+- _name: wheat
+  type: crafting_shapeless
+  ingredients:
+    - 1 hay_block
+  result: 9 wheat
+
+- _name: white_banner
+  group: banner
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - ' | '
+  key:
+    '#': white_wool
+    '|': stick
+  result: 1 white_banner
+
+- _name: white_bed
+  group: bed
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - XXX
+  key:
+    '#': white_wool
+    X: +planks
+  result: 1 white_bed
+
+- _name: white_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': white_wool
+  result: 3 white_carpet
+
+- _name: white_concrete_powder
+  group: concrete_powder
+  type: crafting_shapeless
+  ingredients:
+    - 1 white_dye
+    - 4 sand
+    - 4 gravel
+  result: 8 white_concrete_powder
+
+- _name: white_dye_from_lily_of_the_valley
+  group: white_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 lily_of_the_valley
+  result: 1 white_dye
+
+- _name: white_dye
+  group: white_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 bone_meal
+  result: 1 white_dye
+
+- _name: white_glazed_terracotta
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: white_terracotta
+  result: white_glazed_terracotta
+
+- _name: white_stained_glass_pane_from_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': glass_pane
+    $: white_dye
+  result: 8 white_stained_glass_pane
+
+- _name: white_stained_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': white_stained_glass
+  result: 16 white_stained_glass_pane
+
+- _name: white_stained_glass
+  group: stained_glass
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': glass
+    X: white_dye
+  result: 8 white_stained_glass
+
+- _name: white_terracotta
+  group: stained_terracotta
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': terracotta
+    X: white_dye
+  result: 8 white_terracotta
+
+- _name: white_wool_from_string
+  type: crafting_shaped
+  pattern:
+    - '##'
+    - '##'
+  key:
+    '#': string
+  result: 1 white_wool
+
+- _name: wooden_axe
+  type: crafting_shaped
+  pattern:
+    - XX
+    - X#
+    - ' #'
+  key:
+    '#': stick
+    X: +planks
+  result: 1 wooden_axe
+
+- _name: wooden_hoe
+  type: crafting_shaped
+  pattern:
+    - XX
+    - ' #'
+    - ' #'
+  key:
+    '#': stick
+    X: +planks
+  result: 1 wooden_hoe
+
+- _name: wooden_pickaxe
+  type: crafting_shaped
+  pattern:
+    - XXX
+    - ' # '
+    - ' # '
+  key:
+    '#': stick
+    X: +planks
+  result: 1 wooden_pickaxe
+
+- _name: wooden_shovel
+  type: crafting_shaped
+  pattern:
+    - X
+    - '#'
+    - '#'
+  key:
+    '#': stick
+    X: +planks
+  result: 1 wooden_shovel
+
+- _name: wooden_sword
+  type: crafting_shaped
+  pattern:
+    - X
+    - X
+    - '#'
+  key:
+    '#': stick
+    X: +planks
+  result: 1 wooden_sword
+
+- _name: writable_book
+  type: crafting_shapeless
+  ingredients:
+    - 1 book
+    - 1 ink_sac
+    - 1 feather
+  result: 1 writable_book
+
+- _name: yellow_banner
+  group: banner
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+    - ' | '
+  key:
+    '#': yellow_wool
+    '|': stick
+  result: 1 yellow_banner
+
+- _name: yellow_bed_from_white_bed
+  group: dyed_bed
+  type: crafting_shapeless
+  ingredients:
+    - 1 white_bed
+    - 1 yellow_dye
+  result: 1 yellow_bed
+
+- _name: yellow_bed
+  group: bed
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - XXX
+  key:
+    '#': yellow_wool
+    X: +planks
+  result: 1 yellow_bed
+
+- _name: yellow_carpet_from_white_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': white_carpet
+    $: yellow_dye
+  result: 8 yellow_carpet
+
+- _name: yellow_carpet
+  group: carpet
+  type: crafting_shaped
+  pattern:
+    - '##'
+  key:
+    '#': yellow_wool
+  result: 3 yellow_carpet
+
+- _name: yellow_concrete_powder
+  group: concrete_powder
+  type: crafting_shapeless
+  ingredients:
+    - 1 yellow_dye
+    - 4 sand
+    - 4 gravel
+  result: 8 yellow_concrete_powder
+
+- _name: yellow_dye_from_dandelion
+  group: yellow_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 dandelion
+  result: 1 yellow_dye
+
+- _name: yellow_dye_from_sunflower
+  group: yellow_dye
+  type: crafting_shapeless
+  ingredients:
+    - 1 sunflower
+  result: 2 yellow_dye
+
+- _name: yellow_glazed_terracotta
+  type: smelting
+  cookingtime: 200
+  experience: 0.1
+  ingredients: yellow_terracotta
+  result: yellow_glazed_terracotta
+
+- _name: yellow_stained_glass_pane_from_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#$#'
+    - '###'
+  key:
+    '#': glass_pane
+    $: yellow_dye
+  result: 8 yellow_stained_glass_pane
+
+- _name: yellow_stained_glass_pane
+  group: stained_glass_pane
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '###'
+  key:
+    '#': yellow_stained_glass
+  result: 16 yellow_stained_glass_pane
+
+- _name: yellow_stained_glass
+  group: stained_glass
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': glass
+    X: yellow_dye
+  result: 8 yellow_stained_glass
+
+- _name: yellow_terracotta
+  group: stained_terracotta
+  type: crafting_shaped
+  pattern:
+    - '###'
+    - '#X#'
+    - '###'
+  key:
+    '#': terracotta
+    X: yellow_dye
+  result: 8 yellow_terracotta
+
+- _name: yellow_wool
+  group: wool
+  type: crafting_shapeless
+  ingredients:
+    - 1 yellow_dye
+    - 1 white_wool
+  result: 1 yellow_wool

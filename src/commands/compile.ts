@@ -36,8 +36,6 @@ function processRecipes(outputDir: string, recipes: ValidRecipe[], inputIsFile: 
 		const dirname = path.dirname(origin);
 		const outName = recipe._name + ".json";
 		mkdirp.sync(path.resolve(outputDir, inputIsFile ? "" : dirname)); // TODO: Handle throw
-		// Remove meta properties
-		delete recipe._name;
 		const stringRecipe = JSON.stringify(encodeRecipe(recipe), null, 2);
 		const outFile = inputIsFile ? path.resolve(outputDir, outName) : path.resolve(outputDir, dirname, outName);
 		fs.writeFileSync(outFile, stringRecipe);

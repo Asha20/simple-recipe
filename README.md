@@ -1,9 +1,9 @@
 Table of Contents:
 
 - [What is Simple Recipe?](#what-is-simple-recipe)
-  - [What's wrong with vanilla recipes?](#whats-wrong-with-vanilla-recipes)
-  - [Features](#features)
-  - [Examples](#examples)
+	- [What's wrong with vanilla recipes?](#whats-wrong-with-vanilla-recipes)
+	- [Features](#features)
+	- [Examples](#examples)
 - [Installation](#installation)
 - [How to Use](#how-to-use)
 - [How to Build](#how-to-build)
@@ -96,7 +96,7 @@ If you are familiar with Node.js and NPM, you can globally install the package, 
     $ npm install -g simple-recipe
     $ simple-recipe --help
 
-If you aren't familiar with Node.js and NPM, you can download a packaged executable file from [Releases](TODO).
+If you aren't familiar with Node.js and NPM, you can download a packaged executable file from [Releases](https://github.com/Asha20/simple-recipe/releases).
 
 # How to Use
 

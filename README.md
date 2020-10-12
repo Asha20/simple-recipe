@@ -33,18 +33,14 @@ Instead of writing recipes like this:
 
 ```json
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "CCC",
-    "CBC",
-    "CRC"
-  ],
-  "key": {
-    "R": {"item": "minecraft:redstone"},
-    "C": {"item": "minecraft:cobblestone"},
-    "B": {"item": "minecraft:bow"}
-  },
-  "result": {"item": "minecraft:dispenser"}
+	"type": "minecraft:crafting_shaped",
+	"pattern": ["CCC", "CBC", "CRC"],
+	"key": {
+		"R": { "item": "minecraft:redstone" },
+		"C": { "item": "minecraft:cobblestone" },
+		"B": { "item": "minecraft:bow" }
+	},
+	"result": { "item": "minecraft:dispenser" }
 }
 ```
 
@@ -56,7 +52,7 @@ pattern:
   - CCC
   - CBC
   - CRC
-key: {R: redstone, C: cobblestone, B: bow}
+key: { R: redstone, C: cobblestone, B: bow }
 result: 1 dispenser
 ```
 
@@ -64,23 +60,23 @@ Or instead of like this:
 
 ```json
 {
-  "type": "minecraft:crafting_shapeless",
-  "group": "concrete_powder",
-  "ingredients": [
-    {"item": "minecraft:black_dye"},
-    {"item": "minecraft:sand"},
-    {"item": "minecraft:sand"},
-    {"item": "minecraft:sand"},
-    {"item": "minecraft:sand"},
-    {"item": "minecraft:gravel"},
-    {"item": "minecraft:gravel"},
-    {"item": "minecraft:gravel"},
-    {"item": "minecraft:gravel"}
-  ],
-  "result": {
-    "item": "minecraft:black_concrete_powder",
-    "count": 8
-  }
+	"type": "minecraft:crafting_shapeless",
+	"group": "concrete_powder",
+	"ingredients": [
+		{ "item": "minecraft:black_dye" },
+		{ "item": "minecraft:sand" },
+		{ "item": "minecraft:sand" },
+		{ "item": "minecraft:sand" },
+		{ "item": "minecraft:sand" },
+		{ "item": "minecraft:gravel" },
+		{ "item": "minecraft:gravel" },
+		{ "item": "minecraft:gravel" },
+		{ "item": "minecraft:gravel" }
+	],
+	"result": {
+		"item": "minecraft:black_concrete_powder",
+		"count": 8
+	}
 }
 ```
 
@@ -133,3 +129,7 @@ Run all tests:
 Compile the code and package it into standalone executables:
 
     $ npm run build
+
+Release a new version:
+
+    $ npm run release

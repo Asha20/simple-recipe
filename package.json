@@ -1,46 +1,54 @@
 {
-  "name": "simple-recipe",
-  "version": "0.0.0",
-  "bin": {
-    "simple-recipe": "./dist/main.js"
-  },
-  "main": "./dist/main.js",
-  "description": "A command line interface that makes writing Minecraft datapack recipes simpler and more pleasant.",
-  "homepage": "https://github.com/Asha20/simple-recipe",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Asha20/simple-recipe"
-  },
-  "scripts": {
-    "test": "jest",
-    "test:unit": "jest unit",
-    "test:unit:watch": "jest unit --watch",
-    "test:e2e": "jest e2e",
-    "watch": "tsc -p tsconfig.build.json --watch",
-    "build": "rimraf dist && tsc -p tsconfig.build.json && pkg --out-path bin ."
-  },
-  "author": "Vukašin Stepanović <vukasinstepanovic@gmail.com>",
-  "license": "MIT",
-  "devDependencies": {
-    "@types/glob": "^7.1.3",
-    "@types/jest": "^26.0.10",
-    "@types/js-yaml": "^3.12.5",
-    "@types/mkdirp": "^1.0.1",
-    "@types/node": "^14.6.0",
-    "@types/rimraf": "^3.0.0",
-    "jest": "^26.4.0",
-    "pkg": "^4.4.9",
-    "ts-jest": "^26.2.0",
-    "typescript": "^3.9.7"
-  },
-  "dependencies": {
-    "chalk": "^4.1.0",
-    "chokidar": "^3.4.2",
-    "commander": "^6.1.0",
-    "fp-ts": "^2.8.1",
-    "glob": "^7.1.6",
-    "js-yaml": "^3.14.0",
-    "mkdirp": "^1.0.4",
-    "rimraf": "^3.0.2"
-  }
+	"name": "simple-recipe",
+	"version": "0.0.0",
+	"bin": {
+		"simple-recipe": "./dist/main.js"
+	},
+	"main": "./dist/main.js",
+	"description": "A command line interface that makes writing Minecraft datapack recipes simpler and more pleasant.",
+	"homepage": "https://github.com/Asha20/simple-recipe",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Asha20/simple-recipe"
+	},
+	"scripts": {
+		"test": "jest",
+		"test:unit": "jest unit",
+		"test:unit:watch": "jest unit --watch",
+		"test:e2e": "jest e2e",
+		"watch": "tsc -p tsconfig.build.json --watch",
+		"build": "rimraf dist && tsc -p tsconfig.build.json && pkg --out-path bin ."
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "npm run test && pretty-quick --staged"
+		}
+	},
+	"author": "Vukašin Stepanović <vukasinstepanovic@gmail.com>",
+	"license": "MIT",
+	"devDependencies": {
+		"@types/glob": "^7.1.3",
+		"@types/jest": "^26.0.10",
+		"@types/js-yaml": "^3.12.5",
+		"@types/mkdirp": "^1.0.1",
+		"@types/node": "^14.6.0",
+		"@types/rimraf": "^3.0.0",
+		"husky": "^4.3.0",
+		"jest": "^26.4.0",
+		"pkg": "^4.4.9",
+		"prettier": "^2.1.2",
+		"pretty-quick": "^3.0.2",
+		"ts-jest": "^26.2.0",
+		"typescript": "^3.9.7"
+	},
+	"dependencies": {
+		"chalk": "^4.1.0",
+		"chokidar": "^3.4.2",
+		"commander": "^6.1.0",
+		"fp-ts": "^2.8.1",
+		"glob": "^7.1.6",
+		"js-yaml": "^3.14.0",
+		"mkdirp": "^1.0.4",
+		"rimraf": "^3.0.2"
+	}
 }

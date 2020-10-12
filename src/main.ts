@@ -7,7 +7,7 @@ import { isRecipeFile, doesExist, isFolder } from "./commands/common";
 
 export function main(args: string | string[]) {
 	const program = new Command();
-	program.version("0.0.0", "--version");
+	program.version("1.0.0", "--version");
 
 	program
 		.command("compile <source> <destination>")

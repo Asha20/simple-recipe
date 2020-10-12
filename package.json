@@ -20,7 +20,7 @@
 		"test:unit:watch": "jest unit --watch",
 		"test:e2e": "jest e2e",
 		"watch": "tsc -p tsconfig.build.json --watch",
-		"build": "rimraf dist && tsc -p tsconfig.build.json && pkg --out-path bin .",
+		"build": "rimraf dist bin && tsc -p tsconfig.build.json && pkg --out-path bin .",
 		"release": "standard-version"
 	},
 	"husky": {

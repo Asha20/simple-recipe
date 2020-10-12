@@ -7,7 +7,9 @@ import { isRecipeFile, doesExist, isFolder } from "./commands/common";
 
 export function main(args: string | string[]) {
 	const program = new Command();
-	program.version("1.0.0", "--version");
+	const pkg = require("../package.json");
+
+	program.name(pkg.name).version(pkg.version, "--version");
 
 	program
 		.command("compile <source> <destination>")

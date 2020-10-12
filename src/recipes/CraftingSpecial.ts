@@ -1,6 +1,6 @@
-import { chain, left, right } from "fp-ts/lib/Either";
+import { chain, right } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/function";
-import { hasKeys, isObject, PEither, err, seqS, tryParseGroup, encodeGroup } from "../util";
+import { encodeGroup, hasKeys, isObject, leftErr, PEither, seqS, tryParseGroup } from "../util";
 
 export interface MCCraftingSpecial {
 	type:
@@ -55,7 +55,7 @@ function parseType(u: unknown): PEither<OwnCraftingSpecial["type"]> {
 		case "suspiciousstew":
 			return right(u);
 		default:
-			return left([err("Unknown type")]);
+			return leftErr("Unknown type");
 	}
 }
 

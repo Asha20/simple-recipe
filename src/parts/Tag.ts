@@ -1,9 +1,8 @@
 import { sequenceT } from "fp-ts/lib/Apply";
-import { chain, left, map, right } from "fp-ts/lib/Either";
+import { chain, map, right } from "fp-ts/lib/Either";
 import { isSome, none, Option, some } from "fp-ts/lib/Option";
 import { pipe } from "fp-ts/lib/pipeable";
-import { applicativeValidation, expectedString, nonEmpty, PEither, err } from "../util";
-import { of } from "fp-ts/lib/NonEmptyArray";
+import { applicativeValidation, expectedString, leftErr, nonEmpty, PEither } from "../util";
 import { stringifyName } from "./common";
 
 export interface Tag {
@@ -28,11 +27,11 @@ function matchTag(x: string): Option<Tag> {
 }
 
 const cannotStartWithPlus = (u: string): PEither<string> =>
-	u.startsWith("+") ? right(u) : left(of(err('A Tag must start with "+".')));
+	u.startsWith("+") ? right(u) : leftErr('A Tag must start with "+".');
 
 const validFormat = (u: string): PEither<Tag> => {
 	const tag = matchTag(u);
-	return isSome(tag) ? right(tag.value) : left([err("Invalid Tag format was provided.")]);
+	return isSome(tag) ? right(tag.value) : leftErr("Invalid Tag format was provided.");
 };
 
 export function parseTag(u: unknown): PEither<Tag> {

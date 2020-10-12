@@ -1,11 +1,10 @@
 import { chain, isRight, left, right } from "fp-ts/lib/Either";
-import { of } from "fp-ts/lib/NonEmptyArray";
 import { pipe } from "fp-ts/lib/pipeable";
 import { Item, item, ItemOrTag, parseItem, parseItemOrTag } from "../parts";
 import { parseArray, stringifyName } from "../parts/common";
-import { encodeGroup, err, hasKeys, isObject, PEither, seqS, tryParseGroup } from "../util";
-import { Ingredient } from "./ingredient";
+import { encodeGroup, err, hasKeys, isObject, leftErr, parseType, PEither, seqS, tryParseGroup } from "../util";
 import * as ingredient from "./ingredient";
+import { Ingredient } from "./ingredient";
 
 export interface MCCooking {
 	type: "minecraft:blasting" | "minecraft:campfire_cooking" | "minecraft:smelting" | "minecraft:smoking";
@@ -40,12 +39,12 @@ function parseIngredients(u: unknown): PEither<ItemOrTag | ItemOrTag[]> {
 
 function parseExperience(u: unknown): PEither<number> {
 	const n = Number(u);
-	return !Number.isNaN(n) && n > 0 ? right(n) : left([err("Expected a positive number.")]);
+	return !Number.isNaN(n) && n > 0 ? right(n) : leftErr("Expected a positive number.");
 }
 
 function parseCookingtime(u: unknown): PEither<number> {
 	const n = Number(u);
-	return !Number.isNaN(n) && Number.isInteger(n) && n > 0 ? right(n) : left([err("Expected a positive integer.")]);
+	return !Number.isNaN(n) && Number.isInteger(n) && n > 0 ? right(n) : leftErr("Expected a positive integer.");
 }
 
 export function parseCooking(u: unknown): PEither<OwnCooking> {
@@ -54,10 +53,7 @@ export function parseCooking(u: unknown): PEither<OwnCooking> {
 		chain(o => hasKeys(o, "type", "ingredients", "experience", "cookingtime", "result")),
 		chain(o =>
 			seqS({
-				type:
-					o.type === "blasting" || o.type === "campfire_cooking" || o.type === "smelting" || o.type === "smoking"
-						? right(o.type)
-						: left(of(err("Wrong type"))),
+				type: parseType(o.type, "blasting", "campfire_cooking", "smelting", "smoking"),
 				...tryParseGroup(o),
 				ingredients: parseIngredients(o.ingredients),
 				experience: parseExperience(o.experience),

@@ -1,6 +1,5 @@
-import { isRight, left } from "fp-ts/lib/Either";
-import { of } from "fp-ts/lib/NonEmptyArray";
-import { err, PEither } from "../util";
+import { isRight } from "fp-ts/lib/Either";
+import { leftErr, PEither } from "../util";
 import { Item, parseItem } from "./Item";
 import { parseTag, Tag } from "./Tag";
 
@@ -21,5 +20,5 @@ export function parseItemOrTag(u: unknown): PEither<ItemOrTag> {
 		return u.startsWith("+") ? tag : item;
 	}
 
-	return left(of(err("Expected an Item or a Tag.")));
+	return leftErr("Expected an Item or a Tag.");
 }

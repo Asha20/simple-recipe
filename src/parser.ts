@@ -4,7 +4,7 @@ import { pipe } from "fp-ts/lib/pipeable";
 import * as fs from "fs";
 import * as yaml from "js-yaml";
 import { parseRecipe, Recipe } from "./recipes";
-import { err, hasKeys, isObject, PEither, ValidationError } from "./util";
+import { hasKeys, isObject, leftErr, PEither, ValidationError } from "./util";
 
 function addName(errors: NonEmptyArray<ValidationError>, name: string): NonEmptyArray<ValidationError> {
 	return nonEmptyArray.map(errors, x => x.prepend(name).prepend("root"));
@@ -44,12 +44,12 @@ function parseYAML(yamlContent: string): Array<PEither<Recipe>> {
 		const boxed = Array.isArray(x) ? x : [x];
 
 		if (boxed.length === 0) {
-			return [left([err("Expected at least one recipe.")])];
+			return [leftErr("Expected at least one recipe.")];
 		}
 
 		return parseRecipes(boxed);
 	} catch (e) {
-		return [left([err("Could not parse YAML.")])];
+		return [leftErr("Could not parse YAML.")];
 	}
 }
 

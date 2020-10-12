@@ -1,6 +1,5 @@
-import { isRight, left } from "fp-ts/lib/Either";
-import { of } from "fp-ts/lib/NonEmptyArray";
-import { err, PEither } from "../util";
+import { isRight } from "fp-ts/lib/Either";
+import { leftErr, PEither } from "../util";
 import { parseArray } from "./common";
 import { Items, parseItems } from "./Items";
 import { parseTags, Tags } from "./Tags";
@@ -27,7 +26,7 @@ export function parseItemsOrTags(u: unknown): PEither<ItemsOrTags> {
 		}
 	}
 
-	return left(of(err("Expected an ItemStack or a TagStack.")));
+	return leftErr("Expected an ItemStack or a TagStack.");
 }
 
 export function parseStack(u: unknown): PEither<Stack> {
@@ -41,7 +40,7 @@ export function parseStack(u: unknown): PEither<Stack> {
 	}
 
 	if (!Array.isArray(u)) {
-		return left([err("Expected an ItemStack, a TagStack or an array of ItemStack or TagStack.")]);
+		return leftErr("Expected an ItemStack, a TagStack or an array of ItemStack or TagStack.");
 	}
 
 	return parseArray(u, parseStack);

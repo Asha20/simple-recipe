@@ -1,38 +1,37 @@
-import { chain, left, map, right } from "fp-ts/lib/Either";
-import { of } from "fp-ts/lib/NonEmptyArray";
+import { chain, map, right } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/pipeable";
-import { hasKeys, isObject, PEither, seqT, err, traverse, encodeGroup } from "../util";
-import { encodeCooking, MCCooking, OwnCooking, parseCooking, decodeCooking } from "./Cooking";
+import { decodeItem, decodeItems, decodeTag, decodeTags, isItem, isItems, isTag, isTags } from "../parts";
+import { encodeGroup, hasKeys, isObject, leftErr, PEither, seqT, traverse } from "../util";
+import { decodeCooking, encodeCooking, MCCooking, OwnCooking, parseCooking } from "./Cooking";
 import {
+	decodeCraftingShaped,
 	encodeCraftingShaped,
 	MCCraftingShaped,
 	OwnCraftingShaped,
 	parseCraftingShaped,
-	decodeCraftingShaped,
 } from "./CraftingShaped";
 import {
+	decodeCraftingShapeless,
 	encodeCraftingShapeless,
 	MCCraftingShapeless,
 	OwnCraftingShapeless,
 	parseCraftingShapeless,
-	decodeCraftingShapeless,
 } from "./CraftingShapeless";
 import {
+	decodeCraftingSpecial,
 	encodeCraftingSpecial,
 	MCCraftingSpecial,
 	OwnCraftingSpecial,
 	parseCraftingSpecial,
-	decodeCraftingSpecial,
 } from "./CraftingSpecial";
-import { encodeSmithing, MCSmithing, OwnSmithing, parseSmithing, decodeSmithing } from "./Smithing";
+import { decodeSmithing, encodeSmithing, MCSmithing, OwnSmithing, parseSmithing } from "./Smithing";
 import {
+	decodeStonecutting,
 	encodeStonecutting,
 	MCStonecutting,
 	OwnStonecutting,
 	parseStonecutting,
-	decodeStonecutting,
 } from "./Stonecutting";
-import { isItem, isTag, decodeItem, decodeTag, decodeItems, decodeTags, isItems, isTags } from "../parts";
 
 export type OwnRecipe =
 	| OwnCraftingShaped
@@ -83,10 +82,10 @@ const validTypesSet = new Set(validTypes);
 export type Recipe = OwnRecipe & RecipeMeta;
 
 const validateRecipeName = (u: unknown): PEither<string> =>
-	typeof u === "string" && u.length ? right(u) : left(of(err("_name must be a non-empty string.")));
+	typeof u === "string" && u.length ? right(u) : leftErr("_name must be a non-empty string.");
 
 const validateType = (u: unknown): PEither<OwnRecipe["type"]> =>
-	typeof u === "string" && validTypesSet.has(u) ? right(u as OwnRecipe["type"]) : left(of(err("Unknown type given.")));
+	typeof u === "string" && validTypesSet.has(u) ? right(u as OwnRecipe["type"]) : leftErr("Unknown type given.");
 
 function parseOwnRecipe(u: unknown, type: OwnRecipe["type"]): PEither<OwnRecipe> {
 	switch (type) {
@@ -174,10 +173,10 @@ export function decodeRecipe(name: string, recipe: unknown): PEither<Recipe> {
 						case "minecraft:crafting_special_suspiciousstew":
 							return right(decodeCraftingSpecial(o));
 						default:
-							return left(of(err("Unknown type provided.")));
+							return leftErr("Unknown type provided.");
 					}
 				} catch (e) {
-					return left(of(err("Could not parse recipe.")));
+					return leftErr("Could not parse recipe.");
 				}
 			},
 		),

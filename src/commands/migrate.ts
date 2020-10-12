@@ -1,14 +1,14 @@
+import { isLeft, isRight, Left, Right } from "fp-ts/lib/Either";
+import { NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
 import * as fs from "fs";
 import * as glob from "glob";
 import * as yaml from "js-yaml";
 import * as mkdirp from "mkdirp";
 import * as path from "path";
-import { decodeRecipe, MCRecipe, Recipe } from "../recipes";
-import { Folder, InvalidRecipe } from "./common";
-import { left, isRight, isLeft, Left, Right } from "fp-ts/lib/Either";
-import { of, NonEmptyArray } from "fp-ts/lib/NonEmptyArray";
-import { err, ValidationError } from "../util";
 import { printMigrationResults } from "../printer";
+import { decodeRecipe, MCRecipe, Recipe } from "../recipes";
+import { leftErr, ValidationError } from "../util";
+import { Folder, InvalidRecipe } from "./common";
 
 export function migrate(inputDir: Folder, outputDir: string) {
 	const groupedByDirname = glob.sync("**/*.json", { cwd: inputDir }).reduce<Map<string, string[]>>((acc, file) => {
@@ -30,7 +30,7 @@ export function migrate(inputDir: Folder, outputDir: string) {
 				const json = JSON.parse(fileContent) as MCRecipe;
 				return { origin: file, result: decodeRecipe(recipeName, json) };
 			} catch (e) {
-				return { origin: file, result: left(of(err("Invalid JSON was provided."))) };
+				return { origin: file, result: leftErr("Invalid JSON was provided.") };
 			}
 		});
 

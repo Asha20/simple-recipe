@@ -1,11 +1,10 @@
 import { sequenceT } from "fp-ts/lib/Apply";
-import { chain, left, right } from "fp-ts/lib/Either";
+import { chain, right } from "fp-ts/lib/Either";
 import { isSome, none, Option, some } from "fp-ts/lib/Option";
 import { pipe } from "fp-ts/lib/pipeable";
 import { config } from "../config";
 import { findSuggestions, items } from "../items";
-import { applicativeValidation, expectedString, nonEmpty, PEither, err } from "../util";
-import { of } from "fp-ts/lib/NonEmptyArray";
+import { applicativeValidation, expectedString, leftErr, nonEmpty, PEither } from "../util";
 import { stringifyName } from "./common";
 
 export interface Item {
@@ -30,11 +29,11 @@ function matchItem(x: string): Option<Item> {
 }
 
 const cannotStartWithPlus = (u: string): PEither<string> =>
-	!u.startsWith("+") ? right(u) : left(of(err('An Item cannot start with "+".')));
+	!u.startsWith("+") ? right(u) : leftErr('An Item cannot start with "+".');
 
 const validFormat = (u: string): PEither<Item> => {
 	const item = matchItem(u);
-	return isSome(item) ? right(item.value) : left(of(err("Invalid Item format was provided.")));
+	return isSome(item) ? right(item.value) : leftErr("Invalid Item format was provided.");
 };
 
 function validItemName({ name, namespace }: Item): PEither<Item> {
@@ -56,10 +55,10 @@ function validItemName({ name, namespace }: Item): PEither<Item> {
 	const perhapsYouMeant = `Perhaps you meant one of the following?\n\n${suggestionsString}`;
 
 	if (suggestions.length === 0) {
-		return left(of(err(unknownItem)));
+		return leftErr(unknownItem);
 	}
 
-	return left(of(err(unknownItem + "\n\n" + perhapsYouMeant)));
+	return leftErr(unknownItem + "\n\n" + perhapsYouMeant);
 }
 
 export function parseItem(u: unknown): PEither<Item> {

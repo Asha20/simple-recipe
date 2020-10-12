@@ -1,5 +1,4 @@
 import { chain, isRight, left, map, right } from "fp-ts/lib/Either";
-import { of } from "fp-ts/lib/NonEmptyArray";
 import { pipe } from "fp-ts/lib/pipeable";
 import { ItemOrTag, Items, items, parseItemOrTag, parseItems, stringifyName } from "../parts";
 import { parseArray } from "../parts/common";
@@ -9,6 +8,8 @@ import {
 	err,
 	hasKeys,
 	isObject,
+	leftErr,
+	parseType,
 	PEither,
 	seqS,
 	seqT,
@@ -41,18 +42,18 @@ export interface OwnCraftingShaped {
 }
 
 const arrayOfStrings = (u: unknown): PEither<string[]> =>
-	Array.isArray(u) && u.every(x => typeof x === "string") ? right(u) : left([err("Expected an array of strings.")]);
+	Array.isArray(u) && u.every(x => typeof x === "string") ? right(u) : leftErr("Expected an array of strings.");
 
 const validPatternHeight = (p: string[]): PEither<string[]> =>
-	p.length > 0 && p.length <= 3 ? right(p) : left([err("Pattern height must be 1-3.")]);
+	p.length > 0 && p.length <= 3 ? right(p) : leftErr("Pattern height must be 1-3.");
 
 const validPatternWidth = (p: string[]): PEither<string[]> => {
 	const columns = p[0]?.length ?? 0;
 	if (!p.every(row => row.length === columns)) {
-		return left([err("All rows in pattern must have same length.")]);
+		return leftErr("All rows in pattern must have same length.");
 	}
 
-	return columns > 0 && columns <= 3 ? right(p) : left([err("Pattern width must be 1-3.")]);
+	return columns > 0 && columns <= 3 ? right(p) : leftErr("Pattern width must be 1-3.");
 };
 
 function parsePattern(u: unknown): PEither<string[]> {
@@ -75,7 +76,7 @@ const keyTooLong = (k: UnknownObject): PEither<UnknownObject> => {
 };
 
 const spaceAsKey = (k: UnknownObject): PEither<UnknownObject> =>
-	!k.hasOwnProperty(" ") ? right(k) : left([err("Cannot use space as a key.")]);
+	!k.hasOwnProperty(" ") ? right(k) : leftErr("Cannot use space as a key.");
 
 const validKey = (k: UnknownObject): PEither<OwnKey> => {
 	const errors: ValidationError[] = [];
@@ -141,7 +142,7 @@ export function parseCraftingShaped(u: unknown): PEither<OwnCraftingShaped> {
 		chain(o => hasKeys(o, "type", "pattern", "key", "result")),
 		chain(o =>
 			seqS({
-				type: o.type === "crafting_shaped" ? right(o.type) : left(of(err("Wrong type"))),
+				type: parseType(o.type, "crafting_shaped"),
 				...tryParseGroup(o),
 				pattern: parsePattern(o.pattern),
 				key: parseKey(o.key),

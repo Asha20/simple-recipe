@@ -1,8 +1,8 @@
-import { chain, left, map, right } from "fp-ts/lib/Either";
+import { chain, map, right } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/pipeable";
-import { expectedString, nonEmpty, PEither, seqT, err } from "../util";
-import { parseItem } from "./Item";
+import { expectedString, leftErr, nonEmpty, PEither, seqT } from "../util";
 import { stringifyName } from "./common";
+import { parseItem } from "./Item";
 
 export interface Items {
 	type: "items";
@@ -14,17 +14,17 @@ export interface Items {
 const validFormat = (u: string): PEither<[number, string]> => {
 	const tokens = u.split(" ");
 	if (tokens.length !== 2) {
-		return left([err("Expected a number followed by an Item.")]);
+		return leftErr("Expected a number followed by an Item.");
 	}
 	const [count, name] = tokens;
 	if (Number.isNaN(+count)) {
-		return left([err("Expected a number followed by an Item.")]);
+		return leftErr("Expected a number followed by an Item.");
 	}
 	return right([+count, name]);
 };
 
 const validCount = (u: number): PEither<number> =>
-	Number.isInteger(u) && u > 0 && u <= 64 ? right(u) : left([err("Item count must be an integer between 1 and 64.")]);
+	Number.isInteger(u) && u > 0 && u <= 64 ? right(u) : leftErr("Item count must be an integer between 1 and 64.");
 
 export function parseItems(u: unknown): PEither<Items> {
 	return pipe(

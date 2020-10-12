@@ -20,6 +20,10 @@ export function err(message: string, origin: string[] = []): ValidationError {
 	return new ValidationError(message, origin);
 }
 
+export function leftErr(message: string, origin: string[] = []): any {
+	return left(of(err(message, origin))) as any;
+}
+
 export const applicativeValidation = getValidation(getSemigroup<ValidationError>());
 export const seqT = sequenceT(applicativeValidation);
 const _seqS = sequenceS(applicativeValidation);
@@ -27,19 +31,19 @@ const _seqS = sequenceS(applicativeValidation);
 export const seqS: typeof _seqS = record => {
 	const newRecord = {} as any;
 	for (const [key, value] of Object.entries(record)) {
-		newRecord[key] = either.mapLeft(value, errors => errors.map(x => err(x.message, [key, ...x.origin])));
+		newRecord[key] = either.mapLeft(value, errors => errors.map(x => x.prepend(key)));
 	}
 	return _seqS(newRecord) as any;
 };
 export type TODO = any;
 
 export const expectedString = (u: unknown): PEither<string> =>
-	typeof u === "string" ? right(u) : left([err("Expected a string")]);
+	typeof u === "string" ? right(u) : leftErr("Expected a string");
 
-export const nonEmpty = (u: string): PEither<string> => (u.length ? right(u) : left([err("String cannot be empty.")]));
+export const nonEmpty = (u: string): PEither<string> => (u.length ? right(u) : leftErr("String cannot be empty."));
 
 export const isObject = (u: unknown): PEither<UnknownObject> =>
-	typeof u === "object" && !!u ? right(u as UnknownObject) : left([err("Expected an object.")]);
+	typeof u === "object" && !!u ? right(u as UnknownObject) : leftErr("Expected an object.");
 
 export const hasKeys = <T extends object, K extends string[]>(
 	x: T,
@@ -65,6 +69,14 @@ export function traverse<T>(obj: T, fn: (value: any) => any): T {
 	return obj;
 }
 
+export function parseType<T extends string[]>(x: unknown, ...types: T): PEither<T[number]> {
+	if (typeof x !== "string") {
+		return leftErr("Type must be a string.");
+	}
+
+	return types.includes(x) ? right(x) : leftErr("Wrong type");
+}
+
 export function tryParseGroup(o: UnknownObject): {} | { group: PEither<string> } {
 	if (!o.hasOwnProperty("group")) {
 		return {};
@@ -72,7 +84,7 @@ export function tryParseGroup(o: UnknownObject): {} | { group: PEither<string> }
 
 	return typeof o.group === "string" && o.group.length
 		? { group: right(o.group) }
-		: { group: left(of(err("Group must be a non-empty string."))) };
+		: { group: leftErr("Group must be a non-empty string.") };
 }
 
 export function encodeGroup(group?: string): {} | { group: string } {

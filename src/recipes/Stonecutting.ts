@@ -1,11 +1,10 @@
-import { chain, isRight, left, right } from "fp-ts/lib/Either";
+import { chain, isRight, left } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/function";
-import { of } from "fp-ts/lib/NonEmptyArray";
 import { ItemOrTag, Items, items, parseItemOrTag, parseItems } from "../parts";
 import { parseArray, stringifyName } from "../parts/common";
-import { encodeGroup, err, hasKeys, isObject, PEither, seqS, tryParseGroup } from "../util";
-import { Ingredient } from "./ingredient";
+import { encodeGroup, err, hasKeys, isObject, parseType, PEither, seqS, tryParseGroup } from "../util";
 import * as ingredient from "./ingredient";
+import { Ingredient } from "./ingredient";
 
 export interface MCStonecutting {
 	type: "minecraft:stonecutting";
@@ -41,7 +40,7 @@ export function parseStonecutting(u: unknown): PEither<OwnStonecutting> {
 		chain(o => hasKeys(o, "type", "ingredients", "result")),
 		chain(o =>
 			seqS({
-				type: o.type === "stonecutting" ? right(o.type) : left(of(err("Wrong type"))),
+				type: parseType(o.type, "stonecutting"),
 				...tryParseGroup(o),
 				ingredients: parseIngredients(o.ingredients),
 				result: parseItems(o.result),
